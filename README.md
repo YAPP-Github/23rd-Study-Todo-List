@@ -26,15 +26,18 @@
 
 **1주차**
 - (assignment) in-memory 기반 todo-list 구현
-- (cs) spring mvc의 동작원리 
+- (cs) spring mvc의 동작원리
+  - api 요청이 tomcat으로 슝 ~ 다시 반환되는 모든 과정..   
 
 **2주차**
 - (assignment) db 기반 todo-list 구현
 - (cs) mysql index, memory vs disk
+  - index를 설명해보자! 그런데 memory랑 disk의 차이는 얼마나 날까?  
 
 **3주차**
 - (assignment) api-doc 및 테스트 커버러지 (swagger, rest docs, jacoco)
 - (cs) test-code (stub, mock)
+  - 통합 테스트, 단위 테스트.. 등등 많은 테스트가 있는데, 이건 뭐고, 테스트는 왜 작성해야할까? 
 
 **4주차**
 - (assignment) restful api (7 promise)
@@ -43,14 +46,16 @@
 **5주차**
 - (assignment) 변화에 쉽게 대처하기
 - (cs) 디자인패턴, 내가 생각하는 클린코드
+  - 다양한 디자인패턴들.. 언제 어떻게 쓸까?
 
 **6주차**
 - (assignment) 부하테스트 (default는 jmeter)
 - (cs) 성능 지표 기반의 개선 방법
+  - 부하가 발생했다. cpu가 터지네? api-latency느리네?, ram이 부족하네! 
 
 **7주차**
 - (assignment) Nextstep..(m-threads, non-blocking-io.. 마지막 차주는 오프라인 예정)
-- 종료
+- 종료할때는 역시 극락알콜.. 
 
 <hr>
 
