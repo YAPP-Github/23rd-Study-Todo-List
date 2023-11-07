@@ -48,16 +48,19 @@
 - (cs) restful이란, http, tcp, udp
 
 **5주차**
+- 쉬는 타임! (기말도 있고..)
+
+**6주차**
 - (assignment) 변화에 쉽게 대처하기
 - (cs) 디자인패턴, 내가 생각하는 클린코드
   - 다양한 디자인패턴들.. 언제 어떻게 쓸까?
 
-**6주차**
+**7주차**
 - (assignment) 부하테스트 (default는 jmeter)
 - (cs) 성능 지표 기반의 개선 방법
   - 부하가 발생했다. cpu가 터지네? api-latency느리네?, ram이 부족하네! 
 
-**7주차**
+**8주차**
 - (assignment) Nextstep..(m-threads, non-blocking-io.. 마지막 차주는 오프라인 예정)
 - 종료할때는 역시 극락알콜.. 
 
