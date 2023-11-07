@@ -24,6 +24,10 @@
 
 ### 주차별 진행
 
+**0주차**
+- 간단한 스터디 소개 및 진행 방법에 대한 안내
+- ground rule!
+
 **1주차**
 - (assignment) in-memory 기반 todo-list 구현
 - (cs) spring mvc의 동작원리
