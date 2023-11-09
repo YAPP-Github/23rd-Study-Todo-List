@@ -1,4 +1,4 @@
-package com.example.studytodolist.todo
+package com.example.studytodolist.todo.service
 
 import com.example.studytodolist.todo.domain.Progress
 import com.example.studytodolist.todo.domain.Todo
@@ -16,7 +16,13 @@ class TodoService(
     fun deleteByTitle(title: String){
         todoRepositoryImpl.deleteByTitle(title)
     }
-    fun update(title: String, progress: Progress): Todo{
+    fun update(title: String, progressString: String): Todo{
+        val progress: Progress = when(progressString){
+            "PROCESSING" -> Progress.PROCESSING
+            "CANCELLED" -> Progress.CANCELLED
+            "COMPLETED" -> Progress.COMPLETED
+            else -> Progress.PROCESSING
+        }
         return todoRepositoryImpl.updateProgress(title, progress)
     }
 }
