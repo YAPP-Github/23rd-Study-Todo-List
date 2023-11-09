@@ -18,7 +18,7 @@ class TodoRepositoryImpl: TodoRepository {
     @Suppress("UNCHECKED_CAST")
     override fun findAll(): List<Todo> {
         var todoList = mutableListOf<Todo>()
-        for ((key, value) in todoMap){
+        for (key in todoMap.keys){
             var valueMap: HashMap<String, Any> = todoMap.getValue(key) as HashMap<String, Any>
             todoList.add(Todo(key, valueMap.getValue("content") as String, valueMap.getValue("progress") as Progress))
         }
