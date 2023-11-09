@@ -29,11 +29,11 @@ class TodoRepositoryImpl: TodoRepository {
         todoMap.remove(title)
     }
 
-    override fun update(title: String, content: String, progress: Progress): Todo {
-        var valueMap = HashMap<String, Any>()
-        valueMap["content"] = content
+    @Suppress("UNCHECKED_CAST")
+    override fun updateProgress(title: String, progress: Progress): Todo {
+        var valueMap: HashMap<String, Any> = todoMap.getValue(title) as HashMap<String, Any>
         valueMap["progress"] = progress
         todoMap[title] = valueMap
-        return Todo(title, content, progress)
+        return Todo(title, valueMap["content"] as String, progress)
     }
 }
