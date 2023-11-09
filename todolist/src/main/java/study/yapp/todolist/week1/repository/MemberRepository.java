@@ -31,7 +31,7 @@ public class MemberRepository {
         try {
             result = memberList.get(email);
             if (!result.getPassword().equals(password)) {
-                throw new RuntimeException("로그안 실패");
+                throw new RuntimeException("로그인 실패");
             }
         } catch (Exception e){
             return null;
