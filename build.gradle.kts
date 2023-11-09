@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.3"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
+	kotlin("plugin.noarg") version "1.8.22"
 }
 
 group = "yapp.study"
@@ -23,6 +24,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 }
 
 tasks.withType<KotlinCompile> {
@@ -34,4 +36,18 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+allOpen {
+	annotation("yapp.study.todolist.common.annotation.TempNoArg")
+//	annotation("javax.persistence.Entity")
+//	annotation("javax.persistence.MappedSuperclass")
+//	annotation("javax.persistence.Embeddable")
+}
+
+noArg {
+	annotation("yapp.study.todolist.common.annotation.TempNoArg")
+//	annotation("javax.persistence.Entity")
+//	annotation("javax.persistence.MappedSuperclass")
+//	annotation("javax.persistence.Embeddable")
 }
