@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import yapp.study.todolist.domain.task.dto.TaskCommentDto
 import yapp.study.todolist.domain.task.dto.TaskDetailDto
 import yapp.study.todolist.domain.task.dto.TaskDto
 import yapp.study.todolist.domain.task.dto.TasksDto
@@ -44,5 +45,10 @@ class TaskController(
     fun updateTaskDone(@PathVariable("id") id: Long,
                        @RequestParam("done") done: Boolean) {
         taskService.updateDoneTask(id, done)
+    }
+
+    @GetMapping("/{id}/comments")
+    fun getTaskWithComments(@PathVariable("id") id: Long): TaskCommentDto {
+        return taskService.getTaskWithComments(id)
     }
 }

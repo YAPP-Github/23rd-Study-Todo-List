@@ -1,6 +1,9 @@
 package yapp.study.todolist.domain.task.service
 
 import org.springframework.stereotype.Service
+import yapp.study.todolist.domain.comment.dto.CommentDto
+import yapp.study.todolist.domain.comment.repository.CommentRepository
+import yapp.study.todolist.domain.task.dto.TaskCommentDto
 import yapp.study.todolist.domain.task.dto.TaskDetailDto
 import yapp.study.todolist.domain.task.dto.TaskDto
 import yapp.study.todolist.domain.task.dto.TasksDto
@@ -9,7 +12,8 @@ import yapp.study.todolist.domain.task.repository.TaskRepository
 
 @Service
 class TaskService(
-        private val taskRepository: TaskRepository
+        private val taskRepository: TaskRepository,
+        private val commentRepository: CommentRepository
 ) {
     fun createTask(taskDto: TaskDto) {
         taskRepository.save(Task.toEntity(taskDto))
@@ -46,5 +50,11 @@ class TaskService(
                     taskRepository.save(it)
                 }
                 ?: throw RuntimeException("not exist task")
+    }
+
+    fun getTaskWithComments(id: Long): TaskCommentDto {
+        val task = taskRepository.findById(id) ?: throw RuntimeException("not exist task")
+        val comments = commentRepository.findByTaskId(id).map { CommentDto.toDto(it) }
+        return TaskCommentDto.toDto(task, comments)
     }
 }
