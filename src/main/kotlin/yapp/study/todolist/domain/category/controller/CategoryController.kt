@@ -3,6 +3,7 @@ package yapp.study.todolist.domain.category.controller
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import yapp.study.todolist.domain.category.dto.CategoriesDto
+import yapp.study.todolist.domain.category.dto.CategoriesWithTasksDto
 import yapp.study.todolist.domain.category.dto.CategoryDto
 import yapp.study.todolist.domain.category.service.CategoryService
 import java.time.ZoneId
@@ -31,5 +32,10 @@ class CategoryController(
     fun updateCategory(@PathVariable("id") id: Long,
                        @RequestBody categoryDto: CategoryDto) {
         categoryService.updateCategory(id, categoryDto)
+    }
+
+    @GetMapping("/tasks")
+    fun getCategoriesWithTask(): CategoriesWithTasksDto {
+        return categoryService.getCategoriesWithTask()
     }
 }

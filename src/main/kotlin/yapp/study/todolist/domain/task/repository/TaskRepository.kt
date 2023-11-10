@@ -4,7 +4,7 @@ import yapp.study.todolist.domain.task.entity.Task
 
 interface TaskRepository {
     fun save(task: Task)
-    fun getTasks(): List<Task>
+    fun findAll(): List<Task>
     fun findById(id: Long): Task?
     fun deleteById(id: Long)
 }

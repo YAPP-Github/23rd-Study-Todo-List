@@ -12,7 +12,7 @@ class TaskRepositoryImpl(
         tasks[task.id] = task
     }
 
-    override fun getTasks(): List<Task> {
+    override fun findAll(): List<Task> {
         return tasks.values.toList()
     }
 

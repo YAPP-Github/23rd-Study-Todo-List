@@ -20,7 +20,7 @@ class TaskService(
     }
 
     fun getTasks(): TasksDto {
-        return TasksDto.toDto(taskRepository.getTasks().map {TaskDto.toDto(it)})
+        return TasksDto.toDto(taskRepository.findAll().map {TaskDto.toDto(it)})
     }
 
     fun updateTask(id: Long, taskDetailDto: TaskDetailDto) {
