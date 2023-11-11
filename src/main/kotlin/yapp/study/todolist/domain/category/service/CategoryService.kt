@@ -1,10 +1,7 @@
 package yapp.study.todolist.domain.category.service
 
 import org.springframework.stereotype.Service
-import yapp.study.todolist.domain.category.dto.CategoriesDto
-import yapp.study.todolist.domain.category.dto.CategoriesWithTasksDto
-import yapp.study.todolist.domain.category.dto.CategoryDto
-import yapp.study.todolist.domain.category.dto.CategoryWithTasksDto
+import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.entity.Category
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.task.entity.Task
@@ -17,7 +14,7 @@ class CategoryService(
 ) {
     fun createCategory(categoryDto: CategoryDto) {
         categoryRepository.findById(categoryDto.id)
-                ?.let { throw RuntimeException() }
+                ?.let { throw RuntimeException("duplicated id") }
                 ?: categoryRepository.save(Category.toEntity(categoryDto))
     }
 
@@ -28,13 +25,16 @@ class CategoryService(
     fun deleteCategory(id: Long) {
         categoryRepository.findById(id)
                 ?.let { categoryRepository.deleteById(id) }
-                ?: throw RuntimeException()
+                ?: throw RuntimeException("not exist category")
     }
 
-    fun updateCategory(id: Long, categoryDto: CategoryDto) {
+    fun updateCategory(id: Long, categoryNameDto: CategoryNameDto) {
         categoryRepository.findById(id)
-                ?.let { categoryRepository.save(Category.toEntity(categoryDto)) }
-                ?: throw RuntimeException()
+                ?.let {
+                    it.updateName(categoryNameDto.name)
+                    categoryRepository.save(it)
+                }
+                ?: throw RuntimeException("not exist category")
     }
 
     fun getCategoriesWithTask(): CategoriesWithTasksDto{

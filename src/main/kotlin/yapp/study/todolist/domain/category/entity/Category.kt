@@ -7,7 +7,7 @@ import yapp.study.todolist.domain.category.dto.CategoryDto
 @TempNoArg
 class Category(
         val id: Long,
-        val name: String
+        var name: String
 ) : BaseEntity() {
     companion object {
         fun toEntity(categoryDto: CategoryDto): Category {
@@ -16,5 +16,9 @@ class Category(
                     name = categoryDto.name
             )
         }
+    }
+
+    fun updateName(name: String) {
+        this.name = name
     }
 }
