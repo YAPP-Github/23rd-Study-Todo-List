@@ -23,4 +23,9 @@ class CommentRepositoryImpl(
         return comments.values.filter { it.taskId == taskId }
     }
 
+    override fun deleteAllByTaskId(taskid: Long) {
+        comments.values.filter { it.taskId == taskid }
+                .map { comments.remove(it.id) }
+    }
+
 }

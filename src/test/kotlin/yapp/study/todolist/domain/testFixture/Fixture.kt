@@ -1,6 +1,7 @@
 package yapp.study.todolist.domain.testFixture
 
 import yapp.study.todolist.domain.category.entity.Category
+import yapp.study.todolist.domain.comment.entity.Comment
 import yapp.study.todolist.domain.task.entity.Task
 import java.time.LocalDate
 import java.time.LocalTime
@@ -35,6 +36,18 @@ object Fixture {
                 fromTime = fromTime,
                 toTime = toTime,
                 isDone = isDone
+        )
+    }
+
+    fun createComment(
+            id: Long = 1,
+            taskId: Long = 1,
+            content: String = "11"
+    ): Comment {
+        return Comment(
+                id = id,
+                taskId = taskId,
+                content = content
         )
     }
 }

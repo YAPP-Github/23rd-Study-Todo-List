@@ -8,6 +8,7 @@ import io.kotest.matchers.shouldNotBe
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import yapp.study.todolist.domain.category.repository.CategoryRepository
+import yapp.study.todolist.domain.comment.repository.CommentRepository
 import yapp.study.todolist.domain.task.dto.TaskDetailDto
 import yapp.study.todolist.domain.task.dto.TaskDto
 import yapp.study.todolist.domain.task.repository.TaskRepository
@@ -19,7 +20,8 @@ import java.time.LocalTime
 class TaskServiceTest @Autowired constructor(
         private val categoryRepository: CategoryRepository,
         private val taskService: TaskService,
-        private val taskRepository: TaskRepository
+        private val taskRepository: TaskRepository,
+        private val commentRepository: CommentRepository
 ):FunSpec({
     val createRequest = TaskDto(
             id = 1,
@@ -70,6 +72,7 @@ class TaskServiceTest @Autowired constructor(
     val taskId: Long = 1
     val invalidTaskId: Long = 2
     val categoryId: Long = 1
+    val commentId: Long = 1
 
     beforeEach {
         categoryRepository.save(Fixture.createCategory())
@@ -156,6 +159,7 @@ class TaskServiceTest @Autowired constructor(
     context("task 삭제 테스트"){
         beforeEach {
             taskService.createTask(createRequest)
+            commentRepository.save(Fixture.createComment())
         }
         afterEach {
             taskService.createTask(createRequest)
@@ -166,6 +170,7 @@ class TaskServiceTest @Autowired constructor(
             taskService.deleteTask(taskId)
             // then
             taskRepository.findById(taskId) shouldBe null
+            commentRepository.findById(commentId) shouldBe null
         }
 
         test("존재하지않는 id일 경우 실패"){

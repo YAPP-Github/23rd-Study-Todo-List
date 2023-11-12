@@ -49,6 +49,7 @@ class TaskService(
                     taskRepository.deleteById(id)
                 }
                 ?: throw RuntimeException("not exist task")
+        commentRepository.deleteAllByTaskId(id)
     }
 
     fun updateDoneTask(id: Long, done: Boolean) {
