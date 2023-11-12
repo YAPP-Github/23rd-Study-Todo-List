@@ -23,4 +23,8 @@ class CategoryRepositoryImpl(
         categories.remove(id)
     }
 
+    override fun existById(id: Long): Boolean {
+        return categories[id] != null
+    }
+
 }

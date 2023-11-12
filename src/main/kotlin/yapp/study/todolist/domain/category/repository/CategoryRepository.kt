@@ -7,4 +7,5 @@ interface CategoryRepository {
     fun findAll(): List<Category>
     fun findById(id: Long): Category?
     fun deleteById(id: Long)
+    fun existById(id: Long): Boolean
 }

@@ -25,8 +25,8 @@ object Fixture {
             fromTime: LocalTime = LocalTime.MIN,
             toTime: LocalTime = LocalTime.MAX,
             isDone: Boolean = false
-    ) {
-        Task(
+    ): Task {
+        return Task(
                 id = id,
                 categoryId = categoryId,
                 title = title,

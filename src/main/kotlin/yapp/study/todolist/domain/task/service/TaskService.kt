@@ -34,12 +34,13 @@ class TaskService(
     }
 
     fun updateTask(id: Long, taskDetailDto: TaskDetailDto) {
-        taskRepository.findById(id)
-                ?.let {
-                    it.update(taskDetailDto)
-                    taskRepository.save(it)
-                }
-                ?: throw RuntimeException("not exist task")
+        val task = taskRepository.findById(id) ?: throw RuntimeException("not exist task")
+        if (categoryRepository.existById(taskDetailDto.categoryId)) {
+            task.update(taskDetailDto)
+            taskRepository.save(task)
+        } else{
+            throw RuntimeException("not exist category")
+        }
     }
 
     fun deleteTask(id: Long) {
