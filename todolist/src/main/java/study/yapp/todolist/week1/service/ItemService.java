@@ -1,6 +1,7 @@
 package study.yapp.todolist.week1.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import study.yapp.todolist.common.ResponseCode;
 import study.yapp.todolist.dto.ItemDto;
@@ -20,6 +21,11 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
+    /**
+     * todoItem 저장
+     * @param request
+     * @return
+     */
     public ItemDto.ResponseItemDto saveItem(ItemDto.RequestItemDto request) {
         Item item = Item.builder()
                         .item_id(itemRepository.ITEM_INDEX++)
@@ -45,6 +51,11 @@ public class ItemService {
         return result;
     }
 
+    /**
+     * todoItem 수정
+     * @param request
+     * @return
+     */
     public ItemDto.ResponseItemDto updateItem(ItemDto.RequestUpdateItemDto request) {
         Item item = itemRepository.findById(request.getItemId());
         if (item == null) {
@@ -75,6 +86,11 @@ public class ItemService {
         return result;
     }
 
+    /**
+     * todoItem 삭제
+     * @param request
+     * @return
+     */
     public ItemDto.ResponseDeleteItemDto deleteItem(ItemDto.RequestDeleteDto request) {
         Item item = itemRepository.findById(request.getItemId());
         if (item == null) {
@@ -94,6 +110,11 @@ public class ItemService {
         return result;
     }
 
+    /**
+     * todoItem 단건 조회
+     * @param itemId
+     * @return
+     */
     public ItemDto.ResponseItemDto getItem(Long itemId) {
         Item item = itemRepository.findById(itemId);
         if (item == null) {
@@ -113,9 +134,15 @@ public class ItemService {
         return result;
     }
 
+    /**
+     * todoItem 다건 조회
+     * @param memberId
+     * @return
+     */
     public List<ItemDto.ResponseItemDto> getAllItems(Long memberId) {
         List<Item> itemList = itemRepository.findAllByMemberId(memberId);
         List<ItemDto.ResponseItemDto> result = new ArrayList<>();
+
         for (Item item : itemList) {
             String createdDate = simpleDateFormat.format(item.getCreated_date());
             String updatedDate = simpleDateFormat.format(item.getUpdated_date());

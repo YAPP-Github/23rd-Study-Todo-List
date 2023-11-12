@@ -49,6 +49,11 @@ public class ItemController {
         return new Response<>(result);
     }
 
+    /**
+     * todoItem 다건 조회
+     * @param memberId
+     * @return
+     */
     @GetMapping("/member/{memberId}/todo")
     public Response<List<ItemDto.ResponseItemDto>> getAllItems(@PathVariable(name="memberId") Long memberId) {
         List<ItemDto.ResponseItemDto> result = itemService.getAllItems(memberId);
@@ -56,6 +61,11 @@ public class ItemController {
         return new Response<>(result);
     }
 
+    /**
+     * todoItem 단건 조회
+     * @param itemId
+     * @return
+     */
     @GetMapping("/todo/{itemId}")
     public Response<ItemDto.ResponseItemDto> getItem(@PathVariable(name="itemId") Long itemId) {
         ItemDto.ResponseItemDto result = itemService.getItem(itemId);
