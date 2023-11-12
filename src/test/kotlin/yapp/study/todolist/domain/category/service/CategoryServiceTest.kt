@@ -11,7 +11,7 @@ import yapp.study.todolist.domain.category.dto.CategoryNameDto
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 
 @SpringBootTest
-class CategoryRepositoryTest @Autowired constructor(
+class CategoryServiceTest @Autowired constructor(
         private val categoryService: CategoryService,
         private val categoryRepository: CategoryRepository
 ) : FunSpec({
