@@ -21,11 +21,10 @@ class TaskService(
         if (!categoryRepository.existById(taskDto.categoryId)) {
             throw RuntimeException("not exist category")
         }
-        taskRepository.findById(taskDto.id)
-                ?.let {
-                    throw RuntimeException("duplicate task id")
-                }
-                ?: taskRepository.save(Task.toEntity(taskDto))
+        when (taskRepository.existById(taskDto.id)) {
+            true -> throw RuntimeException("duplicate task id")
+            false -> taskRepository.save(Task.toEntity(taskDto))
+        }
     }
 
     fun getTasks(): TasksDto {
@@ -45,11 +44,10 @@ class TaskService(
     }
 
     fun deleteTask(id: Long) {
-        taskRepository.findById(id)
-                ?.let {
-                    taskRepository.deleteById(id)
-                }
-                ?: throw RuntimeException("not exist task")
+        when (taskRepository.existById(id)) {
+            true -> taskRepository.deleteById(id)
+            false -> throw RuntimeException("not exist task")
+        }
         commentRepository.deleteAllByTaskId(id)
     }
 
