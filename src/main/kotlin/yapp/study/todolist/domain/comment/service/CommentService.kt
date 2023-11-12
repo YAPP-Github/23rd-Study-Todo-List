@@ -5,13 +5,18 @@ import yapp.study.todolist.domain.comment.dto.CommentContentDto
 import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.entity.Comment
 import yapp.study.todolist.domain.comment.repository.CommentRepository
+import yapp.study.todolist.domain.task.repository.TaskRepository
 
 @Component
 class CommentService(
+        private val taskRepository: TaskRepository,
         private val commentRepository: CommentRepository
 ) {
     fun createComment(commentDto: CommentDto) {
-        commentRepository.save(Comment.toEntity(commentDto))
+        taskRepository.findById(commentDto.taskId) ?: throw RuntimeException("not exist task")
+        commentRepository.findById(commentDto.id)
+                ?.let { throw RuntimeException("duplicate comment id") }
+                ?: commentRepository.save(Comment.toEntity(commentDto))
     }
 
     fun updateComment(id: Long, commentContentDto: CommentContentDto) {
