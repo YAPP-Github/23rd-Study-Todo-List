@@ -2,7 +2,7 @@ package study.yapp.todolist.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import study.yapp.todolist.config.Response;
+import study.yapp.todolist.common.Response;
 import study.yapp.todolist.dto.ItemDto;
 import study.yapp.todolist.week1.service.ItemService;
 
@@ -49,7 +49,7 @@ public class ItemController {
         return new Response<>(result);
     }
 
-    @GetMapping("/member/todo/{memberId}")
+    @GetMapping("/member/{memberId}/todo")
     public Response<List<ItemDto.ResponseItemDto>> getAllItems(@PathVariable(name="memberId") Long memberId) {
         List<ItemDto.ResponseItemDto> result = itemService.getAllItems(memberId);
 

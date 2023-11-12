@@ -2,7 +2,9 @@ package study.yapp.todolist.week1.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.yapp.todolist.common.ResponseCode;
 import study.yapp.todolist.dto.ItemDto;
+import study.yapp.todolist.exception.InvalidItemException;
 import study.yapp.todolist.week1.dao.Item;
 import study.yapp.todolist.week1.repository.ItemRepository;
 
@@ -45,7 +47,9 @@ public class ItemService {
 
     public ItemDto.ResponseItemDto updateItem(ItemDto.RequestUpdateItemDto request) {
         Item item = itemRepository.findById(request.getItemId());
-
+        if (item == null) {
+            throw new InvalidItemException("존재하지 않는 항목입니다.", ResponseCode.INVALID_ITEM);
+        }
         item = Item.builder()
                 .item_id(item.getItem_id())
                 .title(request.getTitle())
@@ -73,8 +77,11 @@ public class ItemService {
 
     public ItemDto.ResponseDeleteItemDto deleteItem(ItemDto.RequestDeleteDto request) {
         Item item = itemRepository.findById(request.getItemId());
+        if (item == null) {
+            throw new InvalidItemException("존재하지 않는 항목입니다.", ResponseCode.INVALID_ITEM);
+        }
         if (item.getMember_id() != request.getMemberId()) {
-            throw new RuntimeException("잘못된 유저의 삭제 시도");
+            throw new InvalidItemException("잘못된 유저의 삭제 시도입니다.", ResponseCode.INVALID_USER_ACCESS);
         }
         itemRepository.deleteById(request.getItemId());
 
@@ -89,7 +96,9 @@ public class ItemService {
 
     public ItemDto.ResponseItemDto getItem(Long itemId) {
         Item item = itemRepository.findById(itemId);
-
+        if (item == null) {
+            throw new InvalidItemException("존재하지 않는 항목입니다.", ResponseCode.INVALID_ITEM);
+        }
         String createdDate = simpleDateFormat.format(item.getCreated_date());
         String updatedDate = simpleDateFormat.format(item.getUpdated_date());
 

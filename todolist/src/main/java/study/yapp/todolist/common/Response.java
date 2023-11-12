@@ -1,4 +1,4 @@
-package study.yapp.todolist.config;
+package study.yapp.todolist.common;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import static study.yapp.todolist.config.ResponseStatus.SUCCESS;
+import static study.yapp.todolist.common.ResponseCode.SUCCESS;
 
 @Getter
 @AllArgsConstructor
@@ -28,13 +28,4 @@ public class Response<T> {
         this.code = SUCCESS.getCode();
         this.result = result;
     }
-
-    // 요청에 실패한 경우
-    public Response(ResponseStatus status) {
-        this.isSuccess = status.isSuccess();
-        this.message = status.getMessage();
-        this.code = status.getCode();
-    }
-
-
 }

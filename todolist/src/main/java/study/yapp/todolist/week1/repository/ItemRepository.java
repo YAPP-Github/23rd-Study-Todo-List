@@ -1,6 +1,8 @@
 package study.yapp.todolist.week1.repository;
 
 import org.springframework.stereotype.Repository;
+import study.yapp.todolist.common.ResponseCode;
+import study.yapp.todolist.exception.InvalidItemException;
 import study.yapp.todolist.week1.dao.Item;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class ItemRepository {
         try {
             item = itemList.get(id);
         } catch (Exception e) {
-            throw new RuntimeException("ee");
+            return null;
         }
 
         return item;

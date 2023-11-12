@@ -1,6 +1,8 @@
 package study.yapp.todolist.week1.repository;
 
 import org.springframework.stereotype.Repository;
+import study.yapp.todolist.common.ResponseCode;
+import study.yapp.todolist.exception.InvalidUserException;
 import study.yapp.todolist.week1.dao.Member;
 
 import java.util.HashMap;
@@ -31,7 +33,7 @@ public class MemberRepository {
         try {
             result = memberList.get(email);
             if (!result.getPassword().equals(password)) {
-                throw new RuntimeException("로그인 실패");
+                throw new InvalidUserException("존재하지 않는 유저입니다.", ResponseCode.INVALID_USER);
             }
         } catch (Exception e){
             return null;

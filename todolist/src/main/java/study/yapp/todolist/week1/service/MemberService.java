@@ -2,6 +2,9 @@ package study.yapp.todolist.week1.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import study.yapp.todolist.common.ResponseCode;
+import study.yapp.todolist.exception.DuplicateUserException;
+import study.yapp.todolist.exception.InvalidUserException;
 import study.yapp.todolist.week1.repository.MemberRepository;
 import study.yapp.todolist.week1.dao.Member;
 import study.yapp.todolist.dto.MemberDto;
@@ -19,7 +22,7 @@ public class MemberService {
      */
     public MemberDto.ResponseMemberDto signUp(MemberDto.RequestSignUpDto request) {
         if (duplicatedMember(request)) {
-            throw new RuntimeException("중복된 유저");
+            throw new DuplicateUserException("이미 존재하는 유저입니다.", ResponseCode.DUPLICATE_USER);
         }
 
         Member member = Member.builder()
@@ -47,7 +50,7 @@ public class MemberService {
         Member member = memberRepository.findByEmailAndPassword(request.getEmail(), request.getPassword());
 
         if (member == null) {
-            throw new RuntimeException("로그인 실패");
+            throw new InvalidUserException("로그인 실패", ResponseCode.INVALID_USER);
         }
 
         MemberDto.ResponseMemberDto result = MemberDto.ResponseMemberDto.builder()
