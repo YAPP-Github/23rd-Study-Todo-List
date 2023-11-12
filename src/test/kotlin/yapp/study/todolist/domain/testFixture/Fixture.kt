@@ -7,6 +7,10 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 object Fixture {
+    const val categoryId: Long = 1
+    const val taskId: Long = 1
+    const val commentId: Long = 1
+
     fun createCategory(
             id: Long = 1,
             name: String = "1111"

@@ -4,13 +4,15 @@ import org.springframework.stereotype.Service
 import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.entity.Category
 import yapp.study.todolist.domain.category.repository.CategoryRepository
+import yapp.study.todolist.domain.comment.repository.CommentRepository
 import yapp.study.todolist.domain.task.entity.Task
 import yapp.study.todolist.domain.task.repository.TaskRepository
 
 @Service
 class CategoryService(
         private val categoryRepository: CategoryRepository,
-        private val taskRepository: TaskRepository
+        private val taskRepository: TaskRepository,
+        private val commentRepository: CommentRepository
 ) {
     fun createCategory(categoryDto: CategoryDto) {
         categoryRepository.findById(categoryDto.id)
@@ -26,6 +28,9 @@ class CategoryService(
         categoryRepository.findById(id)
                 ?.let { categoryRepository.deleteById(id) }
                 ?: throw RuntimeException("not exist category")
+        val taskIds = taskRepository.findByCategoryId(id).map { it.id }
+        commentRepository.deleteAllByTaskIdIn(taskIds)
+        taskRepository.deleteByIdIn(taskIds)
     }
 
     fun updateCategory(id: Long, categoryNameDto: CategoryNameDto) {

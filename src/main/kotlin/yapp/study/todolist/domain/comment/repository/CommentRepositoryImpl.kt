@@ -28,4 +28,9 @@ class CommentRepositoryImpl(
                 .map { comments.remove(it.id) }
     }
 
+    override fun deleteAllByTaskIdIn(taskIds: List<Long>) {
+        taskIds.map { taskId -> comments.values.filter { it.taskId == taskId }
+                    .map { comments.remove(it.id) }}
+    }
+
 }

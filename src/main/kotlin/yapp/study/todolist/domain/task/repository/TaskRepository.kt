@@ -7,4 +7,6 @@ interface TaskRepository {
     fun findAll(): List<Task>
     fun findById(id: Long): Task?
     fun deleteById(id: Long)
+    fun findByCategoryId(id: Long): List<Task>
+    fun deleteByIdIn(taskIds: List<Long>)
 }

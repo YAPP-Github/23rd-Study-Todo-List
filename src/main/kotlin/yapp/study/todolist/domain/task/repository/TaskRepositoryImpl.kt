@@ -21,6 +21,13 @@ class TaskRepositoryImpl(
     }
 
     override fun deleteById(id: Long) {
-        tasks.remove(id)
+    }
+
+    override fun findByCategoryId(categoryId: Long): List<Task> {
+        return tasks.values.filter { it.categoryId == categoryId }
+    }
+
+    override fun deleteByIdIn(taskIds: List<Long>) {
+        taskIds.map { tasks.remove(it) }
     }
 }
