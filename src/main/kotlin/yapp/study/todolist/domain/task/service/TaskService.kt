@@ -18,15 +18,14 @@ class TaskService(
         private val commentRepository: CommentRepository
 ) {
     fun createTask(taskDto: TaskDto) {
-        categoryRepository.findById(taskDto.categoryId)
+        if (!categoryRepository.existById(taskDto.categoryId)) {
+            throw RuntimeException("not exist category")
+        }
+        taskRepository.findById(taskDto.id)
                 ?.let {
-                    taskRepository.findById(taskDto.id)
-                            ?.let {
-                                throw RuntimeException("duplicate task id")
-                            }
-                            ?: taskRepository.save(Task.toEntity(taskDto))
+                    throw RuntimeException("duplicate task id")
                 }
-                ?: throw RuntimeException("not exist category")
+                ?: taskRepository.save(Task.toEntity(taskDto))
     }
 
     fun getTasks(): TasksDto {
@@ -34,13 +33,15 @@ class TaskService(
     }
 
     fun updateTask(id: Long, taskDetailDto: TaskDetailDto) {
-        val task = taskRepository.findById(id) ?: throw RuntimeException("not exist task")
-        if (categoryRepository.existById(taskDetailDto.categoryId)) {
-            task.update(taskDetailDto)
-            taskRepository.save(task)
-        } else{
+        if (!categoryRepository.existById(taskDetailDto.categoryId)) {
             throw RuntimeException("not exist category")
         }
+        taskRepository.findById(id)
+                ?.let {
+                    it.update(taskDetailDto)
+                    taskRepository.save(it)
+                }
+                ?: throw RuntimeException("not exist task")
     }
 
     fun deleteTask(id: Long) {
