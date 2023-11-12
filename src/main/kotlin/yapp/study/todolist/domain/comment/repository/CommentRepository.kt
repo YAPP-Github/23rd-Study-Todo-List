@@ -9,4 +9,5 @@ interface CommentRepository {
     fun findByTaskId(id: Long): List<Comment>
     fun deleteAllByTaskId(taskid: Long)
     fun deleteAllByTaskIdIn(taskIds: List<Long>)
+    fun existById(id: Long): Boolean
 }

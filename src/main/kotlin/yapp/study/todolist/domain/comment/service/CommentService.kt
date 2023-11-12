@@ -13,10 +13,13 @@ class CommentService(
         private val commentRepository: CommentRepository
 ) {
     fun createComment(commentDto: CommentDto) {
-        taskRepository.findById(commentDto.taskId) ?: throw RuntimeException("not exist task")
-        commentRepository.findById(commentDto.id)
-                ?.let { throw RuntimeException("duplicate comment id") }
-                ?: commentRepository.save(Comment.toEntity(commentDto))
+        if(!taskRepository.existById(commentDto.taskId)){
+            throw RuntimeException("not exist task")
+        }
+        when (!commentRepository.existById(commentDto.id)) {
+            true -> commentRepository.save(Comment.toEntity(commentDto))
+            false -> throw RuntimeException("duplicate comment id")
+        }
     }
 
     fun updateComment(id: Long, commentContentDto: CommentContentDto) {
@@ -29,11 +32,9 @@ class CommentService(
     }
 
     fun deleteComment(id: Long) {
-        commentRepository.findById(id)
-                ?.let {
-                    commentRepository.deleteById(id)
-                }
-                ?: throw RuntimeException("not exist comment")
+        when (commentRepository.existById(id)) {
+            true -> commentRepository.deleteById(id)
+            false -> throw RuntimeException("not exist comment")
+        }
     }
-
 }

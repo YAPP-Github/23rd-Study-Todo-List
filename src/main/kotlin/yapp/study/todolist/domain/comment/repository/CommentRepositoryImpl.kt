@@ -33,4 +33,8 @@ class CommentRepositoryImpl(
                     .map { comments.remove(it.id) }}
     }
 
+    override fun existById(id: Long): Boolean {
+        return comments[id] != null
+    }
+
 }

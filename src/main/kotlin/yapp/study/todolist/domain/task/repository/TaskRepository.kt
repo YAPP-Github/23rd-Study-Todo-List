@@ -9,4 +9,5 @@ interface TaskRepository {
     fun deleteById(id: Long)
     fun findByCategoryId(id: Long): List<Task>
     fun deleteByIdIn(taskIds: List<Long>)
+    fun existById(id: Long): Boolean
 }
