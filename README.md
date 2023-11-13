@@ -10,9 +10,7 @@
 <hr>
 
 ### ERD
-<p align="center">
-  <img src="![Untitled](https://github.com/minseo300/spring_cloud_demo/assets/76048180/1f762168-444f-4231-b17c-52332a77b798)">
-</p>
+<img width="1086" alt="Screenshot 2023-10-23 at 10 03 11 PM" src="https://github.com/minseo300/spring_cloud_demo/assets/76048180/1f762168-444f-4231-b17c-52332a77b798">
 
 
 ### API
