@@ -1,9 +1,8 @@
 package com.example.studytodolist.todo.controller
 
-import com.example.studytodolist.todo.domain.Todo
 import com.example.studytodolist.todo.dto.request.TodoSaveRequestDto
 import com.example.studytodolist.todo.dto.request.TodoUpdateRequestDto
-import com.example.studytodolist.todo.dto.response.TodoFindAllResponseDto
+import com.example.studytodolist.todo.dto.response.TodoFindResponseDto
 import com.example.studytodolist.todo.dto.response.TodoSaveResponseDto
 import com.example.studytodolist.todo.dto.response.TodoUpdateResponseDto
 import com.example.studytodolist.todo.repository.TodoRepositoryImpl
@@ -22,14 +21,17 @@ class TodoController() {
     }
 
     @PostMapping("")
-    fun save(@RequestBody saveRequest: TodoSaveRequestDto): ResponseEntity<TodoSaveResponseDto> = ResponseEntity.ok(todoService.save(Todo(saveRequest)))
+    fun save(@RequestBody saveRequest: TodoSaveRequestDto): ResponseEntity<TodoSaveResponseDto> = ResponseEntity.ok(todoService.save(saveRequest))
 
     @GetMapping("/list")
-    fun findAll(): ResponseEntity<List<TodoFindAllResponseDto>> = ResponseEntity.ok(todoService.findAll())
+    fun findAll(): ResponseEntity<List<TodoFindResponseDto>> = ResponseEntity.ok(todoService.findAll())
+
+    @GetMapping("/{id}")
+    fun findById(@PathVariable id: Long): ResponseEntity<TodoFindResponseDto> = ResponseEntity.ok(todoService.findById(id))
 
     @DeleteMapping("")
-    fun delete(@RequestParam title: String): ResponseEntity<Void>{
-        todoService.deleteByTitle(title)
+    fun delete(@RequestParam id: Long): ResponseEntity<Void>{
+        todoService.deleteById(id)
         return ResponseEntity.noContent().build()
     }
 

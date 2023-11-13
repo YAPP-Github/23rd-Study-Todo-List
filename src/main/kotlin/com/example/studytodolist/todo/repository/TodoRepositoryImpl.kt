@@ -5,35 +5,29 @@ import com.example.studytodolist.todo.domain.Todo
 
 class TodoRepositoryImpl: TodoRepository {
     companion object{
-        private var todoMap = HashMap<String, Any>()
+        private var todoMap = HashMap<Long, Todo>()
+        var INDEX = 0L;
     }
     override fun save(todo: Todo): Todo {
-        var valueMap = HashMap<String, Any>()
-        valueMap["content"] = todo.content
-        valueMap["progress"] = todo.progress
-        todoMap[todo.title] = valueMap
+        todoMap[todo.id] = todo
         return todo
     }
 
-    @Suppress("UNCHECKED_CAST")
     override fun findAll(): List<Todo> {
-        var todoList = mutableListOf<Todo>()
-        for (key in todoMap.keys){
-            var valueMap: HashMap<String, Any> = todoMap.getValue(key) as HashMap<String, Any>
-            todoList.add(Todo(key, valueMap.getValue("content") as String, valueMap.getValue("progress") as Progress))
-        }
-        return todoList;
+        return todoMap.values.toList();
     }
 
-    override fun deleteByTitle(title: String) {
-        todoMap.remove(title)
+    override fun findById(id: Long): Todo? {
+        return todoMap[id]
     }
 
-    @Suppress("UNCHECKED_CAST")
-    override fun updateProgress(title: String, progress: Progress): Todo {
-        var valueMap: HashMap<String, Any> = todoMap.getValue(title) as HashMap<String, Any>
-        valueMap["progress"] = progress
-        todoMap[title] = valueMap
-        return Todo(title, valueMap["content"] as String, progress)
+    override fun deleteById(id: Long) {
+        todoMap.remove(id)
+    }
+
+    override fun updateProgress(id: Long, progress: Progress): Todo {
+        val todo: Todo = todoMap[id] ?: throw RuntimeException("존재하지 않는 todo입니다.")
+        todo.progress = progress
+        return todo
     }
 }
