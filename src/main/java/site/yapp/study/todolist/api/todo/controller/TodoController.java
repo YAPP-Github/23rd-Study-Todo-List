@@ -1,6 +1,5 @@
 package site.yapp.study.todolist.api.todo.controller;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class TodoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ApiResponse<Object> createCard(@Valid @RequestBody TodoCreateRequestDto todoCreateRequestDto) {
+    public ApiResponse<Object> createCard(@RequestBody TodoCreateRequestDto todoCreateRequestDto) {
         todoService.createTodo(todoCreateRequestDto);
         return ApiResponse.success(SuccessCode.CREATE_TODO_SUCCESS);
     }

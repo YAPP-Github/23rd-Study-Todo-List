@@ -1,18 +1,31 @@
 package site.yapp.study.todolist.api.todo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import site.yapp.study.todolist.api.todo.domain.Todo;
 import site.yapp.study.todolist.common.exception.NotFoundException;
 import site.yapp.study.todolist.common.response.ErrorCode;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Repository
-public interface TodoRepository extends JpaRepository<Todo, Long> {
+public class TodoRepository {
 
-    default Todo findByIdOrThrow(Long todoId) {
+    private final Map<Long, Todo> todoList = new HashMap<>();
 
-        return findById(todoId).orElseThrow(
-                () -> new NotFoundException(ErrorCode.NOT_FOUND_TODO)
-        );
+    private Todo findByIdOrThrow(Long id) {
+
+        Todo todo;
+        try {
+            todo = todoList.get(id);
+        } catch (Exception e) {
+            throw new NotFoundException(ErrorCode.NOT_FOUND_TODO);
+        }
+
+        return todo;
+    }
+
+    public void save(Todo todo) {
+        todoList.put(todo.getId(), todo);
     }
 }
