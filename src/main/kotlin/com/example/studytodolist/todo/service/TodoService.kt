@@ -7,10 +7,13 @@ import com.example.studytodolist.todo.dto.response.TodoFindResponseDto
 import com.example.studytodolist.todo.dto.response.TodoSaveResponseDto
 import com.example.studytodolist.todo.dto.response.TodoUpdateResponseDto
 import com.example.studytodolist.todo.repository.TodoRepositoryImpl
+import org.springframework.stereotype.Component
 
+@Component
 class TodoService(
     private val todoRepositoryImpl:TodoRepositoryImpl
 ) {
+
     fun save(todoSaveRequestDto: TodoSaveRequestDto): TodoSaveResponseDto{
         val todo = Todo(TodoRepositoryImpl.INDEX++,
         todoSaveRequestDto.title,

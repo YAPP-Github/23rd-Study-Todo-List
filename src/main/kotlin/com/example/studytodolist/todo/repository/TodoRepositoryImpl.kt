@@ -2,11 +2,13 @@ package com.example.studytodolist.todo.repository
 
 import com.example.studytodolist.todo.domain.Progress
 import com.example.studytodolist.todo.domain.Todo
+import org.springframework.stereotype.Component
 
+@Component
 class TodoRepositoryImpl: TodoRepository {
     companion object{
         private var todoMap = HashMap<Long, Todo>()
-        var INDEX = 0L;
+        var INDEX = 0L
     }
     override fun save(todo: Todo): Todo {
         todoMap[todo.id] = todo
@@ -14,7 +16,7 @@ class TodoRepositoryImpl: TodoRepository {
     }
 
     override fun findAll(): List<Todo> {
-        return todoMap.values.toList();
+        return todoMap.values.toList()
     }
 
     override fun findById(id: Long): Todo? {

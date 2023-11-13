@@ -5,21 +5,14 @@ import com.example.studytodolist.todo.dto.request.TodoUpdateRequestDto
 import com.example.studytodolist.todo.dto.response.TodoFindResponseDto
 import com.example.studytodolist.todo.dto.response.TodoSaveResponseDto
 import com.example.studytodolist.todo.dto.response.TodoUpdateResponseDto
-import com.example.studytodolist.todo.repository.TodoRepositoryImpl
 import com.example.studytodolist.todo.service.TodoService
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/api/v1/todo")
-class TodoController() {
-    private val todoService:TodoService
-
-    init {
-        val todoRepositoryImpl = TodoRepositoryImpl()
-        this.todoService = TodoService(todoRepositoryImpl)
-    }
-
+@RequestMapping(value = ["/api/v1/todo"], produces = [MediaType.APPLICATION_JSON_VALUE])
+class TodoController(private val todoService: TodoService) {
     @PostMapping("")
     fun save(@RequestBody saveRequest: TodoSaveRequestDto): ResponseEntity<TodoSaveResponseDto> = ResponseEntity.ok(todoService.save(saveRequest))
 
