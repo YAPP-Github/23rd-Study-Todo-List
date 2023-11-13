@@ -19,9 +19,9 @@ class IdGeneratorTest @Autowired constructor(
             successCount.toInt() shouldBe 30
         }
 
-        test("task id는 중복 생성되지 않는다.") {
+        test("todo id는 중복 생성되지 않는다.") {
             val successCount = AtomicLong()
-            executeMultiThread({ idGenerator.getAndIncreaseTaskId() }, successCount)
+            executeMultiThread({ idGenerator.getAndIncreaseTodoId() }, successCount)
             successCount.toInt() shouldBe 30
         }
 

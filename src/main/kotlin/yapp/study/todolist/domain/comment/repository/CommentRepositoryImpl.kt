@@ -20,17 +20,17 @@ class CommentRepositoryImpl(
         comments.remove(id)
     }
 
-    override fun findByTaskId(taskId: Long): List<Comment> {
-        return comments.values.filter { it.taskId == taskId }
+    override fun findByTodoId(todoId: Long): List<Comment> {
+        return comments.values.filter { it.todoId == todoId }
     }
 
-    override fun deleteAllByTaskId(taskid: Long) {
-        comments.values.filter { it.taskId == taskid }
+    override fun deleteAllByTodoId(todoid: Long) {
+        comments.values.filter { it.todoId == todoid }
                 .map { comments.remove(it.id) }
     }
 
-    override fun deleteAllByTaskIdIn(taskIds: List<Long>) {
-        taskIds.map { taskId -> comments.values.filter { it.taskId == taskId }
+    override fun deleteAllByTodoIdIn(todoIds: List<Long>) {
+        todoIds.map { todoId -> comments.values.filter { it.todoId == todoId }
                     .map { comments.remove(it.id) }}
     }
 

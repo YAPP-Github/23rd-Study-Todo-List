@@ -9,28 +9,25 @@ import org.springframework.boot.test.context.SpringBootTest
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.dto.CommentContentDto
 import yapp.study.todolist.domain.comment.dto.CommentDetailDto
-import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.repository.CommentRepository
-import yapp.study.todolist.domain.task.repository.TaskRepository
+import yapp.study.todolist.domain.todo.repository.TodoRepository
 import yapp.study.todolist.domain.testFixture.Fixture
-import java.time.LocalDate
-import java.time.LocalTime
 
 @SpringBootTest
 class CommentServiceTest @Autowired constructor(
         private val categoryRepository: CategoryRepository,
-        private val taskRepository: TaskRepository,
+        private val todoRepository: TodoRepository,
         private val commentService: CommentService,
         private val commentRepository: CommentRepository
 ):FunSpec({
-    val taskId: Long = 1
+    val todoId: Long = 1
     val invalidCommentId: Long = 2
     val createRequest = CommentDetailDto(
-            taskId = 1,
+            todoId = 1,
             content = "11"
     )
-    val createInvalidTaskIdRquest = CommentDetailDto(
-            taskId = 2,
+    val createInvalidTodoIdRquest = CommentDetailDto(
+            todoId = 2,
             content = "11"
     )
     val updateRequest = CommentContentDto(
@@ -39,11 +36,11 @@ class CommentServiceTest @Autowired constructor(
 
     beforeEach {
         categoryRepository.save(Fixture.createCategory())
-        taskRepository.save(Fixture.createTask())
+        todoRepository.save(Fixture.createTodo())
     }
     afterEach {
         categoryRepository.deleteAll()
-        taskRepository.deleteAll()
+        todoRepository.deleteAll()
         commentRepository.deleteAll()
     }
 
@@ -55,14 +52,14 @@ class CommentServiceTest @Autowired constructor(
             val comment = commentRepository.findById(commentId)
             comment shouldNotBe null
             comment!!.id shouldBe commentId
-            comment.taskId shouldBe taskId
+            comment.todoId shouldBe todoId
             comment.content shouldBe "11"
         }
 
-        test("존재하지않는 task의 comment 생성시 실패"){
+        test("존재하지않는 todo의 comment 생성시 실패"){
             // then
             shouldThrow<RuntimeException> {
-                commentService.createComment(createInvalidTaskIdRquest)
+                commentService.createComment(createInvalidTodoIdRquest)
             }
         }
     }
@@ -77,7 +74,7 @@ class CommentServiceTest @Autowired constructor(
             val comment = commentRepository.findById(commentId)
             comment shouldNotBe null
             comment!!.id shouldBe commentId
-            comment.taskId shouldBe taskId
+            comment.todoId shouldBe todoId
             comment.content shouldBe "1122"
         }
 

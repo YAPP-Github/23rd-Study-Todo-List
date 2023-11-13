@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component
 @Component
 class IdGenerator(
         private var categoryId: Long = 0,
-        private var taskId: Long = 0,
+        private var todoId: Long = 0,
         private var commentId: Long = 0,
 ) {
     @Synchronized
@@ -14,8 +14,8 @@ class IdGenerator(
     }
 
     @Synchronized
-    fun getAndIncreaseTaskId(): Long {
-        return ++taskId
+    fun getAndIncreaseTodoId(): Long {
+        return ++todoId
     }
 
     @Synchronized

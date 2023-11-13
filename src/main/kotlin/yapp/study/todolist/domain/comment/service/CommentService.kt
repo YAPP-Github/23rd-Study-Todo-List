@@ -4,20 +4,19 @@ import org.springframework.stereotype.Component
 import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.comment.dto.CommentContentDto
 import yapp.study.todolist.domain.comment.dto.CommentDetailDto
-import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.entity.Comment
 import yapp.study.todolist.domain.comment.repository.CommentRepository
-import yapp.study.todolist.domain.task.repository.TaskRepository
+import yapp.study.todolist.domain.todo.repository.TodoRepository
 
 @Component
 class CommentService(
-        private val taskRepository: TaskRepository,
+        private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
         private val idGenerator: IdGenerator
 ) {
     fun createComment(commentDetailDto: CommentDetailDto): Long {
-        if(!taskRepository.existById(commentDetailDto.taskId)){
-            throw RuntimeException("not exist task")
+        if(!todoRepository.existById(commentDetailDto.todoId)){
+            throw RuntimeException("not exist todo")
         }
         val generatedId = idGenerator.getAndIncreaseCommentId()
         val comment = Comment.toEntity(generatedId, commentDetailDto)

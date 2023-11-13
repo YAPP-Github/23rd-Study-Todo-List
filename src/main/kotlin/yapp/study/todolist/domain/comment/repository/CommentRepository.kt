@@ -6,9 +6,9 @@ interface CommentRepository {
     fun save(comment: Comment): Comment
     fun findById(id: Long): Comment?
     fun deleteById(id: Long)
-    fun findByTaskId(id: Long): List<Comment>
-    fun deleteAllByTaskId(taskid: Long)
-    fun deleteAllByTaskIdIn(taskIds: List<Long>)
+    fun findByTodoId(id: Long): List<Comment>
+    fun deleteAllByTodoId(todoid: Long)
+    fun deleteAllByTodoIdIn(todoIds: List<Long>)
     fun existById(id: Long): Boolean
     fun deleteAll()
 }

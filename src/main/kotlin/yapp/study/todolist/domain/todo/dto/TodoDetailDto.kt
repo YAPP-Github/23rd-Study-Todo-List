@@ -1,10 +1,9 @@
-package yapp.study.todolist.domain.task.dto
+package yapp.study.todolist.domain.todo.dto
 
-import yapp.study.todolist.domain.task.entity.Task
 import java.time.LocalDate
 import java.time.LocalTime
 
-class TaskDetailDto(
+class TodoDetailDto(
         val categoryId: Long,
         val title: String,
         val memo: String?,

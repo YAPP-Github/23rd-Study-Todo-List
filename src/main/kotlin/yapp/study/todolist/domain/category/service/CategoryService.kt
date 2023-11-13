@@ -6,13 +6,13 @@ import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.entity.Category
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.repository.CommentRepository
-import yapp.study.todolist.domain.task.entity.Task
-import yapp.study.todolist.domain.task.repository.TaskRepository
+import yapp.study.todolist.domain.todo.entity.Todo
+import yapp.study.todolist.domain.todo.repository.TodoRepository
 
 @Service
 class CategoryService(
         private val categoryRepository: CategoryRepository,
-        private val taskRepository: TaskRepository,
+        private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
         private val idGenerator: IdGenerator
 ) {
@@ -31,9 +31,9 @@ class CategoryService(
         categoryRepository.findById(id)
                 ?.let { categoryRepository.deleteById(id) }
                 ?: throw RuntimeException("not exist category")
-        val taskIds = taskRepository.findByCategoryId(id).map { it.id }
-        commentRepository.deleteAllByTaskIdIn(taskIds)
-        taskRepository.deleteByIdIn(taskIds)
+        val todoIds = todoRepository.findByCategoryId(id).map { it.id }
+        commentRepository.deleteAllByTodoIdIn(todoIds)
+        todoRepository.deleteByIdIn(todoIds)
     }
 
     fun updateCategory(id: Long, categoryNameDto: CategoryNameDto) {
@@ -45,11 +45,11 @@ class CategoryService(
                 ?: throw RuntimeException("not exist category")
     }
 
-    fun getCategoriesWithTask(): CategoriesWithTasksDto{
+    fun getCategoriesWithTodo(): CategoriesWithTodosDto{
         val categorys = categoryRepository.findAll()
-        val tasks = taskRepository.findAll()
-        return CategoriesWithTasksDto.toDto(categorys.map {
-            CategoryWithTasksDto.toDto(it, tasks.filter { task: Task ->  it.id == task.categoryId })
+        val todos = todoRepository.findAll()
+        return CategoriesWithTodosDto.toDto(categorys.map {
+            CategoryWithTodosDto.toDto(it, todos.filter { todo: Todo ->  it.id == todo.categoryId })
         })
     }
 }

@@ -1,12 +1,12 @@
-package yapp.study.todolist.domain.task.dto
+package yapp.study.todolist.domain.todo.dto
 
 import org.springframework.format.annotation.DateTimeFormat
 import yapp.study.todolist.domain.comment.dto.CommentDto
-import yapp.study.todolist.domain.task.entity.Task
+import yapp.study.todolist.domain.todo.entity.Todo
 import java.time.LocalDate
 import java.time.LocalTime
 
-class TaskCommentDto(
+class TodoCommentDto(
         val id: Long,
         val categoryId: Long,
         val title: String,
@@ -21,16 +21,16 @@ class TaskCommentDto(
         val comments: List<CommentDto>
 ) {
     companion object {
-        fun toDto(task: Task, comments: List<CommentDto>): TaskCommentDto {
-            return TaskCommentDto(
-                    id = task.id,
-                    categoryId = task.categoryId,
-                    title = task.title,
-                    memo = task.memo,
-                    date = task.date,
-                    fromTime = task.fromTime,
-                    toTime = task.toTime,
-                    isDone = task.isDone,
+        fun toDto(todo: Todo, comments: List<CommentDto>): TodoCommentDto {
+            return TodoCommentDto(
+                    id = todo.id,
+                    categoryId = todo.categoryId,
+                    title = todo.title,
+                    memo = todo.memo,
+                    date = todo.date,
+                    fromTime = todo.fromTime,
+                    toTime = todo.toTime,
+                    isDone = todo.isDone,
                     comments = comments
             )
         }

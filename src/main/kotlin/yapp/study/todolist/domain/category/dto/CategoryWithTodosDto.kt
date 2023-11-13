@@ -1,19 +1,19 @@
 package yapp.study.todolist.domain.category.dto
 
 import yapp.study.todolist.domain.category.entity.Category
-import yapp.study.todolist.domain.task.entity.Task
+import yapp.study.todolist.domain.todo.entity.Todo
 
-class CategoryWithTasksDto(
+class CategoryWithTodosDto(
         val id: Long,
         val name: String,
-        val tasks: List<Task>
+        val todos: List<Todo>
 ){
     companion object {
-        fun toDto(category: Category, tasks: List<Task>): CategoryWithTasksDto {
-            return CategoryWithTasksDto(
+        fun toDto(category: Category, todos: List<Todo>): CategoryWithTodosDto {
+            return CategoryWithTodosDto(
                     id = category.id,
                     name = category.name,
-                    tasks = tasks
+                    todos = todos
             )
         }
     }

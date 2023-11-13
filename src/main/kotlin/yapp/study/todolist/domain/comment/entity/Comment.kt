@@ -7,14 +7,14 @@ import yapp.study.todolist.domain.comment.dto.CommentDto
 
 class Comment(
         val id: Long,
-        val taskId: Long,
+        val todoId: Long,
         var content: String
 ) : BaseEntity() {
     companion object {
         fun toEntity(id: Long, commentDetailDto: CommentDetailDto): Comment {
             return Comment(
                     id = id,
-                    taskId = commentDetailDto.taskId,
+                    todoId = commentDetailDto.todoId,
                     content = commentDetailDto.content
             )
         }

@@ -6,18 +6,17 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
-import yapp.study.todolist.domain.category.dto.CategoryDto
 import yapp.study.todolist.domain.category.dto.CategoryNameDto
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.repository.CommentRepository
-import yapp.study.todolist.domain.task.repository.TaskRepository
+import yapp.study.todolist.domain.todo.repository.TodoRepository
 import yapp.study.todolist.domain.testFixture.Fixture
 
 @SpringBootTest
 class CategoryServiceTest @Autowired constructor(
         private val categoryService: CategoryService,
         private val categoryRepository: CategoryRepository,
-        private val taskRepository: TaskRepository,
+        private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository
 ) : FunSpec({
     val createRequest = CategoryNameDto(
@@ -75,7 +74,7 @@ class CategoryServiceTest @Autowired constructor(
         var categoryId: Long = 1
         beforeEach {
             categoryId = categoryService.createCategory(createRequest)
-            taskRepository.save(Fixture.createTask(categoryId = categoryId))
+            todoRepository.save(Fixture.createTodo(categoryId = categoryId))
             commentRepository.save(Fixture.createComment())
         }
 
@@ -84,7 +83,7 @@ class CategoryServiceTest @Autowired constructor(
             categoryService.deleteCategory(categoryId)
             // then
             categoryRepository.findById(categoryId) shouldBe null
-            taskRepository.findById(Fixture.taskId) shouldBe null
+            todoRepository.findById(Fixture.todoId) shouldBe null
             commentRepository.findById(Fixture.commentId) shouldBe null
         }
 
