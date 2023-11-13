@@ -13,10 +13,6 @@ public class GlobalException {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ErrorResponse> handleCustomException(BusinessException ex) {
-        log.debug("===========================================================");
-        log.debug("여기로 오는가?!");
-        log.debug("===========================================================");
-
         final ErrorResponse response = ErrorResponse.of(ex.getResponseCode());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }

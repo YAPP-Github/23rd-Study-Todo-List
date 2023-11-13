@@ -1,52 +1,44 @@
 package study.yapp.todolist.dto;
 
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
+import java.time.LocalDateTime;
+import java.util.Date;
+
 public class ItemDto {
-    @Data
-    @AllArgsConstructor
-    @Builder
+
+    @Getter
     public static class RequestItemDto {
         private String title;
         private String contents;
         private Long memberId;
     }
 
-    @Data
-    @AllArgsConstructor
-    @Builder
+    @Getter
     public static class RequestUpdateItemDto {
         private String title;
         private String contents;
         private Long memberId;
-        private Long itemId;
     }
 
-    @Data
-    @AllArgsConstructor
     @Builder
-    public static class RequestDeleteDto {
-        private Long itemId;
-        private Long memberId;
-    }
-
     @Data
-    @AllArgsConstructor
-    @Builder
     public static class ResponseItemDto {
         private Long itemId;
-        private String createdDate;
-        private String updatedDate;
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private Date createdDate;
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        private Date updatedDate;
         private String title;
         private String contents;
     }
 
-    @Data
-    @AllArgsConstructor
     @Builder
+    @Data
     public static class ResponseDeleteItemDto {
         private Long itemId;
         private String title;

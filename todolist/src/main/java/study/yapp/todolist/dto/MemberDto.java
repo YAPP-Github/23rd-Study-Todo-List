@@ -1,31 +1,26 @@
 package study.yapp.todolist.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 public class MemberDto {
 
-    @Data
-    @AllArgsConstructor
-    @Builder
+    @Getter
     public static class RequestSignUpDto {
         private String name;
         private String email;
         private String password;
     }
 
-    @Data
-    @AllArgsConstructor
-    @Builder
+    @Getter
     public static class RequestSignInDto {
         private String email;
         private String password;
     }
 
-    @Data
-    @AllArgsConstructor
     @Builder
+    @Data
     public static class ResponseMemberDto {
         private Long memberId;
     }

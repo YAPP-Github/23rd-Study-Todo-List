@@ -1,43 +1,34 @@
 package study.yapp.todolist.week1.repository;
 
 import org.springframework.stereotype.Repository;
-import study.yapp.todolist.common.ResponseCode;
-import study.yapp.todolist.exception.InvalidUserException;
 import study.yapp.todolist.week1.dao.Member;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Optional;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicLong;
 
 @Repository
 public class MemberRepository {
-    public Long MEMBER_INDEX = 1L;
+    public AtomicLong MEMBER_INDEX = new AtomicLong(0);
 
-    private final Map<String, Member> memberList = new HashMap<>();
+    private final ConcurrentHashMap<String, Member> memberList = new ConcurrentHashMap<>();
 
     public void saveMember(Member member) {
         memberList.put(member.getEmail(), member);
     }
 
-    public Member findByEmail(String email) {
-        Member result = null;
-        try {
-            result = memberList.get(email);
-        } catch (Exception e){
-            return null;
+    public Optional<Member> findByEmail(String email) {
+        Optional<Member> result = Optional.ofNullable(memberList.get(email));
+
+        return result;
+    }
+
+    public Optional<Member> findByEmailAndPassword(String email, String password) {
+        Optional<Member> result = Optional.ofNullable(memberList.get(email));
+        if (!result.get().getPassword().equals(password)) {
+            result = Optional.ofNullable(null);
         }
         return result;
     }
 
-    public Member findByEmailAndPassword(String email, String password) {
-        Member result = null;
-        try {
-            result = memberList.get(email);
-            if (!result.getPassword().equals(password)) {
-                return null;
-            }
-        } catch (Exception e){
-            return null;
-        }
-        return result;
-    }
 }

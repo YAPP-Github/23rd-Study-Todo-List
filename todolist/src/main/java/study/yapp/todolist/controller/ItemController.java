@@ -1,6 +1,9 @@
 package study.yapp.todolist.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.yapp.todolist.common.Response;
 import study.yapp.todolist.dto.ItemDto;
@@ -10,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(path="/api/v1", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ItemController {
     private final ItemService itemService;
 
@@ -19,10 +23,10 @@ public class ItemController {
      * @return
      */
     @PostMapping("/todo")
-    public Response<ItemDto.ResponseItemDto> registerItem(@RequestBody ItemDto.RequestItemDto registerItemDto) {
+    public ResponseEntity<Response<ItemDto.ResponseItemDto>> registerItem(@RequestBody ItemDto.RequestItemDto registerItemDto) {
         ItemDto.ResponseItemDto result = itemService.saveItem(registerItemDto);
 
-        return new Response<>(result);
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Response<>(result));
     }
 
     /**
@@ -31,20 +35,20 @@ public class ItemController {
      * @return
      */
     @PatchMapping("/todo/{itemId}")
-    public Response<ItemDto.ResponseItemDto> updateItem(@RequestBody ItemDto.RequestUpdateItemDto updateItemDto) {
-        ItemDto.ResponseItemDto result = itemService.updateItem(updateItemDto);
+    public ResponseEntity<Response<ItemDto.ResponseItemDto>> updateItem(@RequestBody ItemDto.RequestUpdateItemDto updateItemDto, @PathVariable(name = "itemId") Long itemId) {
+        ItemDto.ResponseItemDto result = itemService.updateItem(updateItemDto, itemId);
 
-        return new Response<>(result);
+        return ResponseEntity.status(HttpStatus.RESET_CONTENT).body(new Response<>(result));
     }
 
     /**
      * todoItem 삭제
-     * @param deleteItemDto
+     * @param itemId
      * @return
      */
     @DeleteMapping("/todo")
-    public Response<ItemDto.ResponseDeleteItemDto> deleteItem(@RequestBody ItemDto.RequestDeleteDto deleteItemDto) {
-        ItemDto.ResponseDeleteItemDto result = itemService.deleteItem(deleteItemDto);
+    public Response<ItemDto.ResponseDeleteItemDto> deleteItem(@RequestParam(name = "itemId") Long itemId, @RequestParam(name = "memberId") Long memberId) {
+        ItemDto.ResponseDeleteItemDto result = itemService.deleteItem(itemId, memberId);
 
         return new Response<>(result);
     }

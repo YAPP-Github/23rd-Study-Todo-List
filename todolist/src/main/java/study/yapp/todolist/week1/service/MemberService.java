@@ -21,12 +21,12 @@ public class MemberService {
      * @return
      */
     public MemberDto.ResponseMemberDto signUp(MemberDto.RequestSignUpDto request) {
-        if (duplicatedMember(request)) {
+        if (memberRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new DuplicateUserException("이미 존재하는 유저입니다.", ResponseCode.DUPLICATE_USER);
         }
 
         Member member = Member.builder()
-                .member_id(memberRepository.MEMBER_INDEX++)
+                .member_id(memberRepository.MEMBER_INDEX.getAndIncrement())
                 .email(request.getEmail())
                 .name(request.getName())
                 .password(request.getPassword())
@@ -47,7 +47,7 @@ public class MemberService {
      * @return
      */
     public MemberDto.ResponseMemberDto signIn(MemberDto.RequestSignInDto request) {
-        Member member = memberRepository.findByEmailAndPassword(request.getEmail(), request.getPassword());
+        Member member = memberRepository.findByEmailAndPassword(request.getEmail(), request.getPassword()).get();
 
         if (member == null) {
             throw new InvalidUserException("존재하지 않는 유저입니다.", ResponseCode.INVALID_USER);
@@ -58,13 +58,5 @@ public class MemberService {
                 .build();
 
         return result;
-    }
-
-    private boolean duplicatedMember(MemberDto.RequestSignUpDto request) {
-        Member result = memberRepository.findByEmail(request.getEmail());
-        if (result != null) {
-            return true;
-        }
-        return false;
     }
 }
