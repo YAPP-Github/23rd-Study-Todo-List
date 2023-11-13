@@ -54,7 +54,7 @@ class TodoService(
     }
 
     fun updateDoneTodo(id: Long, done: Boolean) {
-        todoRepository.findById(id)
+        todoRepository.findByIdAndIsDone(id, !done)
                 ?.let {
                     when (done) {
                         true -> it.doneTodo()

@@ -39,4 +39,11 @@ class TodoRepositoryImpl(
     override fun deleteAll() {
         todos.clear()
     }
+
+    override fun findByIdAndIsDone(id: Long, isDone: Boolean): Todo? {
+        return if (todos[id]?.isDone == isDone) {
+            todos[id]
+        } else
+            null
+    }
 }

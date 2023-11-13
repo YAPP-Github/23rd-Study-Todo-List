@@ -11,4 +11,5 @@ interface TodoRepository {
     fun deleteByIdIn(todoIds: List<Long>)
     fun existById(id: Long): Boolean
     fun deleteAll()
+    fun findByIdAndIsDone(id: Long, isDone: Boolean): Todo?
 }
