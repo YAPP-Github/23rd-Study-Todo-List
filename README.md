@@ -9,7 +9,7 @@
 * Springboot: 2.7
 <hr>
 ### ERD
-![Untitled](https://github.com/minseo300/23rd-Study-Todo-List/assets/76048180/cf9840c5-6b42-49a9-96f1-158a5a592fda)
+![Untitled](https://github.com/minseo300/spring_cloud_demo/assets/76048180/1f762168-444f-4231-b17c-52332a77b798)
 
 ### API
 * 회원가입: /signup [POST]
