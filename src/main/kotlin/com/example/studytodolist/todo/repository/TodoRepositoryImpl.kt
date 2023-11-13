@@ -19,7 +19,7 @@ class TodoRepositoryImpl: TodoRepository {
         return todoMap.values.toList()
     }
 
-    override fun findById(id: Long): Todo? {
+    override fun findByIdOrNull(id: Long): Todo? {
         return todoMap[id]
     }
 

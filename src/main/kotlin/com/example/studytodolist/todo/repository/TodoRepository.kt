@@ -6,7 +6,7 @@ import com.example.studytodolist.todo.domain.Todo
 interface TodoRepository {
     fun save(todo: Todo): Todo
     fun findAll(): List<Todo>
-    fun findById(id: Long): Todo?
+    fun findByIdOrNull(id: Long): Todo?
     fun deleteById(id: Long)
     fun updateProgress(id: Long, progress: Progress): Todo
 }

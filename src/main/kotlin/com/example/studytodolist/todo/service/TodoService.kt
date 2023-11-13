@@ -27,7 +27,7 @@ class TodoService(
     }
 
     fun findById(id: Long): TodoFindResponseDto {
-        val todo = todoRepositoryImpl.findById(id) ?: throw RuntimeException("존재하지 않는 todo입니다")
+        val todo = todoRepositoryImpl.findByIdOrNull(id) ?: throw RuntimeException("존재하지 않는 todo입니다")
         return TodoFindResponseDto(todo)
     }
 
