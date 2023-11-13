@@ -9,7 +9,10 @@
 * Springboot: 2.7
 <hr>
 ### ERD
-![Untitled](https://github.com/minseo300/spring_cloud_demo/assets/76048180/1f762168-444f-4231-b17c-52332a77b798)
+<p align="center">
+  <img src="![Untitled](https://github.com/minseo300/spring_cloud_demo/assets/76048180/1f762168-444f-4231-b17c-52332a77b798)">
+</p>
+
 
 ### API
 * 회원가입: /signup [POST]
