@@ -1,5 +1,6 @@
 package yapp.study.todolist.domain.category.controller
 
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import yapp.study.todolist.domain.category.dto.CategoriesDto
 import yapp.study.todolist.domain.category.dto.CategoriesWithTodosDto
@@ -7,7 +8,9 @@ import yapp.study.todolist.domain.category.dto.CategoryNameDto
 import yapp.study.todolist.domain.category.service.CategoryService
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping(value = ["/categories"],
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE])
 class CategoryController(
         private val categoryService: CategoryService
 ) {

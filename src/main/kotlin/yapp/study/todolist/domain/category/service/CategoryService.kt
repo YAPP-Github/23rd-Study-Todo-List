@@ -1,6 +1,7 @@
 package yapp.study.todolist.domain.category.service
 
 import org.springframework.stereotype.Service
+import yapp.study.todolist.common.error.errors.NotFoundException
 import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.entity.Category
@@ -30,7 +31,7 @@ class CategoryService(
     fun deleteCategory(id: Long) {
         categoryRepository.findById(id)
                 ?.let { categoryRepository.deleteById(id) }
-                ?: throw RuntimeException("not exist category")
+                ?: throw NotFoundException("not exist category")
         val todoIds = todoRepository.findByCategoryId(id).map { it.id }
         commentRepository.deleteAllByTodoIdIn(todoIds)
         todoRepository.deleteByIdIn(todoIds)
@@ -42,7 +43,7 @@ class CategoryService(
                     it.updateName(categoryNameDto.name)
                     categoryRepository.save(it)
                 }
-                ?: throw RuntimeException("not exist category")
+                ?: throw NotFoundException("not exist category")
     }
 
     fun getCategoriesWithTodo(): CategoriesWithTodosDto{

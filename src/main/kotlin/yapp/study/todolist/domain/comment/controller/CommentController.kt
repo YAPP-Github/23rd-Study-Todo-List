@@ -1,5 +1,6 @@
 package yapp.study.todolist.domain.comment.controller
 
+import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PatchMapping
@@ -14,7 +15,9 @@ import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.service.CommentService
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping(value = ["/comments"],
+        consumes = [MediaType.APPLICATION_JSON_VALUE],
+        produces = [MediaType.APPLICATION_JSON_VALUE])
 class CommentController(
         private val commentService: CommentService
 ) {
