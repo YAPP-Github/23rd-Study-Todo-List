@@ -7,8 +7,9 @@ import yapp.study.todolist.domain.category.entity.Category
 class CategoryRepositoryImpl(
         private val categories: MutableMap<Long, Category> = mutableMapOf()
 ) : CategoryRepository {
-    override fun save(category: Category) {
+    override fun save(category: Category): Category {
         categories[category.id] = category
+        return category
     }
 
     override fun findAll(): List<Category> {
@@ -25,6 +26,10 @@ class CategoryRepositoryImpl(
 
     override fun existById(id: Long): Boolean {
         return categories[id] != null
+    }
+
+    override fun deleteAll() {
+        categories.clear()
     }
 
 }

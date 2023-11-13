@@ -8,8 +8,9 @@ import yapp.study.todolist.domain.task.entity.Task
 class TaskRepositoryImpl(
         private val tasks: MutableMap<Long, Task> = mutableMapOf()
 ) : TaskRepository {
-    override fun save(task: Task) {
+    override fun save(task: Task): Task {
         tasks[task.id] = task
+        return task
     }
 
     override fun findAll(): List<Task> {
@@ -34,5 +35,9 @@ class TaskRepositoryImpl(
 
     override fun existById(id: Long): Boolean {
         return tasks[id] != null
+    }
+
+    override fun deleteAll() {
+        tasks.clear()
     }
 }

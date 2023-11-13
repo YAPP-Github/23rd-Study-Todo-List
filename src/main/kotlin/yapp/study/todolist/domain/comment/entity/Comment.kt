@@ -2,6 +2,7 @@ package yapp.study.todolist.domain.comment.entity
 
 import yapp.study.todolist.domain.base.BaseEntity
 import yapp.study.todolist.domain.comment.dto.CommentContentDto
+import yapp.study.todolist.domain.comment.dto.CommentDetailDto
 import yapp.study.todolist.domain.comment.dto.CommentDto
 
 class Comment(
@@ -10,11 +11,11 @@ class Comment(
         var content: String
 ) : BaseEntity() {
     companion object {
-        fun toEntity(commentDto: CommentDto): Comment {
+        fun toEntity(id: Long, commentDetailDto: CommentDetailDto): Comment {
             return Comment(
-                    id = commentDto.id,
-                    taskId = commentDto.taskId,
-                    content = commentDto.content
+                    id = id,
+                    taskId = commentDetailDto.taskId,
+                    content = commentDetailDto.content
             )
         }
     }

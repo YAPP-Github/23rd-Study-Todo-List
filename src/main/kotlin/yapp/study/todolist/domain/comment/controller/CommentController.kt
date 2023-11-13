@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import yapp.study.todolist.domain.comment.dto.CommentContentDto
+import yapp.study.todolist.domain.comment.dto.CommentDetailDto
 import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.service.CommentService
 
@@ -18,8 +19,8 @@ class CommentController(
         private val commentService: CommentService
 ) {
     @PostMapping
-    fun createComment(@RequestBody commentDto: CommentDto) {
-        commentService.createComment(commentDto)
+    fun createComment(@RequestBody commentDetailDto: CommentDetailDto) {
+        commentService.createComment(commentDetailDto)
     }
 
     @PatchMapping("/{id}")

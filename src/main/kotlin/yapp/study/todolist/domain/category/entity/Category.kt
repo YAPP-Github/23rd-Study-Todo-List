@@ -10,10 +10,10 @@ class Category(
         var name: String
 ) : BaseEntity() {
     companion object {
-        fun toEntity(categoryDto: CategoryDto): Category {
+        fun toEntity(id: Long, name: String): Category {
             return Category(
-                    id = categoryDto.id,
-                    name = categoryDto.name
+                    id = id,
+                    name = name
             )
         }
     }

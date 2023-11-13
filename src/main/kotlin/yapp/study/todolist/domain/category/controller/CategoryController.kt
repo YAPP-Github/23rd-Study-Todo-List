@@ -15,8 +15,8 @@ class CategoryController(
         private val categoryService: CategoryService
 ) {
     @PostMapping
-    fun createCategory(@RequestBody categoryDto: CategoryDto) {
-        categoryService.createCategory(categoryDto)
+    fun createCategory(@RequestBody categoryNameDto: CategoryNameDto) {
+        categoryService.createCategory(categoryNameDto)
     }
 
     @GetMapping

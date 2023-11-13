@@ -1,6 +1,7 @@
 package yapp.study.todolist.domain.task.service
 
 import org.springframework.stereotype.Service
+import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.repository.CommentRepository
@@ -15,16 +16,16 @@ import yapp.study.todolist.domain.task.repository.TaskRepository
 class TaskService(
         private val categoryRepository: CategoryRepository,
         private val taskRepository: TaskRepository,
-        private val commentRepository: CommentRepository
+        private val commentRepository: CommentRepository,
+        private val idGenerator: IdGenerator
 ) {
-    fun createTask(taskDto: TaskDto) {
-        if (!categoryRepository.existById(taskDto.categoryId)) {
+    fun createTask(taskDetailDto: TaskDetailDto): Long {
+        if (!categoryRepository.existById(taskDetailDto.categoryId)) {
             throw RuntimeException("not exist category")
         }
-        when (taskRepository.existById(taskDto.id)) {
-            true -> throw RuntimeException("duplicate task id")
-            false -> taskRepository.save(Task.toEntity(taskDto))
-        }
+        val generatedId = idGenerator.getAndIncreaseTaskId()
+        taskRepository.save(Task.toEntity(generatedId, taskDetailDto))
+        return generatedId
     }
 
     fun getTasks(): TasksDto {

@@ -7,8 +7,9 @@ import yapp.study.todolist.domain.comment.entity.Comment
 class CommentRepositoryImpl(
         private val comments: MutableMap<Long, Comment> = mutableMapOf()
 ) : CommentRepository {
-    override fun save(comment: Comment) {
+    override fun save(comment: Comment): Comment {
         comments[comment.id] = comment
+        return comment
     }
 
     override fun findById(id: Long): Comment? {
@@ -35,6 +36,10 @@ class CommentRepositoryImpl(
 
     override fun existById(id: Long): Boolean {
         return comments[id] != null
+    }
+
+    override fun deleteAll() {
+        comments.clear()
     }
 
 }

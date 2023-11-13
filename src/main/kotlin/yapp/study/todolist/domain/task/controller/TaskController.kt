@@ -21,8 +21,8 @@ class TaskController(
         private val taskService: TaskService
 ) {
     @PostMapping
-    fun createTask(@RequestBody taskDto: TaskDto) {
-        taskService.createTask(taskDto)
+    fun createTask(@RequestBody taskDetailDto: TaskDetailDto) {
+        taskService.createTask(taskDetailDto)
     }
 
     @GetMapping

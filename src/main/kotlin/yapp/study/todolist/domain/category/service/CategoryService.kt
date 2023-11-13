@@ -1,6 +1,7 @@
 package yapp.study.todolist.domain.category.service
 
 import org.springframework.stereotype.Service
+import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.entity.Category
 import yapp.study.todolist.domain.category.repository.CategoryRepository
@@ -12,12 +13,14 @@ import yapp.study.todolist.domain.task.repository.TaskRepository
 class CategoryService(
         private val categoryRepository: CategoryRepository,
         private val taskRepository: TaskRepository,
-        private val commentRepository: CommentRepository
+        private val commentRepository: CommentRepository,
+        private val idGenerator: IdGenerator
 ) {
-    fun createCategory(categoryDto: CategoryDto) {
-        categoryRepository.findById(categoryDto.id)
-                ?.let { throw RuntimeException("duplicated id") }
-                ?: categoryRepository.save(Category.toEntity(categoryDto))
+    fun createCategory(categoryNameDto: CategoryNameDto): Long {
+        val generatedId = idGenerator.getAndIncreaseCategoryId()
+        val category = Category.toEntity(generatedId, categoryNameDto.name)
+        categoryRepository.save(category)
+        return generatedId
     }
 
     fun getCategories(): CategoriesDto {

@@ -17,15 +17,15 @@ class Task(
         var isDone: Boolean
 ) : BaseEntity() {
     companion object {
-        fun toEntity(taskDto: TaskDto): Task {
+        fun toEntity(id: Long, taskDetailDto: TaskDetailDto): Task {
             return Task(
-                    id = taskDto.id,
-                    categoryId = taskDto.categoryId,
-                    title = taskDto.title,
-                    memo = taskDto.memo,
-                    date = taskDto.date,
-                    fromTime = taskDto.fromTime,
-                    toTime = taskDto.toTime,
+                    id = id,
+                    categoryId = taskDetailDto.categoryId,
+                    title = taskDetailDto.title,
+                    memo = taskDetailDto.memo,
+                    date = taskDetailDto.date,
+                    fromTime = taskDetailDto.fromTime,
+                    toTime = taskDetailDto.toTime,
                     isDone = false
             )
         }
