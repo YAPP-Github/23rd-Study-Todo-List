@@ -15,10 +15,11 @@ class TodoService(
 ) {
 
     fun save(todoSaveRequestDto: TodoSaveRequestDto): TodoSaveResponseDto{
-        val todo = Todo(TodoRepositoryImpl.INDEX++,
-        todoSaveRequestDto.title,
-        todoSaveRequestDto.content,
-        todoSaveRequestDto.progress)
+        val todo = Todo(TodoRepositoryImpl.INDEX++).apply {
+            title = todoSaveRequestDto.title
+            content = todoSaveRequestDto.content
+            progress = todoSaveRequestDto.progress
+        }
         return TodoSaveResponseDto(todoRepositoryImpl.save(todo))
     }
 

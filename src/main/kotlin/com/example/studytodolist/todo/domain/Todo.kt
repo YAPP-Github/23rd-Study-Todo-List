@@ -5,4 +5,6 @@ class Todo(
     var title: String,
     var content: String,
     var progress: Progress
-)
+){
+    constructor(id: Long): this(id,"", "", Progress.PROCESSING)
+}
