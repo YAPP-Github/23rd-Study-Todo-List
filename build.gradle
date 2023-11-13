@@ -17,6 +17,7 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.projectlombok:lombok:1.18.22'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// Spring Boot 설정
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -29,10 +30,6 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	// test 설정
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-tasks.named('bootBuildImage') {
-	builder = 'paketobuildpacks/builder-jammy-base:latest'
 }
 
 tasks.named('test') {
