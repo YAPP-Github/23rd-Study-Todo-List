@@ -33,7 +33,7 @@ public class MemberRepository {
         try {
             result = memberList.get(email);
             if (!result.getPassword().equals(password)) {
-                throw new InvalidUserException("존재하지 않는 유저입니다.", ResponseCode.INVALID_USER);
+                return null;
             }
         } catch (Exception e){
             return null;

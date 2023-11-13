@@ -50,7 +50,7 @@ public class MemberService {
         Member member = memberRepository.findByEmailAndPassword(request.getEmail(), request.getPassword());
 
         if (member == null) {
-            throw new InvalidUserException("로그인 실패", ResponseCode.INVALID_USER);
+            throw new InvalidUserException("존재하지 않는 유저입니다.", ResponseCode.INVALID_USER);
         }
 
         MemberDto.ResponseMemberDto result = MemberDto.ResponseMemberDto.builder()
