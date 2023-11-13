@@ -5,7 +5,12 @@
 ### 구현 내용
 - Todo Class 생성
   ```  
-  id: Long  title: String  content: String  progress: Enum<Progress> //PROCESSING, CANCELLED, COMPLETED  ```- HashMap을 이용해 In-memory 기반 레포지토리 구현  
+  id: Long  
+  title: String  
+  content: String  
+  progress: Enum<Progress> //PROCESSING, CANCELLED, COMPLETED  
+  ```
+  - HashMap을 이용해 In-memory 기반 레포지토리 구현  
 - CRUD 구현
   - GET /api/v1/todo/{id}
     - id에 해당하는 todo 반환
