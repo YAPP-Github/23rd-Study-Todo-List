@@ -3,12 +3,13 @@ package com.example.studytodolist.todo.repository
 import com.example.studytodolist.todo.domain.Progress
 import com.example.studytodolist.todo.domain.Todo
 import org.springframework.stereotype.Component
+import java.util.concurrent.atomic.AtomicLong
 
 @Component
 class TodoRepositoryImpl: TodoRepository {
     companion object{
         private var todoMap = HashMap<Long, Todo>()
-        var INDEX = 0L
+        var INDEX = AtomicLong()
     }
     override fun save(todo: Todo): Todo {
         todoMap[todo.id] = todo
