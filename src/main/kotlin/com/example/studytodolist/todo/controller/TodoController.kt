@@ -9,12 +9,17 @@ import com.example.studytodolist.todo.service.TodoService
 import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import java.net.URI
 
 @RestController
 @RequestMapping(value = ["/api/v1/todo"], produces = [MediaType.APPLICATION_JSON_VALUE])
 class TodoController(private val todoService: TodoService) {
     @PostMapping("")
-    fun save(@RequestBody saveRequest: TodoSaveRequestDto): ResponseEntity<TodoSaveResponseDto> = ResponseEntity.ok(todoService.save(saveRequest))
+    fun save(@RequestBody saveRequest: TodoSaveRequestDto): ResponseEntity<TodoSaveResponseDto> {
+        val todoSaveResponseDto = todoService.save(saveRequest)
+        return ResponseEntity.created(URI.create("/api/v1/todo/".plus(todoSaveResponseDto.id.toString())))
+            .body(todoSaveResponseDto)
+    }
 
     @GetMapping("/list")
     fun findAll(): ResponseEntity<List<TodoFindResponseDto>> = ResponseEntity.ok(todoService.findAll())
