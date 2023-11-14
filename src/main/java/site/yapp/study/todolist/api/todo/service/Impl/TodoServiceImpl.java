@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.yapp.study.todolist.api.todo.domain.Todo;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
+import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoGetResponseDto;
 import site.yapp.study.todolist.api.todo.repository.TodoRepository;
 import site.yapp.study.todolist.api.todo.service.TodoService;
@@ -48,5 +49,13 @@ public class TodoServiceImpl implements TodoService {
         Todo todo = todoRepository.findByIdOrThrow(todoId);
 
         return TodoGetResponseDto.of(todo);
+    }
+
+    @Override
+    public void updateTodo(Long todoId, TodoUpdateRequestDto requestDto) {
+
+        Todo todo = todoRepository.findByIdOrThrow(todoId);
+
+        todo.updateTodo(requestDto.getCategory(), requestDto.getContent());
     }
 }

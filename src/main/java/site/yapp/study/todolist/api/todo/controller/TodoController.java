@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
+import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoGetResponseDto;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 import site.yapp.study.todolist.common.response.ApiResponse;
@@ -36,5 +37,11 @@ public class TodoController {
     public ApiResponse<TodoGetResponseDto> getEachTodo(@PathVariable Long todoId) {
         TodoGetResponseDto response = todoService.getEachTodo(todoId);
         return ApiResponse.success(SuccessCode.GET_EACH_TODO_SUCCESS, response);
+    }
+
+    @PatchMapping("/{todoId}")
+    public ApiResponse<Object> updateTodo(@PathVariable Long todoId, @RequestBody TodoUpdateRequestDto todoUpdateRequestDto) {
+        todoService.updateTodo(todoId, todoUpdateRequestDto);
+        return ApiResponse.success(SuccessCode.UPDATE_TODO_SUCCESS);
     }
 }

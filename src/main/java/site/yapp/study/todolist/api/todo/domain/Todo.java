@@ -36,4 +36,9 @@ public class Todo {
         this.deleted_at = null;
         this.is_completed = false;
     }
+
+    public void updateTodo(String category, String content) {
+        this.category= category;
+        this.content = content;
+    }
 }
