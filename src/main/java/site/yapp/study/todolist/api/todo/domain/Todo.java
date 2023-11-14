@@ -3,7 +3,6 @@ package site.yapp.study.todolist.api.todo.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.yapp.study.todolist.common.domain.BaseEntity;
 
 import java.util.Date;
 

@@ -10,7 +10,10 @@ import static org.springframework.http.HttpStatus.*;
 @AllArgsConstructor
 public enum SuccessCode {
     /* 201 CREATED */
-    CREATE_TODO_SUCCESS(CREATED, "할일 생성 성공");
+    CREATE_TODO_SUCCESS(CREATED, "할일 생성 성공"),
+
+    /* 200 OK */
+    GET_TODO_SUCCESS(OK, "할일 전체 조회 성공");
 
     private final HttpStatus status;
     private final String message;

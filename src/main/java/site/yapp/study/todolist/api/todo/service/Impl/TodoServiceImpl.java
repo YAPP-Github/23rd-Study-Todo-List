@@ -4,23 +4,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import site.yapp.study.todolist.api.todo.domain.Todo;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
+import site.yapp.study.todolist.api.todo.dto.response.TodoGetAllResponseDto;
 import site.yapp.study.todolist.api.todo.repository.TodoRepository;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
 public class TodoServiceImpl implements TodoService {
-    public Long sequence = 1L;
+    public Long INDEX = 1L;
     private final TodoRepository todoRepository;
 
     @Override
     public void createTodo(TodoCreateRequestDto requestDto) {
 
         Todo todo = Todo.builder()
-                .id(sequence++)
+                .id(INDEX++)
                 .category(requestDto.getCategory())
                 .content(requestDto.getContent())
                 .created_at(new Date())
@@ -28,5 +31,12 @@ public class TodoServiceImpl implements TodoService {
                 .build();
 
         todoRepository.save(todo);
+    }
+
+    public List<TodoGetAllResponseDto> getAllTodo() {
+
+        return todoRepository.findAll().stream()
+                .map(todo -> TodoGetAllResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.is_completed()))
+                .collect(Collectors.toList());
     }
 }
