@@ -13,7 +13,8 @@ public enum SuccessCode {
     CREATE_TODO_SUCCESS(CREATED, "할일 생성 성공"),
 
     /* 200 OK */
-    GET_TODO_SUCCESS(OK, "할일 전체 조회 성공");
+    GET_TODO_SUCCESS(OK, "할일 전체 조회 성공"),
+    GET_EACH_TODO_SUCCESS(OK, "할일 개별 조회 성공");
 
     private final HttpStatus status;
     private final String message;

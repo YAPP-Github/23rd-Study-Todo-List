@@ -15,12 +15,11 @@ public class TodoRepository {
 
     private final Map<Long, Todo> todoList = new HashMap<>();
 
-    private Todo findByIdOrThrow(Long id) {
+    public Todo findByIdOrThrow(Long id) {
 
-        Todo todo;
-        try {
-            todo = todoList.get(id);
-        } catch (Exception e) {
+        Todo todo = todoList.get(id);
+
+        if (todo == null) {
             throw new NotFoundException(ErrorCode.NOT_FOUND_TODO);
         }
 
