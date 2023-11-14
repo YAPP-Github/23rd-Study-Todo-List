@@ -2,9 +2,9 @@ package yapp.study.todolist.domain.category.controller
 
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
-import yapp.study.todolist.domain.category.dto.CategoriesDto
-import yapp.study.todolist.domain.category.dto.CategoriesWithTodosDto
-import yapp.study.todolist.domain.category.dto.CategoryNameDto
+import yapp.study.todolist.common.response.PageResponse
+import yapp.study.todolist.domain.base.PageParam
+import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.service.CategoryService
 
 @RestController
@@ -20,8 +20,8 @@ class CategoryController(
     }
 
     @GetMapping
-    fun getCategories(): CategoriesDto {
-        return categoryService.getCategories()
+    fun getCategories(pageParam: PageParam): PageResponse<CategoryDto> {
+        return categoryService.getCategories(pageParam)
     }
 
     @DeleteMapping("/{id}")
@@ -36,7 +36,7 @@ class CategoryController(
     }
 
     @GetMapping("/todos")
-    fun getCategoriesWithTodo(): CategoriesWithTodosDto {
-        return categoryService.getCategoriesWithTodo()
+    fun getCategoriesWithTodo(pageParam: PageParam): PageResponse<CategoryWithTodosDto> {
+        return categoryService.getCategoriesWithTodo(pageParam)
     }
 }

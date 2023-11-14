@@ -24,6 +24,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             e: BaseException,
             request: HttpServletRequest
     ): ResponseEntity<ErrorResponse> {
+        logger.info(e.message)
         val errorResponse = ErrorResponse(status = e.httpStatus.value(), reason = e.errorMessage)
         return ResponseEntity.status(e.httpStatus.value()).body(errorResponse)
     }
@@ -33,6 +34,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             e: Exception,
             request: HttpServletRequest
     ): ResponseEntity<ErrorResponse> {
+        logger.info(e.message)
         val errorResponse = ErrorResponse(
                 status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 reason = "관리자에게 문의 부탁드립니다."

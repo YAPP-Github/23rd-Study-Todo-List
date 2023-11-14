@@ -1,17 +1,12 @@
 package yapp.study.todolist.domain.todo.controller
 
 import org.springframework.http.MediaType
-import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import yapp.study.todolist.common.response.PageResponse
+import yapp.study.todolist.domain.base.PageParam
 import yapp.study.todolist.domain.todo.dto.TodoCommentDto
 import yapp.study.todolist.domain.todo.dto.TodoDetailDto
+import yapp.study.todolist.domain.todo.dto.TodoDto
 import yapp.study.todolist.domain.todo.dto.TodosDto
 import yapp.study.todolist.domain.todo.service.TodoService
 
@@ -28,8 +23,8 @@ class TodoController(
     }
 
     @GetMapping
-    fun getTodos(): TodosDto {
-        return todoService.getTodos()
+    fun getTodos(pageParam: PageParam): PageResponse<TodoDto> {
+        return todoService.getTodos(pageParam)
     }
 
     @PatchMapping("/{id}")

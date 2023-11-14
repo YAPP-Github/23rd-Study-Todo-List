@@ -1,5 +1,6 @@
 package yapp.study.todolist.domain.category.repository
 
+import yapp.study.todolist.domain.base.PageParam
 import yapp.study.todolist.domain.category.entity.Category
 
 interface CategoryRepository {
