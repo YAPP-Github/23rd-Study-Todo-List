@@ -166,6 +166,7 @@ class TodoServiceTest @Autowired constructor(
         test("상태 미완료로 변경 완료"){
             // when
             val todoId = todoService.createTodo(createRequest)
+            todoService.updateDoneTodo(todoId, true)
             todoService.updateDoneTodo(todoId, false)
             // then
             val todo = todoRepository.findById(todoId)
