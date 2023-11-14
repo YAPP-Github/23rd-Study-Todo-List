@@ -16,7 +16,10 @@ class PageResponse<T> (
                     data.size
                 else
                     pageParam.pageSize * pageParam.pageNumber
-            val newData = data.toMutableList().subList(from, to)
+            val newData = if (from < data.size)
+                    data.toMutableList().subList(from, to)
+                else
+                    emptyList<T>()
             val totalPage = calcTotalPage(data.size, pageParam.pageSize)
             val hasNextPage = calcHasNextPage(data.size, pageParam.pageSize, pageParam.pageNumber, totalPage)
             return PageResponse(
