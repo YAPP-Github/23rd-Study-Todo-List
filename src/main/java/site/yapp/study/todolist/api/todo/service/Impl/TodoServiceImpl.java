@@ -6,6 +6,7 @@ import site.yapp.study.todolist.api.todo.domain.Todo;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoGetResponseDto;
+import site.yapp.study.todolist.api.todo.dto.response.TodoToggleGetResponseDto;
 import site.yapp.study.todolist.api.todo.repository.TodoRepository;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 
@@ -65,5 +66,16 @@ public class TodoServiceImpl implements TodoService {
         Todo todo = todoRepository.findByIdOrThrow(todoId);
 
         todoRepository.delete(todo);
+    }
+
+    @Override
+    public TodoToggleGetResponseDto toggleTodoStatus(Long todoId, Boolean isCompleted) {
+
+        Todo todo = todoRepository.findByIdOrThrow(todoId);
+
+        if (isCompleted) todo.toggleTodo(Boolean.TRUE);
+        else todo.toggleTodo(Boolean.FALSE);
+
+        return TodoToggleGetResponseDto.of(todo);
     }
 }

@@ -16,7 +16,8 @@ public enum SuccessCode {
     GET_TODO_SUCCESS(OK, "할일 전체 조회 성공"),
     GET_EACH_TODO_SUCCESS(OK, "할일 개별 조회 성공"),
     UPDATE_TODO_SUCCESS(OK, "할일 수정 성공"),
-    DELETE_TODO_SUCCESS(OK, "할일 삭제 성공");
+    DELETE_TODO_SUCCESS(OK, "할일 삭제 성공"),
+    TOGGLE_TODO_SUCCESS(OK, "할일 완료 토글 변경 성공");
 
     private final HttpStatus status;
     private final String message;

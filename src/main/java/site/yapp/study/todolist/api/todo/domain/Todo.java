@@ -41,4 +41,8 @@ public class Todo {
         this.category= category;
         this.content = content;
     }
+
+    public void toggleTodo(Boolean is_completed) {
+        this.is_completed = is_completed;
+    }
 }

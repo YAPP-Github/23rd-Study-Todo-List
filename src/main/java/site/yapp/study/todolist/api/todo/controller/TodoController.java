@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoGetResponseDto;
+import site.yapp.study.todolist.api.todo.dto.response.TodoToggleGetResponseDto;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 import site.yapp.study.todolist.common.response.ApiResponse;
 import site.yapp.study.todolist.common.response.SuccessCode;
@@ -49,5 +50,11 @@ public class TodoController {
     public ApiResponse<Object> deleteTodo(@PathVariable Long todoId) {
         todoService.deleteTodo(todoId);
         return ApiResponse.success(SuccessCode.DELETE_TODO_SUCCESS);
+    }
+
+    @PatchMapping("/toggle/{todoId}")
+    public ApiResponse<TodoToggleGetResponseDto> toggleTodoStatus(@PathVariable Long todoId, @RequestParam Boolean isCompleted) {
+        TodoToggleGetResponseDto response = todoService.toggleTodoStatus(todoId, isCompleted);
+        return ApiResponse.success(SuccessCode.TOGGLE_TODO_SUCCESS, response);
     }
 }
