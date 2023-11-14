@@ -40,12 +40,13 @@
   - index를 설명해보자! 그런데 memory랑 disk의 차이는 얼마나 날까?
 
 **3주차**
+- (assignment) viewer를 count해주는 api를 만들어주세요. api 호출 진행시, viewer를 1만큼 올려주도록요. (DB에 count 데이터 필요)
 - (assignment) api-doc 및 테스트 커버러지 (swagger, rest docs, jacoco)
 - (cs) test-code (stub, mock)
   - 통합 테스트, 단위 테스트.. 등등 많은 테스트가 있는데, 이건 뭐고, 테스트는 왜 작성해야할까? 
 
 **4주차**
-- (assignment) restful api (7 promise)
+- (assignment) restful api (7 promise) 규칙을 지켜 수정해주세요.
 - (cs) restful이란, http, tcp, udp
 
 **5주차**
