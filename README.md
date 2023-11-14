@@ -35,8 +35,9 @@
 
 **2주차**
 - (assignment) db 기반 todo-list 구현
+- (assignment) bulk-create api 만들기 (max: 5000개, count를 입력받고, 다른 todo 컬럼에는 랜덤한 값을 입력)
 - (cs) mysql index, memory vs disk
-  - index를 설명해보자! 그런데 memory랑 disk의 차이는 얼마나 날까?  
+  - index를 설명해보자! 그런데 memory랑 disk의 차이는 얼마나 날까?
 
 **3주차**
 - (assignment) api-doc 및 테스트 커버러지 (swagger, rest docs, jacoco)
