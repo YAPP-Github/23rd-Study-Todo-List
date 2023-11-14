@@ -40,4 +40,8 @@ public class TodoRepository {
 
         return results;
     }
+
+    public void delete(Todo todo) {
+        todoList.remove(todo.getId(), todo);
+    }
 }

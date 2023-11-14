@@ -44,4 +44,10 @@ public class TodoController {
         todoService.updateTodo(todoId, todoUpdateRequestDto);
         return ApiResponse.success(SuccessCode.UPDATE_TODO_SUCCESS);
     }
+
+    @DeleteMapping("/{todoId}")
+    public ApiResponse<Object> deleteTodo(@PathVariable Long todoId) {
+        todoService.deleteTodo(todoId);
+        return ApiResponse.success(SuccessCode.DELETE_TODO_SUCCESS);
+    }
 }

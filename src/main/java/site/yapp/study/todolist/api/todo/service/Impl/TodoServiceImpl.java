@@ -58,4 +58,12 @@ public class TodoServiceImpl implements TodoService {
 
         todo.updateTodo(requestDto.getCategory(), requestDto.getContent());
     }
+
+    @Override
+    public void deleteTodo(Long todoId) {
+
+        Todo todo = todoRepository.findByIdOrThrow(todoId);
+
+        todoRepository.delete(todo);
+    }
 }
