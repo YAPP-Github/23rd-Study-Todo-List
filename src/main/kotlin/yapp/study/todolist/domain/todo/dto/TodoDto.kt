@@ -20,7 +20,7 @@ class TodoDto(
     companion object {
         fun toDto(todo: Todo): TodoDto {
             return TodoDto(
-                    id = todo.id,
+                    id = todo.id!!,
                     categoryId = todo.categoryId,
                     title = todo.title,
                     memo = todo.memo,

@@ -23,7 +23,7 @@ class TodoCommentDto(
     companion object {
         fun toDto(todo: Todo, comments: List<CommentDto>): TodoCommentDto {
             return TodoCommentDto(
-                    id = todo.id,
+                    id = todo.id!!,
                     categoryId = todo.categoryId,
                     title = todo.title,
                     memo = todo.memo,

@@ -1,5 +1,6 @@
 package yapp.study.todolist.domain.category.service
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import yapp.study.todolist.common.error.errors.NotFoundException
 import yapp.study.todolist.domain.base.IdGenerator
@@ -15,13 +16,11 @@ class CategoryService(
         private val categoryRepository: CategoryRepository,
         private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
-        private val idGenerator: IdGenerator
 ) {
     fun createCategory(categoryNameDto: CategoryNameDto): Long {
-        val generatedId = idGenerator.getAndIncreaseCategoryId()
-        val category = Category.toEntity(generatedId, categoryNameDto.name)
+        val category = Category.toEntity(categoryNameDto.name)
         categoryRepository.save(category)
-        return generatedId
+        return category.id!!
     }
 
     fun getCategories(): CategoriesDto {
@@ -29,16 +28,16 @@ class CategoryService(
     }
 
     fun deleteCategory(id: Long) {
-        categoryRepository.findById(id)
+        categoryRepository.findByIdOrNull(id)
                 ?.let { categoryRepository.deleteById(id) }
                 ?: throw NotFoundException("not exist category")
-        val todoIds = todoRepository.findByCategoryId(id).map { it.id }
+        val todoIds = todoRepository.findByCategoryId(id).map { it.id!! }
         commentRepository.deleteAllByTodoIdIn(todoIds)
-        todoRepository.deleteByIdIn(todoIds)
+        todoRepository.deleteAllByIdIn(todoIds)
     }
 
     fun updateCategory(id: Long, categoryNameDto: CategoryNameDto) {
-        categoryRepository.findById(id)
+        categoryRepository.findByIdOrNull(id)
                 ?.let {
                     it.updateName(categoryNameDto.name)
                     categoryRepository.save(it)

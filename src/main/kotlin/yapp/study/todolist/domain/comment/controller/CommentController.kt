@@ -15,7 +15,7 @@ import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.service.CommentService
 
 @RestController
-@RequestMapping(value = ["/comments"],
+@RequestMapping(value = ["/v1/comments"],
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class CommentController(

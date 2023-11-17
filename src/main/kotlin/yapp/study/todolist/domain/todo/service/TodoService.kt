@@ -1,5 +1,6 @@
 package yapp.study.todolist.domain.todo.service
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import yapp.study.todolist.common.error.errors.NotFoundException
 import yapp.study.todolist.domain.base.IdGenerator
@@ -18,15 +19,13 @@ class TodoService(
         private val categoryRepository: CategoryRepository,
         private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
-        private val idGenerator: IdGenerator
 ) {
     fun createTodo(todoDetailDto: TodoDetailDto): Long {
-        if (!categoryRepository.existById(todoDetailDto.categoryId)) {
+        if (!categoryRepository.existsById(todoDetailDto.categoryId)) {
             throw NotFoundException("not exist category")
         }
-        val generatedId = idGenerator.getAndIncreaseTodoId()
-        todoRepository.save(Todo.toEntity(generatedId, todoDetailDto))
-        return generatedId
+        val todo = todoRepository.save(Todo.toEntity(todoDetailDto))
+        return todo.id!!
     }
 
     fun getTodos(): TodosDto {
@@ -34,10 +33,10 @@ class TodoService(
     }
 
     fun updateTodo(id: Long, todoDetailDto: TodoDetailDto) {
-        if (!categoryRepository.existById(todoDetailDto.categoryId)) {
+        if (!categoryRepository.existsById(todoDetailDto.categoryId)) {
             throw NotFoundException("not exist category")
         }
-        todoRepository.findById(id)
+        todoRepository.findByIdOrNull(id)
                 ?.let {
                     it.update(todoDetailDto)
                     todoRepository.save(it)
@@ -46,7 +45,7 @@ class TodoService(
     }
 
     fun deleteTodo(id: Long) {
-        when (todoRepository.existById(id)) {
+        when (todoRepository.existsById(id)) {
             true -> todoRepository.deleteById(id)
             false -> throw NotFoundException("not exist todo")
         }
@@ -66,8 +65,8 @@ class TodoService(
     }
 
     fun getTodoWithComments(id: Long): TodoCommentDto {
-        val todo = todoRepository.findById(id) ?: throw NotFoundException("not exist todo")
-        val comments = commentRepository.findByTodoId(id).map { CommentDto.toDto(it) }
+        val todo = todoRepository.findByIdOrNull(id) ?: throw NotFoundException("not exist todo")
+        val comments = commentRepository.findAllByTodoId(id).map { CommentDto.toDto(it) }
         return TodoCommentDto.toDto(todo, comments)
     }
 }

@@ -10,7 +10,7 @@ class CommentDto(
     companion object {
         fun toDto(comment: Comment): CommentDto {
             return CommentDto(
-                    id = comment.id,
+                    id = comment.id!!,
                     todoId = comment.todoId,
                     content = comment.content
             )

@@ -8,7 +8,7 @@ import yapp.study.todolist.domain.category.dto.CategoryNameDto
 import yapp.study.todolist.domain.category.service.CategoryService
 
 @RestController
-@RequestMapping(value = ["/categories"],
+@RequestMapping(value = ["/v1/categories"],
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class CategoryController(

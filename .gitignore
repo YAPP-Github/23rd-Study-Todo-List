@@ -37,3 +37,7 @@ out/
 .vscode/
 
 .DS_Store
+
+mysqldata/
+
+docker-compose.yml

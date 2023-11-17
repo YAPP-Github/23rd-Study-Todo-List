@@ -16,7 +16,7 @@ import yapp.study.todolist.domain.todo.dto.TodosDto
 import yapp.study.todolist.domain.todo.service.TodoService
 
 @RestController
-@RequestMapping(value = ["/todos"],
+@RequestMapping(value = ["/v1/todos"],
         consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class TodoController(

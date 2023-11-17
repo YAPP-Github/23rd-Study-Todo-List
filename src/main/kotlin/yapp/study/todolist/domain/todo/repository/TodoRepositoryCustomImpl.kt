@@ -4,43 +4,43 @@ import org.springframework.stereotype.Component
 import yapp.study.todolist.domain.todo.entity.Todo
 
 @Component
-class TodoRepositoryImpl(
+class TodoRepositoryCustomImpl(
         private val todos: MutableMap<Long, Todo> = mutableMapOf()
-) : TodoRepository {
-    override fun save(todo: Todo): Todo {
-        todos[todo.id] = todo
+) : TodoRepositoryCustom {
+    override fun saveLocal(todo: Todo): Todo {
+        todos[todo.id!!] = todo
         return todo
     }
 
-    override fun findAll(): List<Todo> {
+    override fun findLocalAll(): List<Todo> {
         return todos.values.toList()
     }
 
-    override fun findById(id: Long): Todo? {
+    override fun findLocalById(id: Long): Todo? {
         return todos[id]
     }
 
-    override fun deleteById(id: Long) {
+    override fun deleteLocalById(id: Long) {
         todos.remove(id)
     }
 
-    override fun findByCategoryId(categoryId: Long): List<Todo> {
+    override fun findLocalByCategoryId(categoryId: Long): List<Todo> {
         return todos.values.filter { it.categoryId == categoryId }
     }
 
-    override fun deleteByIdIn(todoIds: List<Long>) {
+    override fun deleteLocalByIdIn(todoIds: List<Long>) {
         todoIds.map { todos.remove(it) }
     }
 
-    override fun existById(id: Long): Boolean {
+    override fun existLocalById(id: Long): Boolean {
         return todos[id] != null
     }
 
-    override fun deleteAll() {
+    override fun deleteLocalAll() {
         todos.clear()
     }
 
-    override fun findByIdAndIsDone(id: Long, isDone: Boolean): Todo? {
+    override fun findLocalByIdAndIsDone(id: Long, isDone: Boolean): Todo? {
         return if (todos[id]?.isDone == isDone) {
             todos[id]
         } else
