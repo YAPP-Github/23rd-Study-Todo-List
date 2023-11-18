@@ -18,8 +18,7 @@ class CategoryService(
         private val commentRepository: CommentRepository,
 ) {
     fun createCategory(categoryNameDto: CategoryNameDto): Long {
-        val category = Category.toEntity(categoryNameDto.name)
-        categoryRepository.save(category)
+        val category = categoryRepository.save(Category.toEntity(categoryNameDto.name))
         return category.id!!
     }
 

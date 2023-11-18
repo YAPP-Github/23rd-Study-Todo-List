@@ -19,8 +19,7 @@ class CommentService(
         if(!todoRepository.existsById(commentDetailDto.todoId)){
             throw NotFoundException("not exist todo")
         }
-        val comment = Comment.toEntity(commentDetailDto)
-        commentRepository.save(comment)
+        val comment = commentRepository.save(Comment.toEntity(commentDetailDto))
         return comment.id!!
     }
 

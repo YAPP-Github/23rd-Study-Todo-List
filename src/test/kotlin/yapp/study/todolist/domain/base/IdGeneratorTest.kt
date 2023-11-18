@@ -2,16 +2,13 @@ package yapp.study.todolist.domain.base
 
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicLong
 
-@SpringBootTest
-class IdGeneratorTest @Autowired constructor(
-        private val idGenerator: IdGenerator
-): FunSpec({
+internal class IdGeneratorTest: FunSpec({
+    val idGenerator = IdGenerator()
+
     context("id 생성 테스트") {
         test("category id는 중복 생성되지 않는다.") {
             val successCount = AtomicLong()
