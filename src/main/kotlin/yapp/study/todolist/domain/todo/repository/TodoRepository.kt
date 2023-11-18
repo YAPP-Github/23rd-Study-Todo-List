@@ -3,7 +3,7 @@ package yapp.study.todolist.domain.todo.repository
 import org.springframework.data.jpa.repository.JpaRepository
 import yapp.study.todolist.domain.todo.entity.Todo
 
-interface TodoRepository: JpaRepository<Todo, Long>, TodoRepositoryCustom{
+interface TodoRepository : JpaRepository<Todo, Long>, TodoRepositoryCustom{
     fun findByCategoryId(categoryId: Long): List<Todo>
     fun deleteAllByIdIn(ids: List<Long>)
     fun findByIdAndIsDone(id: Long, isDone: Boolean): Todo?

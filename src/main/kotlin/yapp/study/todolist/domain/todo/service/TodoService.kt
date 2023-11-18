@@ -2,6 +2,7 @@ package yapp.study.todolist.domain.todo.service
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import yapp.study.todolist.common.error.errors.NotFoundException
 import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.category.repository.CategoryRepository
@@ -20,6 +21,7 @@ class TodoService(
         private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
 ) {
+    @Transactional
     fun createTodo(todoDetailDto: TodoDetailDto): Long {
         if (!categoryRepository.existsById(todoDetailDto.categoryId)) {
             throw NotFoundException("not exist category")
@@ -28,10 +30,12 @@ class TodoService(
         return todo.id!!
     }
 
+    @Transactional(readOnly = true)
     fun getTodos(): TodosDto {
         return TodosDto.toDto(todoRepository.findAll().map {TodoDto.toDto(it)})
     }
 
+    @Transactional
     fun updateTodo(id: Long, todoDetailDto: TodoDetailDto) {
         if (!categoryRepository.existsById(todoDetailDto.categoryId)) {
             throw NotFoundException("not exist category")
@@ -39,11 +43,11 @@ class TodoService(
         todoRepository.findByIdOrNull(id)
                 ?.let {
                     it.update(todoDetailDto)
-                    todoRepository.save(it)
                 }
                 ?: throw NotFoundException("not exist todo")
     }
 
+    @Transactional
     fun deleteTodo(id: Long) {
         when (todoRepository.existsById(id)) {
             true -> todoRepository.deleteById(id)
@@ -52,6 +56,7 @@ class TodoService(
         commentRepository.deleteAllByTodoId(id)
     }
 
+    @Transactional
     fun updateDoneTodo(id: Long, done: Boolean) {
         todoRepository.findByIdAndIsDone(id, !done)
                 ?.let {
@@ -59,7 +64,6 @@ class TodoService(
                         true -> it.doneTodo()
                         false -> it.ongoingTodo()
                     }
-                    todoRepository.save(it)
                 }
                 ?: throw NotFoundException("not exist todo")
     }

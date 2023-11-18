@@ -17,5 +17,5 @@ open class BaseEntity(
 
         @LastModifiedDate
         @Column(updatable = true)
-        val updatedAt: LocalDateTime = LocalDateTime.now(),
+        var updatedAt: LocalDateTime = LocalDateTime.now(),
 )

@@ -3,7 +3,7 @@ package yapp.study.todolist.domain.category.repository
 import org.springframework.data.jpa.repository.JpaRepository
 import yapp.study.todolist.domain.category.entity.Category
 
-interface CategoryRepository: JpaRepository<Category, Long>, CategoryRepositoryCustom
+interface CategoryRepository : JpaRepository<Category, Long>, CategoryRepositoryCustom
 
 interface CategoryRepositoryCustom {
     fun saveLocal(category: Category): Category

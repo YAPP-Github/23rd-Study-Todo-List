@@ -2,6 +2,7 @@ package yapp.study.todolist.domain.category.service
 
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import yapp.study.todolist.common.error.errors.NotFoundException
 import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.category.dto.*
@@ -17,15 +18,18 @@ class CategoryService(
         private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
 ) {
+    @Transactional
     fun createCategory(categoryNameDto: CategoryNameDto): Long {
         val category = categoryRepository.save(Category.toEntity(categoryNameDto.name))
         return category.id!!
     }
 
+    @Transactional(readOnly = true)
     fun getCategories(): CategoriesDto {
         return CategoriesDto.toDto(categoryRepository.findAll().map {CategoryDto.toDto(it)})
     }
 
+    @Transactional
     fun deleteCategory(id: Long) {
         categoryRepository.findByIdOrNull(id)
                 ?.let { categoryRepository.deleteById(id) }
@@ -35,15 +39,16 @@ class CategoryService(
         todoRepository.deleteAllByIdIn(todoIds)
     }
 
+    @Transactional
     fun updateCategory(id: Long, categoryNameDto: CategoryNameDto) {
         categoryRepository.findByIdOrNull(id)
                 ?.let {
                     it.updateName(categoryNameDto.name)
-                    categoryRepository.save(it)
                 }
                 ?: throw NotFoundException("not exist category")
     }
 
+    @Transactional(readOnly = true)
     fun getCategoriesWithTodo(): CategoriesWithTodosDto{
         val categorys = categoryRepository.findAll()
         val todos = todoRepository.findAll()
