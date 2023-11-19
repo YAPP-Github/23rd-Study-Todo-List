@@ -21,7 +21,7 @@ class TodoController(private val todoService: TodoService) {
             .body(todoSaveResponseDto)
     }
 
-    @GetMapping("/list")
+    @GetMapping("")
     fun findAll(): ResponseEntity<List<TodoFindResponseDto>> = ResponseEntity.ok(todoService.findAll())
 
     @GetMapping("/{id}")
@@ -34,5 +34,6 @@ class TodoController(private val todoService: TodoService) {
     }
 
     @PatchMapping("")
-    fun update(@RequestBody updateRequest: TodoUpdateRequestDto): ResponseEntity<TodoUpdateResponseDto> = ResponseEntity.ok(todoService.update(updateRequest))
+    fun update(@RequestBody updateRequest: TodoUpdateRequestDto): ResponseEntity<TodoUpdateResponseDto> =
+        ResponseEntity.ok(todoService.update(updateRequest))
 }
