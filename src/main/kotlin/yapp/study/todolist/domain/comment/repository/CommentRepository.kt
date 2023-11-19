@@ -18,4 +18,5 @@ interface CommentRepositoryCustom {
     fun deleteLocalAllByTodoIdIn(todoIds: List<Long>)
     fun existLocalById(id: Long): Boolean
     fun deleteLocalAll()
+    fun bulkSave(comments: List<Comment>)
 }

@@ -1,12 +1,18 @@
 package yapp.study.todolist.domain.comment.repository
 
+import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
+import yapp.study.todolist.common.const.TodoConst
 import yapp.study.todolist.domain.comment.entity.Comment
+import java.sql.Date
+import java.time.Instant
 
 @Component
 class CommentRepositoryCustomImpl(
-        private val comments: MutableMap<Long, Comment> = mutableMapOf()
+        private val jdbcTemplate: JdbcTemplate
 ) : CommentRepositoryCustom {
+    private val comments: MutableMap<Long, Comment> = mutableMapOf()
+
     override fun saveLocal(comment: Comment): Comment {
         comments[comment.id!!] = comment
         return comment
@@ -40,6 +46,19 @@ class CommentRepositoryCustomImpl(
 
     override fun deleteLocalAll() {
         comments.clear()
+    }
+
+    override fun bulkSave(comments: List<Comment>) {
+        val sql = """
+            insert into comment(todo_id, content, created_at, updated_at)
+                values (?, ?, ?, ?)
+        """.trimIndent()
+        jdbcTemplate.batchUpdate(sql, comments, TodoConst.BULK_SIZE) { preparedStatement, comment ->
+            preparedStatement.setLong(1, comment.todoId)
+            preparedStatement.setString(2, comment.content)
+            preparedStatement.setDate(3, Date(Instant.now().toEpochMilli()))
+            preparedStatement.setDate(4, Date(Instant.now().toEpochMilli()))
+        }
     }
 
 }

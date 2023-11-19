@@ -15,5 +15,5 @@ spring:
         format_sql: true
         default_batch_fetch_size: 20
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop
     database: mysql

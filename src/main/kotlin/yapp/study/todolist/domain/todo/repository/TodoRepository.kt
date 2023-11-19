@@ -19,4 +19,5 @@ interface TodoRepositoryCustom {
     fun existLocalById(id: Long): Boolean
     fun deleteLocalAll()
     fun findLocalByIdAndIsDone(id: Long, isDone: Boolean): Todo?
+    fun bulkSave(todos: List<Todo>)
 }
