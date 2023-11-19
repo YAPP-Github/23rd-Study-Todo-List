@@ -45,4 +45,11 @@ public class ItemDto {
         private String contents;
     }
 
+    @Builder
+    @Data
+    public static class ResponseBulkItem {
+        private Long memberId;
+        private Long count;
+    }
+
 }

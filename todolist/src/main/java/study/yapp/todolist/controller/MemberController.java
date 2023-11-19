@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.yapp.todolist.common.Response;
 import study.yapp.todolist.dto.MemberDto;
-import study.yapp.todolist.week1.service.MemberService;
+import study.yapp.todolist.week2.service.MemberService;
 
 @RestController
 @RequiredArgsConstructor

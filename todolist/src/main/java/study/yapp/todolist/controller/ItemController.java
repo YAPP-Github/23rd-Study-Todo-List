@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import study.yapp.todolist.common.Response;
 import study.yapp.todolist.dto.ItemDto;
-import study.yapp.todolist.week1.service.ItemService;
+import study.yapp.todolist.week2.service.ItemService;
 
 import java.util.List;
 
@@ -75,5 +75,12 @@ public class ItemController {
         ItemDto.ResponseItemDto result = itemService.getItem(itemId);
 
         return new Response<>(result);
+    }
+
+    @PostMapping("/todo/bulk")
+    public ResponseEntity<Response<ItemDto.ResponseBulkItem>> createBulkItem(@RequestParam(name = "count") Long count, @RequestParam(name = "memberId") Long memberId) {
+        ItemDto.ResponseBulkItem result = itemService.createBulk(count, memberId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(new Response<>(result));
     }
 }

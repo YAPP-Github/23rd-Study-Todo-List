@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Stream;
 
-@Repository
+//@Repository
 public class ItemRepository {
 
     public AtomicLong ITEM_INDEX = new AtomicLong(0);

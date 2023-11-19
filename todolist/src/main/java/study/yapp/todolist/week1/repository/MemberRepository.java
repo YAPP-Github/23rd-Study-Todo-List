@@ -7,7 +7,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-@Repository
+//@Repository
 public class MemberRepository {
     public AtomicLong MEMBER_INDEX = new AtomicLong(0);
 
