@@ -1,5 +1,7 @@
 package com.example.studytodolist.todo.service
 
+import com.example.studytodolist.common.exception.BusinessException
+import com.example.studytodolist.common.exception.ErrorCode
 import com.example.studytodolist.todo.domain.Todo
 import com.example.studytodolist.todo.dto.request.TodoSaveRequestDto
 import com.example.studytodolist.todo.dto.request.TodoUpdateRequestDto
@@ -26,7 +28,7 @@ class TodoService(
     }
 
     fun findById(id: Long): TodoFindResponseDto {
-        val todo = todoRepository.findByIdOrNull(id) ?: throw RuntimeException("존재하지 않는 todo입니다.")
+        val todo = todoRepository.findByIdOrNull(id) ?: throw BusinessException(ErrorCode.TODO_NOT_FOUND)
         return TodoFindResponseDto(todo)
     }
 
@@ -34,7 +36,7 @@ class TodoService(
 
     @Transactional
     fun update(todoUpdateRequestDto: TodoUpdateRequestDto): TodoUpdateResponseDto{
-        val todo: Todo = todoRepository.findByIdOrNull(todoUpdateRequestDto.id) ?: throw RuntimeException("존재하지 않는 todo입니다.")
+        val todo: Todo = todoRepository.findByIdOrNull(todoUpdateRequestDto.id) ?: throw BusinessException(ErrorCode.TODO_NOT_FOUND)
         todo.progress = todoUpdateRequestDto.progress
         return TodoUpdateResponseDto(todo)
     }
