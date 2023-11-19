@@ -12,4 +12,5 @@ interface CategoryRepositoryCustom {
     fun deleteLocalById(id: Long)
     fun existLocalById(id: Long): Boolean
     fun deleteLocalAll()
+    fun bulkSave(categories: List<Category>)
 }
