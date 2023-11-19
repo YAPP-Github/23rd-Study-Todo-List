@@ -7,6 +7,7 @@ interface TodoRepository : JpaRepository<Todo, Long>, TodoRepositoryCustom{
     fun findByCategoryId(categoryId: Long): List<Todo>
     fun deleteAllByIdIn(ids: List<Long>)
     fun findByIdAndIsDone(id: Long, isDone: Boolean): Todo?
+    fun findAllByCategoryIdIn(categoryId: List<Long>): List<Todo>
 }
 
 interface TodoRepositoryCustom {
