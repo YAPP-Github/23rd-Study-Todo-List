@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import site.yapp.study.todolist.common.domain.BaseEntity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
