@@ -1,5 +1,5 @@
 package yapp.study.todolist.common.response
 
-class SuccessResponse (
-        val data: Any?
+class SuccessResponse <T> (
+        val data: T?
 )

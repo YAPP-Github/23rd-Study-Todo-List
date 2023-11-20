@@ -20,7 +20,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             statusCode: HttpStatusCode,
             request: WebRequest
     ): ResponseEntity<Any>? {
-        println(ex.message)
+        logger.error(ex.message)
         val errorBody = mapOf("error msg" to ex.message)
         return super.handleExceptionInternal(ex, errorBody, headers, statusCode, request)
     }
@@ -30,7 +30,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             e: BaseException,
             request: HttpServletRequest
     ): ResponseEntity<Map<String, String>> {
-        println(e.message)
+        logger.error(e.message)
         val body = mapOf("error msg" to e.errorMessage)
         return ResponseEntity.status(e.httpStatus.value()).body(body)
     }
@@ -40,7 +40,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             e: Exception,
             request: HttpServletRequest
     ): ResponseEntity<Map<String, String>> {
-        println(e.message)
+        logger.error(e.message)
         val body = mapOf("error msg" to "관리자에게 문의 부탁드립니다.")
         return ResponseEntity.internalServerError().body(body)
     }
