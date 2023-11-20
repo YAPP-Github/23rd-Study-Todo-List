@@ -3,6 +3,7 @@ package site.yapp.study.todolist.api.todo.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import site.yapp.study.todolist.api.todo.dto.request.TodoBulkCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoGetResponseDto;
@@ -24,6 +25,13 @@ public class TodoController {
     public ApiResponse<Object> createTodo(@RequestBody TodoCreateRequestDto todoCreateRequestDto) {
         todoService.createTodo(todoCreateRequestDto);
         return ApiResponse.success(SuccessCode.CREATE_TODO_SUCCESS);
+    }
+
+    @PostMapping("/bulk")
+    @ResponseStatus(HttpStatus.CREATED)
+    public ApiResponse<Object> createBulkTodo(@RequestBody TodoBulkCreateRequestDto todoBulkCreateRequestDto) {
+        todoService.createBulkTodo(todoBulkCreateRequestDto);
+        return ApiResponse.success(SuccessCode.CREATE_BULK_TODO_SUCCESS);
     }
 
     @GetMapping

@@ -4,10 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.yapp.study.todolist.api.todo.domain.Todo;
+import site.yapp.study.todolist.api.todo.dto.request.TodoBulkCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoGetResponseDto;
 import site.yapp.study.todolist.api.todo.dto.response.TodoToggleGetResponseDto;
+import site.yapp.study.todolist.api.todo.repository.TodoBulkRepository;
 import site.yapp.study.todolist.api.todo.repository.TodoRepository;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 
@@ -20,8 +22,10 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
+    private final TodoBulkRepository todoBulkRepository;
 
     @Override
+    @Transactional
     public void createTodo(TodoCreateRequestDto requestDto) {
 
         Todo todo = Todo.builder()
@@ -30,6 +34,13 @@ public class TodoServiceImpl implements TodoService {
                 .build();
 
         todoRepository.save(todo);
+    }
+
+    @Override
+    @Transactional
+    public void createBulkTodo(TodoBulkCreateRequestDto requestDto) {
+
+        todoBulkRepository.saveAll(requestDto.getTodoList());
     }
 
 
