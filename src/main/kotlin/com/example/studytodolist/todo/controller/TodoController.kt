@@ -1,7 +1,9 @@
 package com.example.studytodolist.todo.controller
 
+import com.example.studytodolist.todo.dto.request.BulkSaveRequestDto
 import com.example.studytodolist.todo.dto.request.TodoSaveRequestDto
 import com.example.studytodolist.todo.dto.request.TodoUpdateRequestDto
+import com.example.studytodolist.todo.dto.response.BulkSaveResponseDto
 import com.example.studytodolist.todo.dto.response.TodoFindResponseDto
 import com.example.studytodolist.todo.dto.response.TodoSaveResponseDto
 import com.example.studytodolist.todo.dto.response.TodoUpdateResponseDto
@@ -36,4 +38,9 @@ class TodoController(private val todoService: TodoService) {
     @PatchMapping("")
     fun update(@RequestBody updateRequest: TodoUpdateRequestDto): ResponseEntity<TodoUpdateResponseDto> =
         ResponseEntity.ok(todoService.update(updateRequest))
+
+    @PostMapping("/bulk")
+    fun bulkSave(@RequestBody bulkSaveRequestDto: BulkSaveRequestDto): ResponseEntity<BulkSaveResponseDto>{
+        return ResponseEntity.created(URI.create("/api/v1/todo")).body(todoService.bulkSave(bulkSaveRequestDto))
+    }
 }
