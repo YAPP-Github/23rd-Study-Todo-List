@@ -30,6 +30,7 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	// test 설정
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
