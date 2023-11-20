@@ -3,21 +3,16 @@ package yapp.study.todolist.domain.todo.service
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.matchers.shouldNotBe
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
-import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.repository.CommentRepository
-import yapp.study.todolist.domain.todo.dto.TodoDetailDto
-import yapp.study.todolist.domain.todo.repository.TodoRepository
 import yapp.study.todolist.domain.testFixture.Fixture
+import yapp.study.todolist.domain.todo.dto.TodoDetailDto
 import yapp.study.todolist.domain.todo.entity.Todo
+import yapp.study.todolist.domain.todo.repository.TodoRepository
 import java.time.LocalDate
 import java.time.LocalTime
 
