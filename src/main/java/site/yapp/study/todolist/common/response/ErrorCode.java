@@ -11,7 +11,8 @@ import static org.springframework.http.HttpStatus.*;
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 public enum ErrorCode {
     /* 404 NOT FOUND */
-    NOT_FOUND_TODO(NOT_FOUND, "존재하지 않는 할일입니다.");
+    NOT_FOUND_TODO(NOT_FOUND, "존재하지 않는 할일입니다."),
+    DELETED_TODO(NOT_FOUND, "삭제된 할일입니다.");
 
     private final HttpStatus status;
     private final String message;

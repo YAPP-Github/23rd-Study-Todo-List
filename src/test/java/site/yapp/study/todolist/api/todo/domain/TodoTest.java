@@ -7,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import site.yapp.study.todolist.api.todo.repository.TodoRepository;
 
-import java.util.Date;
-
 public class TodoTest {
     @Autowired
     private TodoRepository todoRepository;
@@ -21,8 +19,6 @@ public class TodoTest {
                 .id(1L)
                 .category("Test Todo")
                 .content("Test Content")
-                .created_at(new Date())
-                .updated_at(new Date())
                 .build();
 
         // when
@@ -33,6 +29,6 @@ public class TodoTest {
         assertThat(savedTodo.getId()).isEqualTo(1L);
         assertThat(savedTodo.getCategory()).isEqualTo("Test Todo");
         assertThat(savedTodo.getContent()).isEqualTo("Test Content");
-        assertThat(savedTodo.is_completed()).isFalse();
+        assertThat(savedTodo.isCompleted()).isFalse();
     }
 }

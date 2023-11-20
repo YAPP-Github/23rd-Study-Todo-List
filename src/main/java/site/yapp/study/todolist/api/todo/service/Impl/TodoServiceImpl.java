@@ -2,6 +2,7 @@ package site.yapp.study.todolist.api.todo.service.Impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import site.yapp.study.todolist.api.todo.domain.Todo;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoUpdateRequestDto;
@@ -10,26 +11,22 @@ import site.yapp.study.todolist.api.todo.dto.response.TodoToggleGetResponseDto;
 import site.yapp.study.todolist.api.todo.repository.TodoRepository;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class TodoServiceImpl implements TodoService {
-    public Long INDEX = 1L;
     private final TodoRepository todoRepository;
 
     @Override
     public void createTodo(TodoCreateRequestDto requestDto) {
 
         Todo todo = Todo.builder()
-                .id(INDEX++)
                 .category(requestDto.getCategory())
                 .content(requestDto.getContent())
-                .created_at(new Date())
-                .updated_at(new Date())
                 .build();
 
         todoRepository.save(todo);
@@ -40,7 +37,7 @@ public class TodoServiceImpl implements TodoService {
     public List<TodoGetResponseDto> getAllTodo() {
 
         return todoRepository.findAll().stream()
-                .map(todo -> TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.is_completed()))
+                .map(todo -> TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.isCompleted()))
                 .collect(Collectors.toList());
     }
 
@@ -53,6 +50,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    @Transactional
     public void updateTodo(Long todoId, TodoUpdateRequestDto requestDto) {
 
         Todo todo = todoRepository.findByIdOrThrow(todoId);
@@ -61,6 +59,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    @Transactional
     public void deleteTodo(Long todoId) {
 
         Todo todo = todoRepository.findByIdOrThrow(todoId);
@@ -69,6 +68,7 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    @Transactional
     public TodoToggleGetResponseDto toggleTodoStatus(Long todoId, Boolean isCompleted) {
 
         Todo todo = todoRepository.findByIdOrThrow(todoId);

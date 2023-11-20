@@ -1,48 +1,49 @@
 package site.yapp.study.todolist.api.todo.domain;
 
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import site.yapp.study.todolist.common.domain.BaseEntity;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
+import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
 
+@Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Todo {
+public class Todo extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     private Long id;
 
     private String category;
 
     private String content;
 
-    private Date created_at;
+    @Column(name = "is_deleted")
+    private LocalDateTime deletedAt;
 
-    private Date updated_at;
-
-    private Date deleted_at;
-
-    private boolean is_completed;
+    private boolean isCompleted;
 
     @Builder
-    public Todo(Long id, String category, String content, Date created_at, Date updated_at) {
-        this.id = id;
+    public Todo(String category, String content) {
         this.category = category;
         this.content = content;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.deleted_at = null;
-        this.is_completed = false;
+        this.deletedAt = null;
+        this.isCompleted = false;
     }
 
     public void updateTodo(String category, String content) {
-        this.category= category;
+        this.category = category;
         this.content = content;
     }
 
-    public void toggleTodo(Boolean is_completed) {
-        this.is_completed = is_completed;
+    public void toggleTodo(Boolean isCompleted) {
+        this.isCompleted = isCompleted;
     }
 }

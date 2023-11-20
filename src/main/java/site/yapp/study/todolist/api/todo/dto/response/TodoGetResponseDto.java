@@ -22,7 +22,7 @@ public class TodoGetResponseDto {
                 .todoId(todo.getId())
                 .category(todo.getCategory())
                 .content(todo.getContent())
-                .isCompleted(todo.is_completed())
+                .isCompleted(todo.isCompleted())
                 .build();
     }
 }
