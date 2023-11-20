@@ -4,7 +4,9 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import yapp.study.todolist.common.error.errors.NotFoundException
+import yapp.study.todolist.common.response.PageResponse
 import yapp.study.todolist.domain.base.IdGenerator
+import yapp.study.todolist.domain.base.PageParam
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.dto.CommentDto
 import yapp.study.todolist.domain.comment.repository.CommentRepository
@@ -31,8 +33,8 @@ class TodoService(
     }
 
     @Transactional(readOnly = true)
-    fun getTodos(): TodosDto {
-        return TodosDto.toDto(todoRepository.findAll().map {TodoDto.toDto(it)})
+    fun getTodos(pageParam: PageParam): PageResponse<TodoDto> {
+        return PageResponse.toResponse(pageParam, todoRepository.findAll().map {TodoDto.toDto(it)})
     }
 
     @Transactional

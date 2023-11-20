@@ -1,6 +1,7 @@
 package yapp.study.todolist.domain.category.repository
 
 import org.springframework.stereotype.Component
+import yapp.study.todolist.domain.base.PageParam
 import yapp.study.todolist.domain.category.entity.Category
 
 @Component

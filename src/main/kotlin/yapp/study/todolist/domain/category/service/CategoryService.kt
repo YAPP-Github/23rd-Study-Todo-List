@@ -4,7 +4,9 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import yapp.study.todolist.common.error.errors.NotFoundException
+import yapp.study.todolist.common.response.PageResponse
 import yapp.study.todolist.domain.base.IdGenerator
+import yapp.study.todolist.domain.base.PageParam
 import yapp.study.todolist.domain.category.dto.*
 import yapp.study.todolist.domain.category.entity.Category
 import yapp.study.todolist.domain.category.repository.CategoryRepository
@@ -25,8 +27,8 @@ class CategoryService(
     }
 
     @Transactional(readOnly = true)
-    fun getCategories(): CategoriesDto {
-        return CategoriesDto.toDto(categoryRepository.findAll().map {CategoryDto.toDto(it)})
+    fun getCategories(pageParam: PageParam): PageResponse<CategoryDto> {
+        return PageResponse.toResponse(pageParam, categoryRepository.findAll().map {CategoryDto.toDto(it)})
     }
 
     @Transactional
@@ -49,10 +51,10 @@ class CategoryService(
     }
 
     @Transactional(readOnly = true)
-    fun getCategoriesWithTodo(): CategoriesWithTodosDto{
+    fun getCategoriesWithTodo(pageParam: PageParam): PageResponse<CategoryWithTodosDto> {
         val categorys = categoryRepository.findAll()
         val todos = todoRepository.findAll()
-        return CategoriesWithTodosDto.toDto(categorys.map {
+        return PageResponse.toResponse(pageParam, categorys.map {
             CategoryWithTodosDto.toDto(it, todos.filter { todo: Todo ->  it.id == todo.categoryId })
         })
     }
