@@ -6,6 +6,9 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
+import site.yapp.study.todolist.common.exception.BadRequestException;
+import site.yapp.study.todolist.common.exception.InternalServerException;
+import site.yapp.study.todolist.common.response.ErrorCode;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -39,19 +42,24 @@ public class TodoBulkRepository {
     private int batchInsert(int batchCount, List<TodoCreateRequestDto> todoList) {
         String sql = "INSERT INTO TODO (category, content, is_completed) VALUES (?, ?, ?)";
 
-        jdbcTemplate.batchUpdate(sql,
-                new BatchPreparedStatementSetter() {
-                    @Override
-                    public void setValues(PreparedStatement ps, int i) throws SQLException {
-                        ps.setString(1, todoList.get(i).getCategory());
-                        ps.setString(2, todoList.get(i).getContent());
-                        ps.setBoolean(3, false);
-                    }
-                    @Override
-                    public int getBatchSize() {
-                        return todoList.size();
-                    }
-                });
+        try {
+            jdbcTemplate.batchUpdate(sql,
+                    new BatchPreparedStatementSetter() {
+                        @Override
+                        public void setValues(PreparedStatement ps, int i) throws SQLException {
+                            ps.setString(1, todoList.get(i).getCategory());
+                            ps.setString(2, todoList.get(i).getContent());
+                            ps.setBoolean(3, false);
+                        }
+                        @Override
+                        public int getBatchSize() {
+                            return todoList.size();
+                        }
+                    });
+        } catch (Exception e) {
+            throw new BadRequestException(ErrorCode.FAILED_BULK_TODO);
+        }
+
         todoList.clear();
         batchCount++;
         return batchCount;
