@@ -1,6 +1,6 @@
-package com.example.todolist.adapter
+package com.example.todolist.adapter.api
 
-import com.example.todolist.application.Page
+import com.example.todolist.application.model.Page
 import com.example.todolist.application.port.TaskUseCase
 import com.example.todolist.domain.Task
 import org.springframework.http.HttpStatus

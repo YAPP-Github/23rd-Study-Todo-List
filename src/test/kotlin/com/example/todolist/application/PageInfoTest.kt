@@ -1,5 +1,7 @@
 package com.example.todolist.application
 
+import com.example.todolist.application.model.PageInfo
+import com.example.todolist.application.model.Pageable
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

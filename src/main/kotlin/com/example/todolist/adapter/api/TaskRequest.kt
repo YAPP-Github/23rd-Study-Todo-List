@@ -1,7 +1,7 @@
-package com.example.todolist.adapter
+package com.example.todolist.adapter.api
 
-import com.example.todolist.application.CreateTaskCommand
-import com.example.todolist.application.UpdateTaskCommand
+import com.example.todolist.application.model.CreateTaskCommand
+import com.example.todolist.application.model.UpdateTaskCommand
 
 data class CreateTaskRequest(
     val title: String,

@@ -1,4 +1,4 @@
-package com.example.todolist.application
+package com.example.todolist.application.model
 
 data class CreateTaskCommand(
     val title: String,

@@ -1,8 +1,8 @@
-package com.example.todolist.adapter
+package com.example.todolist.adapter.repository
 
-import com.example.todolist.application.Page
-import com.example.todolist.application.PageInfo
-import com.example.todolist.application.Pageable
+import com.example.todolist.application.model.Page
+import com.example.todolist.application.model.PageInfo
+import com.example.todolist.application.model.Pageable
 import com.example.todolist.application.port.TaskRepository
 import com.example.todolist.domain.Task
 import org.springframework.stereotype.Repository

@@ -1,3 +1,3 @@
-package com.example.todolist.application
+package com.example.todolist.domain
 
 class TaskNotFoundException: RuntimeException("Task not found")

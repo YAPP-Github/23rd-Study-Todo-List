@@ -1,6 +1,6 @@
-package com.example.todolist.adapter
+package com.example.todolist.adapter.api
 
-import com.example.todolist.application.Pageable
+import com.example.todolist.application.model.Pageable
 
 data class PageRequest (
     val page: Int,

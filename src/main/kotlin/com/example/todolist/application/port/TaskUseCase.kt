@@ -1,9 +1,9 @@
 package com.example.todolist.application.port
 
-import com.example.todolist.application.CreateTaskCommand
-import com.example.todolist.application.Page
-import com.example.todolist.application.Pageable
-import com.example.todolist.application.UpdateTaskCommand
+import com.example.todolist.application.model.CreateTaskCommand
+import com.example.todolist.application.model.Page
+import com.example.todolist.application.model.Pageable
+import com.example.todolist.application.model.UpdateTaskCommand
 import com.example.todolist.domain.Task
 import java.util.UUID
 
