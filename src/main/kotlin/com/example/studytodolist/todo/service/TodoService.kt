@@ -16,6 +16,7 @@ import com.example.studytodolist.todo.repository.TodoRepository
 import jakarta.transaction.Transactional
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.sql.SQLException
 
 @Service
 class TodoService(
@@ -47,12 +48,22 @@ class TodoService(
     }
 
     fun bulkSave(bulkSaveRequestDto: BulkSaveRequestDto): BulkSaveResponseDto {
-        val todoList = mutableListOf<Todo>()
-        for (i: Int in 1..bulkSaveRequestDto.count){
-            val todo: Todo = Todo(title = "title-$i", content = "content-$i", progress = Progress.PROCESSING)
-            todoList.add(todo)
-            System.out.println(todo.id)
+        var startIndex: Int = 1
+        val bulkSize: Int = 1000
+        val result: BulkSaveResponseDto = BulkSaveResponseDto(0)
+        val count = bulkSaveRequestDto.count
+        try {
+            do{
+                result.append(todoBulkInsertRepository.saveAll(
+                    (startIndex..if (startIndex + bulkSize - 1> count) count else startIndex + bulkSize - 1)
+                        .map { i -> Todo(title = "title-$i", content = "content-$i", progress = Progress.PROCESSING) }
+                        .toMutableList()
+                ))
+                startIndex += bulkSize
+            } while (startIndex <= count)
+            return result
+        } catch (e: SQLException) {
+            throw BusinessException(ErrorCode.TODO_BULK_INSERT_FAILED)
         }
-        return BulkSaveResponseDto(todoBulkInsertRepository.saveAll(todoList))
     }
 }

@@ -7,9 +7,6 @@ import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Repository
 import java.sql.PreparedStatement
 
-
-
-
 @Repository
 class TodoBulkInsertRepository(
     private val jdbcTemplate: JdbcTemplate
