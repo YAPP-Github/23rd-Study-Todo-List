@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@RequestMapping("v1/tasks")
+@RequestMapping("v1/tasks", produces = [MediaType.APPLICATION_JSON_VALUE])
 @RestController
 class TaskV1Controller(
     private val taskUseCase: TaskUseCase
@@ -26,7 +26,7 @@ class TaskV1Controller(
         return ResponseEntity.ok(task)
     }
 
-    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createTask(
         @RequestBody request: CreateTaskRequest
     ): ResponseEntity<Task> {
@@ -34,7 +34,7 @@ class TaskV1Controller(
         return ResponseEntity.status(HttpStatus.CREATED).body(task)
     }
 
-    @PatchMapping("{uuid}", produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
+    @PatchMapping("{uuid}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun updateTask(
         @PathVariable uuid: UUID,
         @RequestBody request: UpdateTaskRequest
