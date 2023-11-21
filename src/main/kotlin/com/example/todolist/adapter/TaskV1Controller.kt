@@ -1,5 +1,6 @@
 package com.example.todolist.adapter
 
+import com.example.todolist.application.Page
 import com.example.todolist.application.port.TaskUseCase
 import com.example.todolist.domain.Task
 import org.springframework.http.HttpStatus
@@ -14,8 +15,8 @@ class TaskV1Controller(
     private val taskUseCase: TaskUseCase
 ) {
     @GetMapping
-    fun getTasks(): ResponseEntity<List<Task>> {
-        val tasks = taskUseCase.getAllTasks()
+    fun getTasks(request: PageRequest): ResponseEntity<Page<Task>> {
+        val tasks = taskUseCase.getTasks(request.toPageable())
         return ResponseEntity.ok(tasks)
     }
 
@@ -29,7 +30,7 @@ class TaskV1Controller(
     fun createTask(
         @RequestBody request: CreateTaskRequest
     ): ResponseEntity<Task> {
-        val task = taskUseCase.createTask(request.title, request.description)
+        val task = taskUseCase.createTask(request.toCommand())
         return ResponseEntity.status(HttpStatus.CREATED).body(task)
     }
 
@@ -38,7 +39,7 @@ class TaskV1Controller(
         @PathVariable uuid: UUID,
         @RequestBody request: UpdateTaskRequest
     ): ResponseEntity<Task> {
-        val task = taskUseCase.updateTask(uuid, request.title, request.description, request.isComplete)
+        val task = taskUseCase.updateTask(uuid, request.toCommand())
         return ResponseEntity.ok(task)
     }
 

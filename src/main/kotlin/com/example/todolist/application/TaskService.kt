@@ -10,16 +10,16 @@ import java.util.UUID
 class TaskService(
     private val taskRepository: TaskRepository
 ): TaskUseCase {
-    override fun getAllTasks(): List<Task> {
-        return taskRepository.findAll()
+    override fun getTasks(pageable: Pageable): Page<Task> {
+        return taskRepository.findAllOrderByCreatedAtAsc(pageable)
     }
 
     override fun getTask(uuid: UUID): Task {
         return taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
     }
 
-    override fun createTask(title: String, description: String?): Task {
-        val task = Task(title, description)
+    override fun createTask(command: CreateTaskCommand): Task {
+        val task = Task(command.title, command.description)
         return taskRepository.add(task)
     }
 
@@ -28,11 +28,11 @@ class TaskService(
         taskRepository.remove(task)
     }
 
-    override fun updateTask(uuid: UUID, title: String?, description: String?, isComplete: Boolean?): Task {
+    override fun updateTask(uuid: UUID, command: UpdateTaskCommand): Task {
         val task = taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
-        title?.let { task.title = it }
-        description?.let { task.description = it }
-        isComplete?.let { task.isComplete = it }
+        command.title?.let { task.title = it }
+        command.description?.let { task.description = it }
+        command.isComplete?.let { task.isComplete = it }
         return task
     }
 }
