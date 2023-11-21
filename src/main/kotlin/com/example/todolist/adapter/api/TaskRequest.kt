@@ -21,3 +21,7 @@ data class UpdateTaskRequest(
         return UpdateTaskCommand(title, description, isComplete)
     }
 }
+
+data class CreateTasksInBulkRequest(
+    val count: Int
+)

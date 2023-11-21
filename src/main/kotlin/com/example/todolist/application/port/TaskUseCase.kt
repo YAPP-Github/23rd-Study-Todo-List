@@ -11,6 +11,7 @@ interface TaskUseCase {
     fun getTasks(pageable: Pageable): Page<Task>
     fun getTask(uuid: UUID): Task
     fun createTask(command: CreateTaskCommand): Task
+    fun createTasksInBulk(count: Int): Int
     fun deleteTask(uuid: UUID)
     fun updateTask(uuid: UUID, command: UpdateTaskCommand): Task
 }

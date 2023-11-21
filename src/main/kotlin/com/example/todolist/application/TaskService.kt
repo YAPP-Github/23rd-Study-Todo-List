@@ -28,6 +28,13 @@ class TaskService(
         return taskRepository.save(task)
     }
 
+    override fun createTasksInBulk(count: Int): Int {
+        val tasks = (1..count).map {
+            Task("title $it", "description $it")
+        }
+        return taskRepository.saveInBatch(tasks)
+    }
+
     override fun deleteTask(uuid: UUID) {
         val task = taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
         taskRepository.delete(task)

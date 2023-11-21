@@ -9,5 +9,6 @@ interface TaskRepository {
     fun findAllOrderByCreatedAtAsc(pageable: Pageable): Page<Task>
     fun findByUuidOrNull(uuid: UUID): Task?
     fun save(task: Task): Task
+    fun saveInBatch(tasks: List<Task>): Int
     fun delete(task: Task)
 }

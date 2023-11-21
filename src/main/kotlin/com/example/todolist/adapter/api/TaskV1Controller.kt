@@ -34,6 +34,14 @@ class TaskV1Controller(
         return ResponseEntity.status(HttpStatus.CREATED).body(task)
     }
 
+    @PostMapping("bulk", consumes = [MediaType.APPLICATION_JSON_VALUE])
+    fun createTasksInBulk(
+        @RequestBody request: CreateTasksInBulkRequest
+    ): ResponseEntity<Int> {
+        val insertCount = taskUseCase.createTasksInBulk(request.count)
+        return ResponseEntity.status(HttpStatus.CREATED).body(insertCount)
+    }
+
     @PatchMapping("{uuid}", consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun updateTask(
         @PathVariable uuid: UUID,
