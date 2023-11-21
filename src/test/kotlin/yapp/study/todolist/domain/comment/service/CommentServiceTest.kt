@@ -4,11 +4,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.impl.annotations.MockK
-import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.data.repository.findByIdOrNull
 import yapp.study.todolist.domain.comment.dto.CommentContentDto
 import yapp.study.todolist.domain.comment.dto.CommentDetailDto
@@ -17,7 +13,6 @@ import yapp.study.todolist.domain.comment.repository.CommentRepository
 import yapp.study.todolist.domain.testFixture.Fixture
 import yapp.study.todolist.domain.todo.repository.TodoRepository
 
-@ExtendWith(MockKExtension::class)
 class CommentServiceTest: FunSpec({
     val todoRepository = mockk<TodoRepository>()
     val commentRepository = mockk<CommentRepository>()

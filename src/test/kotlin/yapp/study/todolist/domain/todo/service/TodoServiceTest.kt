@@ -5,7 +5,6 @@ import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.repository.findByIdOrNull
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.repository.CommentRepository
@@ -16,7 +15,6 @@ import yapp.study.todolist.domain.todo.repository.TodoRepository
 import java.time.LocalDate
 import java.time.LocalTime
 
-@SpringBootTest
 class TodoServiceTest:FunSpec ({
     val categoryRepository = mockk<CategoryRepository>()
     val todoRepository = mockk<TodoRepository>()

@@ -2,6 +2,7 @@ package yapp.study.todolist.domain.bulk.service
 
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import yapp.study.todolist.common.const.TodoConst
 import yapp.study.todolist.common.error.errors.InternalServerException
 import yapp.study.todolist.common.extension.toLocalDate
@@ -25,16 +26,21 @@ class BulkService(
         val commentRepository: CommentRepository,
         val jdbcTemplate: JdbcTemplate
 ) {
+    @Transactional
     fun bulkInsert() {
+        println("bulk insert start")
+        println("category insert")
         val categories = toCategories(readLines(EntitySort.CATEGORY))
         categoryRepository.bulkSave(categories)
 
         val lastInsertedCategoryPK = jdbcTemplate.queryForObject("SELECT last_insert_id()", Long::class.java)
         val firstInsertedCategoryPK = lastInsertedCategoryPK!! - categories.count() + 1
 
+        println("todo insert")
         val todos = toTodos(readLines(EntitySort.TODO), firstInsertedCategoryPK)
         todoRepository.bulkSave(todos)
 
+        println("comment insert")
         val lastInsertedTodoPK = jdbcTemplate.queryForObject("SELECT last_insert_id()", Long::class.java)
         val firstInsertedTodoPK = lastInsertedTodoPK!! - categories.count() + 1
 

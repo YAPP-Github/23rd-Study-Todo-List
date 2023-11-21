@@ -3,23 +3,15 @@ package yapp.study.todolist.domain.category.service
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
-import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.impl.annotations.MockK
-import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
-import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.data.repository.findByIdOrNull
 import yapp.study.todolist.domain.category.dto.CategoryNameDto
-import yapp.study.todolist.domain.category.entity.Category
 import yapp.study.todolist.domain.category.repository.CategoryRepository
 import yapp.study.todolist.domain.comment.repository.CommentRepository
 import yapp.study.todolist.domain.testFixture.Fixture
-import yapp.study.todolist.domain.todo.entity.Todo
 import yapp.study.todolist.domain.todo.repository.TodoRepository
 
-@ExtendWith(MockKExtension::class)
 internal class CategoryServiceTest: FunSpec({
     val categoryRepository = mockk<CategoryRepository>()
     val todoRepository = mockk<TodoRepository>()
