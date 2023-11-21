@@ -20,7 +20,7 @@ class Todo(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "todo_id")
-        val id: Long? = null,
+        val id: Long = -1,
 ) : BaseEntity() {
     companion object {
         fun toEntity(todoDetailDto: TodoDetailDto): Todo {

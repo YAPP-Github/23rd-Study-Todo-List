@@ -9,7 +9,7 @@ class CategoryDto(
     companion object {
         fun toDto(category: Category): CategoryDto {
             return CategoryDto(
-                    id = category.id!!,
+                    id = category.id,
                     name = category.name
             )
         }

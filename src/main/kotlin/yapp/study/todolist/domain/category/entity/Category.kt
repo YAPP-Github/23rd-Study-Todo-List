@@ -11,7 +11,7 @@ class Category(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "category_id")
-        val id: Long? = null,
+        val id: Long = -1,
 ) : BaseEntity() {
     companion object {
         fun toEntity(name: String): Category {

@@ -11,7 +11,7 @@ class CategoryWithTodosDto(
     companion object {
         fun toDto(category: Category, todos: List<Todo>): CategoryWithTodosDto {
             return CategoryWithTodosDto(
-                    id = category.id!!,
+                    id = category.id,
                     name = category.name,
                     todos = todos
             )

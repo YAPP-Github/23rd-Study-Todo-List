@@ -15,7 +15,7 @@ class Comment(
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         @Column(name = "comment_id")
-        val id: Long? = null,
+        val id: Long = -1,
 ) : BaseEntity() {
     companion object {
         fun toEntity(commentDetailDto: CommentDetailDto): Comment {
