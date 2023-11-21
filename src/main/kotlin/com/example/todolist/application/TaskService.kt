@@ -25,19 +25,18 @@ class TaskService(
 
     override fun createTask(command: CreateTaskCommand): Task {
         val task = Task(command.title, command.description)
-        return taskRepository.add(task)
+        return taskRepository.save(task)
     }
 
     override fun deleteTask(uuid: UUID) {
         val task = taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
-        taskRepository.remove(task)
+        taskRepository.delete(task)
     }
 
     override fun updateTask(uuid: UUID, command: UpdateTaskCommand): Task {
         val task = taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
-        command.title?.let { task.title = it }
-        command.description?.let { task.description = it }
-        command.isComplete?.let { task.isComplete = it }
+        task.update(command.title, command.description, command.isComplete)
+        taskRepository.save(task)
         return task
     }
 }

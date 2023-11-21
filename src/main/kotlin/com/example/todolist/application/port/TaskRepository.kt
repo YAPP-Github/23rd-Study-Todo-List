@@ -6,8 +6,8 @@ import com.example.todolist.domain.Task
 import java.util.UUID
 
 interface TaskRepository {
-    fun findAllOrderByCreatedAtAsc(pageQuery: Pageable): Page<Task>
+    fun findAllOrderByCreatedAtAsc(pageable: Pageable): Page<Task>
     fun findByUuidOrNull(uuid: UUID): Task?
-    fun add(task: Task): Task
-    fun remove(task: Task)
+    fun save(task: Task): Task
+    fun delete(task: Task)
 }

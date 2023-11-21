@@ -16,4 +16,10 @@ data class Task(
         description = description,
         isComplete = false
     )
+
+    fun update(title: String?, description: String?, complete: Boolean?) {
+        title?.let { this.title = it }
+        description?.let { this.description = it }
+        complete?.let { this.isComplete = it }
+    }
 }
