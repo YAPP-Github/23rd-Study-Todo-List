@@ -1,18 +1,18 @@
 package com.example.todolist.adapter
 
-import com.example.todolist.domain.Task
 import com.example.todolist.application.port.TaskUseCase
+import com.example.todolist.domain.Task
 import org.springframework.http.HttpStatus
+import org.springframework.http.MediaType
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import java.util.UUID
+import java.util.*
 
 @RequestMapping("v1/tasks")
 @RestController
 class TaskV1Controller(
     private val taskUseCase: TaskUseCase
 ) {
-
     @GetMapping
     fun getTasks(): ResponseEntity<List<Task>> {
         val tasks = taskUseCase.getAllTasks()
@@ -25,7 +25,7 @@ class TaskV1Controller(
         return ResponseEntity.ok(task)
     }
 
-    @PostMapping
+    @PostMapping(produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun createTask(
         @RequestBody request: CreateTaskRequest
     ): ResponseEntity<Task> {
@@ -33,7 +33,7 @@ class TaskV1Controller(
         return ResponseEntity.status(HttpStatus.CREATED).body(task)
     }
 
-    @PatchMapping("{uuid}")
+    @PatchMapping("{uuid}", produces = [MediaType.APPLICATION_JSON_VALUE], consumes = [MediaType.APPLICATION_JSON_VALUE])
     fun updateTask(
         @PathVariable uuid: UUID,
         @RequestBody request: UpdateTaskRequest
