@@ -1,10 +1,14 @@
 package com.example.studytodolist.todo.domain
 
+import jakarta.persistence.*
+
+@Entity
 class Todo(
-    val id: Long,
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    val id: Long = 0L,
     var title: String,
     var content: String,
+    @Enumerated(EnumType.STRING)
     var progress: Progress
-){
-    constructor(id: Long): this(id,"", "", Progress.PROCESSING)
-}
+)

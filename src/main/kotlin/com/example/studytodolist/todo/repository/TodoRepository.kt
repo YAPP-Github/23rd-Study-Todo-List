@@ -1,12 +1,10 @@
 package com.example.studytodolist.todo.repository
 
-import com.example.studytodolist.todo.domain.Progress
 import com.example.studytodolist.todo.domain.Todo
+import org.springframework.data.jpa.repository.JpaRepository
+import java.util.*
 
-interface TodoRepository {
-    fun save(todo: Todo): Todo
-    fun findAll(): List<Todo>
-    fun findByIdOrNull(id: Long): Todo?
-    fun deleteById(id: Long)
-    fun updateProgress(id: Long, progress: Progress): Todo
+interface TodoRepository: JpaRepository<Todo, Long> {
+    override fun findById(id: Long): Optional<Todo>
+    override fun deleteById(id: Long)
 }

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 
 @RestControllerAdvice
 class ExceptionHandler {
-    @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException::class)
-    protected fun handleBaseException(e: RuntimeException): ResponseEntity<BaseExceptionResponse> {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BaseExceptionResponse(e.message ?: "Runtime Error occurred"))
+    @org.springframework.web.bind.annotation.ExceptionHandler(BusinessException::class)
+    protected fun handleBaseException(e: BusinessException): ResponseEntity<BaseExceptionResponse> {
+        return ResponseEntity.status(e.errorCode.status).body(BaseExceptionResponse(e.errorCode))
     }
 }
