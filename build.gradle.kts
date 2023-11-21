@@ -5,7 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.3"
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
-	kotlin("plugin.noarg") version "1.8.22"
+	kotlin("plugin.jpa") version "1.8.22"
 }
 
 group = "yapp.study"
@@ -23,12 +23,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+	runtimeOnly("com.mysql:mysql-connector-j")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
 	testImplementation("io.kotest:kotest-assertions-core:5.7.2")
 	testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+	testImplementation("io.mockk:mockk:1.13.8")
 }
 
 tasks.withType<KotlinCompile> {
@@ -43,15 +46,13 @@ tasks.withType<Test> {
 }
 
 allOpen {
-	annotation("yapp.study.todolist.common.annotation.TempNoArg")
-//	annotation("javax.persistence.Entity")
-//	annotation("javax.persistence.MappedSuperclass")
-//	annotation("javax.persistence.Embeddable")
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.MappedSuperclass")
+	annotation("javax.persistence.Embeddable")
 }
 
 noArg {
-	annotation("yapp.study.todolist.common.annotation.TempNoArg")
-//	annotation("javax.persistence.Entity")
-//	annotation("javax.persistence.MappedSuperclass")
-//	annotation("javax.persistence.Embeddable")
+	annotation("javax.persistence.Entity")
+	annotation("javax.persistence.MappedSuperclass")
+	annotation("javax.persistence.Embeddable")
 }

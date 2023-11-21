@@ -1,9 +1,9 @@
 package yapp.study.todolist.common.response
 
-import jakarta.servlet.ServletRequest
 import org.springframework.core.MethodParameter
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
+import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageConverter
 import org.springframework.http.server.ServerHttpRequest
 import org.springframework.http.server.ServerHttpResponse
@@ -25,21 +25,26 @@ class SuccessResponseAdvice: ResponseBodyAdvice<Any?> {
                                  request: ServerHttpRequest,
                                  response: ServerHttpResponse
     ): Any? {
-        val servletRequest = (request as ServletServerHttpRequest).servletRequest
         val servletResponse = (response as ServletServerHttpResponse).servletResponse
+        val servletRequest = (request as ServletServerHttpRequest).servletRequest
         val httpStatus = HttpStatus.resolve(servletResponse.status)!!
+        val data = body ?.let { (it as Map<*, *>) .values.first() }
+
+        val statusCode = if (body is Map<*, *> && httpStatus.is2xxSuccessful) {
+            body.keys.first() as Int
+        } else {
+            statusProvider(servletRequest.method)
+        }
+
         return if (httpStatus.is2xxSuccessful) {
-            SuccessResponse(statusProvider(servletRequest.method), body)
+            ResponseEntity.status(statusCode).body(SuccessResponse(data))
         } else {
             body
         }
     }
 
     private fun statusProvider(method: String): Int {
-        return when (method) {
-            "POST" -> 201
-            "DELETE" -> 204
-            else -> 200
-        }
+        if (method == "POST") return 201
+        return if (method == "DELETE") 204 else 200
     }
 }
