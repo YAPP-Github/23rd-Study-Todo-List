@@ -1,11 +1,11 @@
-package com.example.todolist.adapter
+package com.example.todolist.application.model
 
-data class CreateTaskRequest(
+data class CreateTaskCommand(
     val title: String,
     val description: String?
 )
 
-data class UpdateTaskRequest(
+data class UpdateTaskCommand(
     val title: String?,
     val description: String?,
     val isComplete: Boolean?

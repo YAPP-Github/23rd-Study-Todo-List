@@ -1,8 +1,13 @@
 package com.example.todolist.application
 
+import com.example.todolist.application.model.CreateTaskCommand
+import com.example.todolist.application.model.Page
+import com.example.todolist.application.model.Pageable
+import com.example.todolist.application.model.UpdateTaskCommand
 import com.example.todolist.application.port.TaskRepository
 import com.example.todolist.application.port.TaskUseCase
 import com.example.todolist.domain.Task
+import com.example.todolist.domain.TaskNotFoundException
 import org.springframework.stereotype.Service
 import java.util.UUID
 
@@ -10,29 +15,35 @@ import java.util.UUID
 class TaskService(
     private val taskRepository: TaskRepository
 ): TaskUseCase {
-    override fun getAllTasks(): List<Task> {
-        return taskRepository.findAll()
+    override fun getTasks(pageable: Pageable): Page<Task> {
+        return taskRepository.findAllOrderByCreatedAtAsc(pageable)
     }
 
     override fun getTask(uuid: UUID): Task {
-        return taskRepository.findByUuid(uuid) ?: throw TaskNotFoundException()
+        return taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
     }
 
-    override fun createTask(title: String, description: String?): Task {
-        val task = Task(title, description)
-        return taskRepository.add(task)
+    override fun createTask(command: CreateTaskCommand): Task {
+        val task = Task(command.title, command.description)
+        return taskRepository.save(task)
+    }
+
+    override fun createTasksInBulk(count: Int): Int {
+        val tasks = (1..count).map {
+            Task("title $it", "description $it")
+        }
+        return taskRepository.saveInBatch(tasks)
     }
 
     override fun deleteTask(uuid: UUID) {
-        val task = taskRepository.findByUuid(uuid) ?: throw TaskNotFoundException()
-        taskRepository.remove(task)
+        val task = taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
+        taskRepository.delete(task)
     }
 
-    override fun updateTask(uuid: UUID, title: String?, description: String?, isComplete: Boolean?): Task {
-        val task = taskRepository.findByUuid(uuid) ?: throw TaskNotFoundException()
-        title?.let { task.title = it }
-        description?.let { task.description = it }
-        isComplete?.let { task.isComplete = it }
+    override fun updateTask(uuid: UUID, command: UpdateTaskCommand): Task {
+        val task = taskRepository.findByUuidOrNull(uuid) ?: throw TaskNotFoundException()
+        task.update(command.title, command.description, command.isComplete)
+        taskRepository.save(task)
         return task
     }
 }
