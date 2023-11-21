@@ -45,7 +45,7 @@ class TodoController(
     }
 
     @GetMapping("/{id}/comments")
-    fun getTodoWithComments(@PathVariable("id") id: Long): TodoCommentDto {
-        return todoService.getTodoWithComments(id)
+    fun getTodoWithComments(@PathVariable("id") id: Long): Map<Int, TodoCommentDto> {
+        return mapOf(200 to todoService.getTodoWithComments(id))
     }
 }

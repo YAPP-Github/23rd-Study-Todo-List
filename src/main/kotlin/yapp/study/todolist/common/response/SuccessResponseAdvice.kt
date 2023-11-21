@@ -28,8 +28,16 @@ class SuccessResponseAdvice: ResponseBodyAdvice<Any?> {
         val servletResponse = (response as ServletServerHttpResponse).servletResponse
         val servletRequest = (request as ServletServerHttpRequest).servletRequest
         val httpStatus = HttpStatus.resolve(servletResponse.status)!!
+        val data = body ?.let { (it as Map<*, *>) .values.first() }
+
+        val statusCode = if (body is Map<*, *> && httpStatus.is2xxSuccessful) {
+            body.keys.first() as Int
+        } else {
+            statusProvider(servletRequest.method)
+        }
+
         return if (httpStatus.is2xxSuccessful) {
-            ResponseEntity.status(statusProvider(servletRequest.method)).body(SuccessResponse(body))
+            ResponseEntity.status(statusCode).body(SuccessResponse(data))
         } else {
             body
         }
