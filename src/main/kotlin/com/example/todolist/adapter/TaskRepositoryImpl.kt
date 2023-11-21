@@ -15,7 +15,7 @@ class TaskRepositoryImpl(
         return tasks.values.toList()
     }
 
-    override fun findByUuid(uuid: UUID): Task? {
+    override fun findByUuidOrNull(uuid: UUID): Task? {
         return tasks[uuid]
     }
 
