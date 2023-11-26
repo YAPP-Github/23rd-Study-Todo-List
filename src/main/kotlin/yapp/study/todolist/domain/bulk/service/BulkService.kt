@@ -3,7 +3,7 @@ package yapp.study.todolist.domain.bulk.service
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import yapp.study.todolist.common.const.TodoConst
+import yapp.study.todolist.common.const.RESOURCES_PATH
 import yapp.study.todolist.common.error.errors.InternalServerException
 import yapp.study.todolist.common.extension.toLocalDate
 import yapp.study.todolist.common.extension.toLocalTime
@@ -84,9 +84,9 @@ class BulkService(
 
     private fun readLines(entitySort: EntitySort): List<String> {
         val path = when (entitySort) {
-            EntitySort.CATEGORY -> TodoConst.RESOURCES_PATH + "/bulkData/category.txt"
-            EntitySort.COMMENT -> TodoConst.RESOURCES_PATH + "/bulkData/comment.txt"
-            EntitySort.TODO -> TodoConst.RESOURCES_PATH + "/bulkData/todo.txt"
+            EntitySort.CATEGORY -> "$RESOURCES_PATH/bulkData/category.txt"
+            EntitySort.COMMENT -> "$RESOURCES_PATH/bulkData/comment.txt"
+            EntitySort.TODO -> "$RESOURCES_PATH/bulkData/todo.txt"
         }
         try {
             val fileReader = FileReader(File(path))

@@ -1,5 +1,7 @@
 package yapp.study.todolist.domain.category.controller
 
+import io.swagger.v3.oas.annotations.Operation
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.MediaType
@@ -12,7 +14,7 @@ import yapp.study.todolist.domain.category.service.CategoryService
 
 @RestController
 @RequestMapping(value = ["/v1/categories"],
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
+//        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class CategoryController(
         private val categoryService: CategoryService
@@ -23,7 +25,7 @@ class CategoryController(
     }
 
     @GetMapping
-    fun getCategories(@PageableDefault(size = 10) pageable: Pageable): PageResponse<CategoryDto> {
+    fun getCategories(@ParameterObject @PageableDefault(size = 10) pageable: Pageable): PageResponse<CategoryDto> {
         return categoryService.getCategories(pageable)
     }
 
@@ -39,7 +41,7 @@ class CategoryController(
     }
 
     @GetMapping("/todos")
-    fun getCategoriesWithTodo(@PageableDefault(size = 10) pageable: Pageable): PageResponse<CategoryWithTodosDto> {
+    fun getCategoriesWithTodo(@ParameterObject @PageableDefault(size = 10) pageable: Pageable): PageResponse<CategoryWithTodosDto> {
         return categoryService.getCategoriesWithTodo(pageable)
     }
 }

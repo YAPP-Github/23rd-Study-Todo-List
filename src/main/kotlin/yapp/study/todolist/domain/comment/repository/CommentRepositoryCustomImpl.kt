@@ -2,7 +2,7 @@ package yapp.study.todolist.domain.comment.repository
 
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
-import yapp.study.todolist.common.const.TodoConst
+import yapp.study.todolist.common.const.BULK_SIZE
 import yapp.study.todolist.domain.comment.entity.Comment
 import java.sql.Date
 import java.time.Instant
@@ -53,7 +53,7 @@ class CommentRepositoryCustomImpl(
             insert into comment(todo_id, content, created_at, updated_at)
                 values (?, ?, ?, ?)
         """.trimIndent()
-        jdbcTemplate.batchUpdate(sql, comments, TodoConst.BULK_SIZE) { preparedStatement, comment ->
+        jdbcTemplate.batchUpdate(sql, comments, BULK_SIZE) { preparedStatement, comment ->
             preparedStatement.setLong(1, comment.todoId)
             preparedStatement.setString(2, comment.content)
             preparedStatement.setDate(3, Date(Instant.now().toEpochMilli()))

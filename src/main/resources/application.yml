@@ -17,3 +17,8 @@ spring:
     hibernate:
       ddl-auto: create-drop
     database: mysql
+
+springdoc:
+  version: 'v1'
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json

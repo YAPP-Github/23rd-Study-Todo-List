@@ -1,5 +1,6 @@
 package yapp.study.todolist.domain.todo.controller
 
+import org.springdoc.core.annotations.ParameterObject
 import org.springframework.data.domain.Pageable
 import org.springframework.data.web.PageableDefault
 import org.springframework.http.MediaType
@@ -12,7 +13,7 @@ import yapp.study.todolist.domain.todo.service.TodoService
 
 @RestController
 @RequestMapping(value = ["/v1/todos"],
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
+//        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class TodoController(
         private val todoService: TodoService
@@ -23,7 +24,7 @@ class TodoController(
     }
 
     @GetMapping
-    fun getTodos(@PageableDefault(size = 10) pageable: Pageable): PageResponse<TodoDto> {
+    fun getTodos(@ParameterObject @PageableDefault(size = 10) pageable: Pageable): PageResponse<TodoDto> {
         return todoService.getTodos(pageable)
     }
 

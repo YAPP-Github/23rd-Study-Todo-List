@@ -10,7 +10,7 @@ import yapp.study.todolist.domain.category.dto.CategoryNameDto
 
 @RestController
 @RequestMapping(value = ["/v1/bulks"],
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
+//        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class BulkController(
     val bulkService: BulkService

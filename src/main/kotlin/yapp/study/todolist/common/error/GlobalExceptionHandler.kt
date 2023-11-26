@@ -41,6 +41,8 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
             request: HttpServletRequest
     ): ResponseEntity<Map<String, String>> {
         logger.error(e.message)
+        for(str in e.stackTrace)
+            println(str.toString())
         val body = mapOf("error msg" to "관리자에게 문의 부탁드립니다.")
         return ResponseEntity.internalServerError().body(body)
     }

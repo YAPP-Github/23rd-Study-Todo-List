@@ -9,8 +9,10 @@ import org.springframework.http.server.ServerHttpRequest
 import org.springframework.http.server.ServerHttpResponse
 import org.springframework.http.server.ServletServerHttpRequest
 import org.springframework.http.server.ServletServerHttpResponse
+import org.springframework.util.PatternMatchUtils
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice
+import yapp.study.todolist.common.const.SWAGGER_PATTERNS
 
 @RestControllerAdvice
 class SuccessResponseAdvice: ResponseBodyAdvice<Any?> {
@@ -28,7 +30,17 @@ class SuccessResponseAdvice: ResponseBodyAdvice<Any?> {
         val servletResponse = (response as ServletServerHttpResponse).servletResponse
         val servletRequest = (request as ServletServerHttpRequest).servletRequest
         val httpStatus = HttpStatus.resolve(servletResponse.status)!!
-        val data = body ?.let { (it as Map<*, *>) .values.first() }
+        val path = servletRequest.servletPath
+
+        if (PatternMatchUtils.simpleMatch(SWAGGER_PATTERNS, path)){
+            return body
+        }
+
+        val data = if (body is Map<*, *>) {
+            body.values.first()
+        } else {
+            body
+        }
 
         val statusCode = if (body is Map<*, *> && httpStatus.is2xxSuccessful) {
             body.keys.first() as Int

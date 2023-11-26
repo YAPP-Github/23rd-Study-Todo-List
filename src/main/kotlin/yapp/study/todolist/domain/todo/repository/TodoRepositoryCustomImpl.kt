@@ -2,7 +2,7 @@ package yapp.study.todolist.domain.todo.repository
 
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
-import yapp.study.todolist.common.const.TodoConst
+import yapp.study.todolist.common.const.BULK_SIZE
 import yapp.study.todolist.domain.todo.entity.Todo
 import java.sql.Date
 import java.sql.Time
@@ -59,7 +59,7 @@ class TodoRepositoryCustomImpl(
             insert into todo(date, from_time, to_time, is_done, created_at, updated_at, memo, title, category_id)
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?)
         """.trimIndent()
-        jdbcTemplate.batchUpdate(sql, todos, TodoConst.BULK_SIZE) { preparedStatement, todo ->
+        jdbcTemplate.batchUpdate(sql, todos, BULK_SIZE) { preparedStatement, todo ->
             preparedStatement.setDate(1, Date.valueOf(todo.date))
             preparedStatement.setTime(2, todo.fromTime ?.let { Time.valueOf(todo.fromTime) })
             preparedStatement.setTime(3, todo.toTime?.let { Time.valueOf(todo.toTime) })

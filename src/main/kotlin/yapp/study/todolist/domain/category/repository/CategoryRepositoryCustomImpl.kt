@@ -2,7 +2,7 @@ package yapp.study.todolist.domain.category.repository
 
 import org.springframework.jdbc.core.JdbcTemplate
 import org.springframework.stereotype.Component
-import yapp.study.todolist.common.const.TodoConst
+import yapp.study.todolist.common.const.BULK_SIZE
 import yapp.study.todolist.domain.category.entity.Category
 import java.time.Instant
 import java.sql.Date
@@ -43,7 +43,7 @@ class CategoryRepositoryCustomImpl(
             insert into category(name, created_at, updated_at)
                 values (?, ?, ?)
         """.trimIndent()
-        jdbcTemplate.batchUpdate(sql, categories, TodoConst.BULK_SIZE) { preparedStatement, category ->
+        jdbcTemplate.batchUpdate(sql, categories, BULK_SIZE) { preparedStatement, category ->
             preparedStatement.setString(1, category.name)
             preparedStatement.setDate(2, Date(Instant.now().toEpochMilli()))
             preparedStatement.setDate(3, Date(Instant.now().toEpochMilli()))
