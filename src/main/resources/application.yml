@@ -22,3 +22,8 @@ springdoc:
   version: 'v1'
   default-consumes-media-type: application/json
   default-produces-media-type: application/json
+
+redis:
+  host: localhost
+  port: 6379
+  password: pwdpwdpwdpwdpwd
