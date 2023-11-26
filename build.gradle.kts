@@ -6,6 +6,9 @@ plugins {
 	kotlin("jvm") version "1.8.22"
 	kotlin("plugin.spring") version "1.8.22"
 	kotlin("plugin.jpa") version "1.8.22"
+
+	/** jacoco **/
+	id("jacoco")
 }
 
 group = "yapp.study"
@@ -55,4 +58,73 @@ noArg {
 	annotation("javax.persistence.Entity")
 	annotation("javax.persistence.MappedSuperclass")
 	annotation("javax.persistence.Embeddable")
+}
+
+
+/** jacoco **/
+tasks.withType<Test> {
+	useJUnitPlatform()
+}
+
+tasks.test {
+	/** when finished test-all */
+	finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test)
+	reports {
+		html.required.set(true)
+		csv.required.set(false)
+		xml.required.set(false)
+	}
+
+	classDirectories.setFrom(
+		files(
+			classDirectories.files.map {
+				fileTree(it) {
+					exclude(
+						"**/*Application*",
+						"**/*Config*",
+						"**/*Dto*",
+						"**/*Request*",
+						"**/*Response*",
+						"**/*Interceptor*",
+						"**/*Exception*",
+						"**/Q*.class"
+					)
+				}
+			}
+		)
+	)
+
+	finalizedBy(tasks.jacocoTestCoverageVerification)
+}
+
+tasks.jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			// https://docs.gradle.org/current/javadoc/org/gradle/testing/jacoco/tasks/rules/JacocoViolationRule.html#getElement--
+			limit {
+				minimum = 0.30.toBigDecimal()
+			}
+		}
+
+		rule {
+			enabled = true
+
+			// https://docs.gradle.org/current/javadoc/org/gradle/testing/jacoco/tasks/rules/JacocoLimit.html#getCounter--
+			limit {
+				counter = "BRANCH"
+				value = "COVEREDRATIO"
+				minimum = 0.30.toBigDecimal()
+			}
+
+			limit {
+				counter = "LINE"
+				value = "COVEREDRATIO"
+				minimum = 0.30.toBigDecimal()
+			}
+		}
+	}
 }
