@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.1.5'
 	id 'io.spring.dependency-management' version '1.1.3'
+	id 'jacoco'
 }
 
 group = 'site.yapp.study'
@@ -33,6 +34,38 @@ dependencies {
 	testImplementation 'com.mysql:mysql-connector-j'
 }
 
-tasks.named('test') {
+jacoco {
+	toolVersion = '0.8.7'
+}
+
+jacocoTestReport {
+	reports {
+		html.required.set(true)
+		xml.required.set(false)
+		csv.required.set(false)
+
+		html.destination file("jacoco/jacocoHtml")
+		xml.destination file("jacoco/jacoco.xml")
+	}
+}
+
+jacocoTestCoverageVerification {
+
+	violationRules {
+		rule {
+			// 룰을 체크할 단위
+			element = 'CLASS'
+
+			// 브랜치 커버리지 최소 90% 민족
+			limit {
+				counter = 'BRANCH'
+				value = 'COVEREDRATIO'
+				minimum = 0.90
+			}
+		}
+	}
+}
+
+test {
 	useJUnitPlatform()
 }
