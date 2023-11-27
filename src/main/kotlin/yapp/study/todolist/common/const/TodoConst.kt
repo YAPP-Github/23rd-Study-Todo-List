@@ -8,3 +8,4 @@ val SWAGGER_PATTERNS = arrayOf(
     "/v3/api-docs/**",
     "/v3/api-docs",
 )
+const val VIEWER_TTL: Long = 60
