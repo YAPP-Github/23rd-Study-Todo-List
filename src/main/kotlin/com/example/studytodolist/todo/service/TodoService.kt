@@ -33,8 +33,10 @@ class TodoService(
         return todoRepository.findAll().map{TodoFindResponseDto(it)}.toList()
     }
 
+    @Transactional
     fun findById(id: Long): TodoFindResponseDto {
         val todo = todoRepository.findByIdOrNull(id) ?: throw BusinessException(ErrorCode.TODO_NOT_FOUND)
+        todo.count.incrementAndGet()
         return TodoFindResponseDto(todo)
     }
 
