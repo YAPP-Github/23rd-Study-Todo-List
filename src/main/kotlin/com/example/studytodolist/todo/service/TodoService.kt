@@ -55,7 +55,7 @@ class TodoService(
         try {
             do{
                 result.append(todoBulkInsertRepository.saveAll(
-                    (startIndex..if (startIndex + bulkSize - 1> count) count else startIndex + bulkSize - 1)
+                    (startIndex..getLastIndex(startIndex, bulkSize, count))
                         .map { i -> Todo(title = "title-$i", content = "content-$i", progress = Progress.PROCESSING) }
                         .toMutableList()
                 ))
@@ -65,5 +65,8 @@ class TodoService(
         } catch (e: SQLException) {
             throw BusinessException(ErrorCode.TODO_BULK_INSERT_FAILED)
         }
+    }
+    fun getLastIndex(startIndex: Int, bulkSize: Int, count: Int): Int {
+        return if (startIndex + bulkSize - 1> count) count else startIndex + bulkSize - 1
     }
 }
