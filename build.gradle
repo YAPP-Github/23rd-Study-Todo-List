@@ -32,6 +32,8 @@ dependencies {
 	// test 설정
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'com.mysql:mysql-connector-j'
+	// Swagger 설정
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
 }
 
 jacoco {
