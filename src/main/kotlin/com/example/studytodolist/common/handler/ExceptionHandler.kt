@@ -1,7 +1,7 @@
-package com.example.studytodolist.common.exception
+package com.example.studytodolist.common.handler
 
 import com.example.studytodolist.common.dto.BaseExceptionResponse
-import org.springframework.http.HttpStatus
+import com.example.studytodolist.common.exception.BusinessException
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.RestControllerAdvice
 
