@@ -1,18 +1,19 @@
 package yapp.study.todolist.domain.todo.controller
 
+import org.springdoc.core.annotations.ParameterObject
+import org.springframework.data.domain.Pageable
+import org.springframework.data.web.PageableDefault
 import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import yapp.study.todolist.common.response.PageResponse
-import yapp.study.todolist.domain.base.PageParam
 import yapp.study.todolist.domain.todo.dto.TodoCommentDto
 import yapp.study.todolist.domain.todo.dto.TodoDetailDto
 import yapp.study.todolist.domain.todo.dto.TodoDto
-import yapp.study.todolist.domain.todo.dto.TodosDto
 import yapp.study.todolist.domain.todo.service.TodoService
 
 @RestController
-@RequestMapping(value = ["/todos"],
-        consumes = [MediaType.APPLICATION_JSON_VALUE],
+@RequestMapping(value = ["/v1/todos"],
+//        consumes = [MediaType.APPLICATION_JSON_VALUE],
         produces = [MediaType.APPLICATION_JSON_VALUE])
 class TodoController(
         private val todoService: TodoService
@@ -23,8 +24,8 @@ class TodoController(
     }
 
     @GetMapping
-    fun getTodos(pageParam: PageParam): PageResponse<TodoDto> {
-        return todoService.getTodos(pageParam)
+    fun getTodos(@ParameterObject @PageableDefault(size = 10) pageable: Pageable): PageResponse<TodoDto> {
+        return todoService.getTodos(pageable)
     }
 
     @PatchMapping("/{id}")
@@ -45,7 +46,7 @@ class TodoController(
     }
 
     @GetMapping("/{id}/comments")
-    fun getTodoWithComments(@PathVariable("id") id: Long): TodoCommentDto {
-        return todoService.getTodoWithComments(id)
+    fun getTodoWithComments(@PathVariable("id") id: Long): Map<Int, TodoCommentDto> {
+        return mapOf(200 to todoService.getTodoWithComments(id))
     }
 }

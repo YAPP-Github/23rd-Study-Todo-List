@@ -1,6 +1,8 @@
 package yapp.study.todolist.domain.comment.service
 
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Transactional
 import yapp.study.todolist.common.error.errors.NotFoundException
 import yapp.study.todolist.domain.base.IdGenerator
 import yapp.study.todolist.domain.comment.dto.CommentContentDto
@@ -13,29 +15,28 @@ import yapp.study.todolist.domain.todo.repository.TodoRepository
 class CommentService(
         private val todoRepository: TodoRepository,
         private val commentRepository: CommentRepository,
-        private val idGenerator: IdGenerator
 ) {
+    @Transactional
     fun createComment(commentDetailDto: CommentDetailDto): Long {
-        if(!todoRepository.existById(commentDetailDto.todoId)){
+        if(!todoRepository.existsById(commentDetailDto.todoId)){
             throw NotFoundException("not exist todo")
         }
-        val generatedId = idGenerator.getAndIncreaseCommentId()
-        val comment = Comment.toEntity(generatedId, commentDetailDto)
-        commentRepository.save(comment)
-        return generatedId
+        val comment = commentRepository.save(Comment.toEntity(commentDetailDto))
+        return comment.id!!
     }
 
+    @Transactional
     fun updateComment(id: Long, commentContentDto: CommentContentDto) {
-        commentRepository.findById(id)
+        commentRepository.findByIdOrNull(id)
                 ?.let{
                     it.updateContent(commentContentDto)
-                    commentRepository.save(it)
                 }
                 ?: throw NotFoundException("not exist comment")
     }
 
+    @Transactional
     fun deleteComment(id: Long) {
-        when (commentRepository.existById(id)) {
+        when (commentRepository.existsById(id)) {
             true -> commentRepository.deleteById(id)
             false -> throw NotFoundException("not exist comment")
         }

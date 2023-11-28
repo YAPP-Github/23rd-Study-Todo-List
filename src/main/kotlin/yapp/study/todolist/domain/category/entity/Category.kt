@@ -1,18 +1,21 @@
 package yapp.study.todolist.domain.category.entity
 
-import yapp.study.todolist.common.annotation.TempNoArg
+import jakarta.persistence.*
 import yapp.study.todolist.domain.base.BaseEntity
-import yapp.study.todolist.domain.category.dto.CategoryDto
 
-@TempNoArg
+@Entity
+@Table(name = "category")
 class Category(
-        val id: Long,
-        var name: String
+        var name: String,
+
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "category_id")
+        val id: Long = -1,
 ) : BaseEntity() {
     companion object {
-        fun toEntity(id: Long, name: String): Category {
+        fun toEntity(name: String): Category {
             return Category(
-                    id = id,
                     name = name
             )
         }
