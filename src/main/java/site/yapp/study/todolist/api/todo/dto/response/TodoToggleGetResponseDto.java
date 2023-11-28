@@ -14,7 +14,7 @@ public class TodoToggleGetResponseDto {
     public static TodoToggleGetResponseDto of(Todo todo) {
         return TodoToggleGetResponseDto.builder()
                 .todoId(todo.getId())
-                .isCompleted(todo.is_completed())
+                .isCompleted(todo.isCompleted())
                 .build();
     }
 }
