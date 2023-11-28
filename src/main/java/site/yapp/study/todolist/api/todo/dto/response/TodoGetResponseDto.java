@@ -17,12 +17,15 @@ public class TodoGetResponseDto {
 
     private boolean isCompleted;
 
+    private Integer viewCount;
+
     public static TodoGetResponseDto of(Todo todo) {
         return TodoGetResponseDto.builder()
                 .todoId(todo.getId())
                 .category(todo.getCategory())
                 .content(todo.getContent())
                 .isCompleted(todo.isCompleted())
+                .viewCount(todo.getViewCount())
                 .build();
     }
 }

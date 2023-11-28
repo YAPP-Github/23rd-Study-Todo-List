@@ -116,4 +116,16 @@ public class TodoController {
         TodoToggleGetResponseDto response = todoService.toggleTodoStatus(todoId, isCompleted);
         return ApiResponse.success(SuccessCode.TOGGLE_TODO_SUCCESS, response);
     }
+
+    @Operation(summary = "조회수 API")
+    @ApiResponses(value = {
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "할일 조회수 증가 성공"),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "400", description = "할일 조회수 증가 실패", content = @Content),
+            @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "500", description = "서버 내부 오류", content = @Content)
+    })
+    @PatchMapping("/view/{todoId}")
+    public ApiResponse<Object> updateTodoViewCount(@PathVariable Long todoId) {
+        todoService.updateTodoViewCount(todoId);
+        return ApiResponse.success(SuccessCode.UPDATE_TODO_VIEWCOUNT_SUCCESS);
+    }
 }

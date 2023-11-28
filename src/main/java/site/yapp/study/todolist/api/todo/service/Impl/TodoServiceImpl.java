@@ -48,7 +48,7 @@ public class TodoServiceImpl implements TodoService {
     public List<TodoGetResponseDto> getAllTodo() {
 
         return todoRepository.findAll().stream()
-                .map(todo -> TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.isCompleted()))
+                .map(todo -> TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.isCompleted(), todo.getViewCount()))
                 .collect(Collectors.toList());
     }
 
@@ -88,5 +88,14 @@ public class TodoServiceImpl implements TodoService {
         else todo.toggleTodo(Boolean.FALSE);
 
         return TodoToggleGetResponseDto.of(todo);
+    }
+
+    @Override
+    @Transactional
+    public void updateTodoViewCount(Long todoId) {
+
+        Todo todo = todoRepository.findByIdForUpdate(todoId)
+                .orElseThrow(RuntimeException::new);
+        todo.updateViewCount();
     }
 }
