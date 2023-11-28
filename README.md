@@ -46,14 +46,15 @@
   - 통합 테스트, 단위 테스트.. 등등 많은 테스트가 있는데, 이건 뭐고, 테스트는 왜 작성해야할까? 
 
 **4주차**
-- (assignment) restful api (7 promise) 규칙을 지켜 수정해주세요.
-- (cs) restful이란, http, tcp, udp
+- 쉬는 타임! (기말도 있고..)
 
 **5주차**
 - 쉬는 타임! (기말도 있고..)
 
 **6주차**
+- (assignment) restful api (7 promise) 규칙을 지켜 수정해주세요.
 - (assignment) 변화에 쉽게 대처하기
+- (cs) restful이란, http, tcp, udp
 - (cs) 디자인패턴, 내가 생각하는 클린코드
   - 다양한 디자인패턴들.. 언제 어떻게 쓸까?
 
