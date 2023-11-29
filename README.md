@@ -52,11 +52,10 @@
 - 쉬는 타임! (기말도 있고..)
 
 **6주차**
-- (assignment) restful api (7 promise) 규칙을 지켜 수정해주세요.
-- (assignment) 변화에 쉽게 대처하기
+- (assignment) restful api (7 promise) 규칙을 전부 반영해주세요.
+- (assignment) todo 관련 데이터를 조회하는 요청이 왔을 때, 위에 만든 viewer count가 되도록 진행해주세요.
 - (cs) restful이란, http, tcp, udp
-- (cs) 디자인패턴, 내가 생각하는 클린코드
-  - 다양한 디자인패턴들.. 언제 어떻게 쓸까?
+- (cs) ApplicationEventPublisher 공부해보기 (데이터를 전달하는 기술)
 
 **7주차**
 - (assignment) 부하테스트 (default는 jmeter)
