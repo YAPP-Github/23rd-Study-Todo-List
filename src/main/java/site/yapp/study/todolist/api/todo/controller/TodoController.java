@@ -5,6 +5,8 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import site.yapp.study.todolist.api.todo.dto.request.TodoBulkCreateRequestDto;
@@ -15,8 +17,6 @@ import site.yapp.study.todolist.api.todo.dto.response.TodoToggleGetResponseDto;
 import site.yapp.study.todolist.api.todo.service.TodoService;
 import site.yapp.study.todolist.common.response.ApiResponse;
 import site.yapp.study.todolist.common.response.SuccessCode;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -59,9 +59,9 @@ public class TodoController {
     })
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<List<TodoGetResponseDto>> getAllTodo() {
-        List<TodoGetResponseDto> response = todoService.getAllTodo();
-        return ApiResponse.success(SuccessCode.GET_TODO_SUCCESS, response);
+    public CollectionModel<EntityModel<TodoGetResponseDto>> getAllTodo() {
+
+        return todoService.getAllTodo();
     }
 
     @Operation(summary = "할일 개별 조회 API")
@@ -73,9 +73,9 @@ public class TodoController {
     })
     @GetMapping("/{todoId}")
     @ResponseStatus(HttpStatus.OK)
-    public ApiResponse<TodoGetResponseDto> getEachTodo(@PathVariable Long todoId) {
-        TodoGetResponseDto response = todoService.getEachTodo(todoId);
-        return ApiResponse.success(SuccessCode.GET_EACH_TODO_SUCCESS, response);
+    public EntityModel<TodoGetResponseDto> getEachTodo(@PathVariable Long todoId) {
+
+        return todoService.getEachTodo(todoId);
     }
 
     @Operation(summary = "할일 수정 API")

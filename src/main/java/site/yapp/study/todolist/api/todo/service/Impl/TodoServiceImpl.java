@@ -1,8 +1,13 @@
 package site.yapp.study.todolist.api.todo.service.Impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import site.yapp.study.todolist.api.todo.controller.TodoController;
 import site.yapp.study.todolist.api.todo.domain.Todo;
 import site.yapp.study.todolist.api.todo.dto.request.TodoBulkCreateRequestDto;
 import site.yapp.study.todolist.api.todo.dto.request.TodoCreateRequestDto;
@@ -45,23 +50,33 @@ public class TodoServiceImpl implements TodoService {
 
 
     @Override
-    public List<TodoGetResponseDto> getAllTodo() {
+    public CollectionModel<EntityModel<TodoGetResponseDto>> getAllTodo() {
 
-        return todoRepository.findAll().stream()
-                .map(todo -> TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.isCompleted(), todo.getViewCount()))
-                .collect(Collectors.toList());
+        List<EntityModel<TodoGetResponseDto>> todos = todoRepository.findAll().stream().map(this::getEntityModel).collect(Collectors.toList());
+
+        return CollectionModel.of(todos,
+                linkTo(methodOn(TodoController.class).getAllTodo()).withSelfRel()
+        );
     }
 
     @Override
     @Transactional
-    public TodoGetResponseDto getEachTodo(Long todoId) {
+    public EntityModel<TodoGetResponseDto> getEachTodo(Long todoId) {
 
         Todo todo = todoRepository.findByIdOrThrow(todoId);
         Todo todoView = todoRepository.findByIdForUpdate(todoId).orElseThrow(RuntimeException::new);
 
         todoView.updateViewCount();
 
-        return TodoGetResponseDto.of(todo);
+        return getEntityModel(todo);
+    }
+
+    private EntityModel<TodoGetResponseDto> getEntityModel(Todo todo) {
+        EntityModel<TodoGetResponseDto> entityModel = EntityModel.of(TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.isCompleted(), todo.getViewCount()));
+        entityModel.add(Link.of("/todos/"+todo.getId(), "self"));
+        entityModel.add(Link.of("/todos", "list"));
+
+        return entityModel;
     }
 
     @Override
