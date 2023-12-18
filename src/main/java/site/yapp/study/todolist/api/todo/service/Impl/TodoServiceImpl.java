@@ -73,8 +73,8 @@ public class TodoServiceImpl implements TodoService {
 
     private EntityModel<TodoGetResponseDto> getEntityModel(Todo todo) {
         EntityModel<TodoGetResponseDto> entityModel = EntityModel.of(TodoGetResponseDto.of(todo.getId(), todo.getCategory(), todo.getContent(), todo.isCompleted(), todo.getViewCount()));
-        entityModel.add(Link.of("/todos/"+todo.getId(), "self"));
-        entityModel.add(Link.of("/todos", "list"));
+        entityModel.add(Link.of("/todo/"+todo.getId(), "self"));
+        entityModel.add(Link.of("/todo", "list"));
 
         return entityModel;
     }

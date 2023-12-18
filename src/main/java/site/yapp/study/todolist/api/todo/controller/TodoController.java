@@ -20,7 +20,7 @@ import site.yapp.study.todolist.common.response.SuccessCode;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/todos")
+@RequestMapping("/api/v1/todo")
 @Tag(name = "[Todo] 투두리스트 관련 API (V1)")
 public class TodoController {
     private final TodoService todoService;
