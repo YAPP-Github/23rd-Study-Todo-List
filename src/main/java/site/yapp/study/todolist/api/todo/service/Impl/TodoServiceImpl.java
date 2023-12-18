@@ -53,9 +53,13 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
+    @Transactional
     public TodoGetResponseDto getEachTodo(Long todoId) {
 
         Todo todo = todoRepository.findByIdOrThrow(todoId);
+        Todo todoView = todoRepository.findByIdForUpdate(todoId).orElseThrow(RuntimeException::new);
+
+        todoView.updateViewCount();
 
         return TodoGetResponseDto.of(todo);
     }
@@ -88,14 +92,5 @@ public class TodoServiceImpl implements TodoService {
         else todo.toggleTodo(Boolean.FALSE);
 
         return TodoToggleGetResponseDto.of(todo);
-    }
-
-    @Override
-    @Transactional
-    public void updateTodoViewCount(Long todoId) {
-
-        Todo todo = todoRepository.findByIdForUpdate(todoId)
-                .orElseThrow(RuntimeException::new);
-        todo.updateViewCount();
     }
 }

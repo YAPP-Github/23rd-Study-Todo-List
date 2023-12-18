@@ -16,5 +16,4 @@ public interface TodoService {
     void updateTodo(Long todoId, TodoUpdateRequestDto requestDto);
     void deleteTodo(Long todoId);
     TodoToggleGetResponseDto toggleTodoStatus(Long todoId, Boolean isCompleted);
-    void updateTodoViewCount(Long todoId);
 }
