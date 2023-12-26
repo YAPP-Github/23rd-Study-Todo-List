@@ -20,15 +20,17 @@ dependencies {
 	implementation 'org.projectlombok:lombok:1.18.26'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	// Spring Boot 설정
-	//implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	// Database 설정
 	runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.mysql:mysql-connector-j'
 	// Lombok 설정
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	// test 설정
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'com.mysql:mysql-connector-j'
 }
 
 tasks.named('test') {
