@@ -22,3 +22,37 @@
     - todo progress 업데이트
   - DELETE /api/v1/todo?id=0
     - id에 해당하는 todo 삭제
+## 2주차: DB 기반 Todo-List 구현
+### 구현내용
+- MySQL, Spring Data Jpa로 전환
+- JdbcTemplate 이용 bulk insert 구현
+
+### API 변경 사항
+- 에러 핸들링 변경
+  - Business Exception 추가
+  - ErrorCode 및 ErrorResponseDto 추가
+- POST /api/v1/todo/bulk
+  - RequestBody로 count 받아, count만큼 mock data 생성
+  - 생성에 성공한 데이터 개수 리턴
+
+### 추가 예정
+- 테스트코드,,, 빨리 작성해보겠습니다..!
+### 궁금증
+- BusinessException에서 에러 분기를 보통 ErrorCode(Enum)을 통해 하는 편인데
+, BusinessException을 상속받아 exception 자체를 분리하는 방식의 장점이 무엇인지 궁금합니다..! 
+생각했던건 exceptionHandler에서 에러 처리를 분기해서 할 수 있다..? 또다른 장점은 무엇이 있을까요??
+
+## 3주차: api-doc 및 테스트 커버러지
+### 구현내용
+- spring-doc을 활용한 swagger 부착
+- kotest, mockk을 활용한 테스트 코드 작성
+- jacoco를 활용한 테스트 커버리지
+- todo에 count 변수를 추가해 todo 조회 시 1씩 증가하도록 구현
+
+### API 변경 사항
+- todo/{id}
+  - 이제 호출 시 todo의 count를 업데이트합니다.
+
+### 변경 예정
+- 아직 BRANCH 커버리지가 0.2라서 올려보겠습니다
+- 테스트 코드를 작성하는 것에 익숙하지 않아서, 테스트코드가 깔끔하지 않은 것 같네요..! 수정해보겠습니다

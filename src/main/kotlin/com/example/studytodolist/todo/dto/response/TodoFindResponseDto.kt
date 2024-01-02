@@ -7,7 +7,8 @@ data class TodoFindResponseDto(
     val id: Long,
     val title: String,
     val content: String,
-    val progress: Progress
+    val progress: Progress,
+    val count: Long
 ){
-    constructor(todo: Todo): this(todo.id, todo.title, todo.content, todo.progress)
+    constructor(todo: Todo): this(todo.id, todo.title, todo.content, todo.progress, todo.count.get())
 }

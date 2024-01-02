@@ -1,10 +1,16 @@
 package com.example.studytodolist.todo.domain
 
+import jakarta.persistence.*
+import java.util.concurrent.atomic.AtomicLong
+
+@Entity
 class Todo(
-    val id: Long,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0L,
     var title: String,
     var content: String,
-    var progress: Progress
-){
-    constructor(id: Long): this(id,"", "", Progress.PROCESSING)
-}
+    @Enumerated(EnumType.STRING)
+    var progress: Progress,
+    var count: Long = 0L
+)
