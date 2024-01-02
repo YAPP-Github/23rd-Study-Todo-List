@@ -33,18 +33,24 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation ("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-    implementation ("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
-    runtimeOnly("com.mysql:mysql-connector-j")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.2.0")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc:3.2.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.2.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.16")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.9.21")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.4")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2:3.2.0")
+    runtimeOnly("com.mysql:mysql-connector-j:8.2.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.0")
     testImplementation("io.kotest:kotest-runner-junit5:5.7.2")
     testImplementation("io.kotest:kotest-assertions-core:5.7.2")
     testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
     testImplementation("io.mockk:mockk:1.13.8")
+}
+
+configurations.forEach {
+    it.exclude(group = "org.springframework.boot", module = "spring-boot-starter-logging")
+    it.exclude(group = "org.apache.logging.log4j", module = "log4j-to-slf4j")
 }
 
 tasks.withType<KotlinCompile> {

@@ -12,5 +12,5 @@ class Todo(
     var content: String,
     @Enumerated(EnumType.STRING)
     var progress: Progress,
-    var count: AtomicLong = AtomicLong(0)
+    var count: Long = 0L
 )

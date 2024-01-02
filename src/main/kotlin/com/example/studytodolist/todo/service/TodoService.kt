@@ -13,7 +13,10 @@ import com.example.studytodolist.todo.dto.response.TodoSaveResponseDto
 import com.example.studytodolist.todo.dto.response.TodoUpdateResponseDto
 import com.example.studytodolist.todo.repository.TodoBulkInsertRepository
 import com.example.studytodolist.todo.repository.TodoRepository
+import jakarta.persistence.LockModeType
 import jakarta.transaction.Transactional
+import org.hibernate.LockMode
+import org.springframework.data.jpa.repository.Lock
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.sql.SQLException
@@ -34,9 +37,11 @@ class TodoService(
     }
 
     @Transactional
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     fun findById(id: Long): TodoFindResponseDto {
         val todo = todoRepository.findByIdOrNull(id) ?: throw BusinessException(ErrorCode.TODO_NOT_FOUND)
-        todo.count.incrementAndGet()
+        todo.count++
+        todoRepository.save(todo)
         return TodoFindResponseDto(todo)
     }
 
